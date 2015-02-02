@@ -1,7 +1,7 @@
 \documentclass{article}
 
-\title{Design Document}
-\author{Max Block \and Linda Eriksson \and Daniel Llatas Spiers \and Joakim J�rvinen \and Christian T�rnqvist \and Joel Wiklund}
+\title{Design Document for The Flying Dutchman}
+\author{Max Block \and Linda Eriksson \and Daniel Llatas Spiers \and Joakim Järvinen \and Christian Törnqvist \and Joel Wiklund\and \\Group Stormrider\\Version 1.0}
 \date{February 2015}
 
 \usepackage{natbib}
@@ -10,7 +10,109 @@
 \begin{document}
 
 \maketitle
+\clearpage
 
-\section{Introduction}
+\begin{abstract}
+  Abstract.
+\end{abstract}
+\tableofcontents
+
+\subsection*{Changelog}
+\addcontentsline{toc}{subsection}{Changelog}
+\paragraph{}
+\em{}Version 1.0:\em{} Created document.\\ 
+\clearpage
+
+\part{Design Overview}
+\section{Personas}
+\label{sec:label}
+\subsection{Bartender}
+Caesar is a 21 years old man, who just finished bartending school. This is the first time ever that he is working at The Flying Dutchman. Although he just finished bartending school, he is also doing academic studies so his work at The Flying Dutchman is not full time. His intention is to work at nights and study daytime in order to finance his studies.
+\subsection{Professor}
+Bengt is a 53 year old man from Sweden. He is a professor in the field of computer science. He is a very social person who spend a lot of his spare time at The Flying Dutchman where he is on the list of so called VIPs, who have some special privileges over other customers. Bengt enjoys drinking beer and especially trying out rare special beers which may not be available in your local liquor store. Socially, he enjoy talking with students at the bar about their life choices and giving them some valuable advice.
+\subsection{Student}
+Alice is a 23 year old girl who is an international student from USA that loves to be around people. She enjoys going out partying and wants to do it as often as possible. However, as an international student, she has a very limited budget and thus have to think economically when going out. She really likes being in Sweden and plans on learning the language so that she can settle down there.
+\subsection{Manager}
+Marie is a 35 year old Swedish woman with great experience as a pub manager. During her twenties, she was a student at Uppsala University, however, studying was not the thing that got the most of her attention but rather spending time and working at nations. She worked so much that she had to take a break from her studies. She never got back from her break but she had figured that she wanted to work full time in bars. This resulted in her applying to The Flying Dutchman where she got employed and it did not take long before she became the manager.
+\section{Scenarios}
+\label{sec:label}
+\subsection{Student}
+\subsubsection{}
+Goes to the bar and asks the bartender for the cheapest beer possible. The bartender, who has just started his career, doesn’t know the menu and has to search in the system for the cheapest beer. He finds the beer, bring it and gives it to Alice. Alice pays both by cash and by card.
+\subsubsection{}
+Alice now wants a second round and orders two beers. This time she tries to pay only by card. But she doesn’t have enough money, so the bank rejects the payment. She tells the bartender to remove one beer and tries to pay again. Once again the payment doesn’t go through so the bartender cancels the order.
+\subsection{Professor}
+\subsubsection{}
+He goes to the VIP terminal, logs in and looks at the available beers. So he picks one of his favorite beers, a nice Belgian Ale. He checks that he has enough credit and then checkouts. After that, he goes and grabs the beer.
+\subsubsection{}
+The professor wants to become a VIP customer. So he goes to the manager and asks to become a VIP. The manager approves and gives Bengt a register code. Bengt goes to the VIP terminal, type in the code and fills in a form with his personal data.
+\subsubsection{}
+The professor has used all his credit. He goes to the bartender to refill his credit. 
+\subsection{Bartender}
+\subsubsection{}
+A customer comes and wants to know which beers from "Brewdog" are available at the bar. So Caesar searches for "Brewdog", and the system displays a list of these beers. The customer says what he wants, the bartender selects it and goes to checkout.
+\subsubsection{}
+A customer wants a Heineken. Caesar selects Heineken as it is the most common beer and goes to checkout.
+\subsection{Manager}
+\subsubsection{}
+The system makes a suggestion for the beers to ordered. And then the manager can edit by adding/subtracting numbers, add a new type of or deleting items. He then approves the order.
+\subsubsection{}
+The manager can add a new bartender.
+\subsubsection{}
+The manager can add a new regular.
+\section{Requirements specification}
+\subsection{Functional}
+\begin{itemize}
+\item Credit/sub-total comparison in the interface for regular.
+\item VIP-registration
+
+  \begin{itemize}
+  \item Generate code for registration, or
+  \item Form for manager where the manager can register a type of user
+  \item Extendible to all types of users
+
+  \end{itemize}
+\item Refill credit
+
+  \begin{itemize}
+  \item Handle as an ordinary purchase: instead of buying beer, you're buying back your IOU.
+    
+  \end{itemize}
+\item Display of favourite purchases (quick-buy?)
+\item All beers in the system should be shown, with a description
+\item The database should update stock dynamically
+\item The stock should be searchable
+\item The system should prepare an order when one or more beers are running out of stock
+\item When a beer is out of stock the system sets its status as no longer available
+\item Beers can be added to the order
+\item The number of beers in the order can be changed
+\item Beers can be removed in the order
+\item The order should be approved before being sent
+\item The price of a beer can be changed in the system
+\item A new beer can be added to the system 
+\item A beer can be set as no longer savable for sale, if the bar decides not to sell that beer anymore or the beer is no longer being made
+\item A bartender can be added to the system
+\item Bartender should set the initial amount of money on the cash register for its shift.
+\item At the beginning of its shift, bartender must check initial stock of beers available.
+\item During a transaction, system should accept two payment methods: cash and card.
+\item Bartender should visualize offers available during its shift.
+\item Bartender should not be able to log out when a transaction is in progress.
+\item In a transaction, the bartender should be able to sell different kind of beers and a quantity lower than the one on stock for each one.
+\end{itemize}
+\subsection{Non-functional}
+\begin{itemize}
+\item Credit/sub-total comparison should be real-time
+\item Registration code should have time constraint and be one-time
+\item User registration should occur instantaneously
+
+  \begin{itemize}
+  \item I.e., a new VIP should be able to buy beers directly after registering
+  \end{itemize}
+\item Credit should be refilled instantaneously
+\item Quick-buy should be relevant for the specific VIP if possible
+\item It should be easy to see if a beer is in stock or not.
+\end{itemize}
+
+\part{Implementation}
 
 \end{document}
