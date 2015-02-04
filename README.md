@@ -1,4 +1,5 @@
-# Flying dutchman 2
+# Synopsis
+The Flying Dutchman - a bar project. 
 
 # File structure
 dutchman2<br>
@@ -23,5 +24,13 @@ dutchman2<br>
 &nbsp;&nbsp;&nbsp;&nbsp;|-- jquery/<br>
 &nbsp;&nbsp;&nbsp;&nbsp;|-- jquerypp/<br>
 &nbsp;&nbsp;&nbsp;&nbsp;|-- steal<br>
+
+# Code Example
+
+# Motivation
+
+# Installation
+
+# Tests
 
 
