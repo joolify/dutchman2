@@ -13,3 +13,6 @@
 [submodule "lib/steal"]
 	path = lib/steal
 	url = https://github.com/joolify/legacy-steal.git
+[submodule "lib/funcunit"]
+	path = lib/funcunit
+	url = https://github.com/joolify/funcunit.git
