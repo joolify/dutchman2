@@ -3,25 +3,25 @@
 # File structure
 dutchman2<br>
 |-- assets/<br>
-|   |-- css/<br>
-|   	|-- images/<br>
-|   |-- data/<br>
-|   |-- images/<br>
-|   |-- js/<br>
-|   <br>
+|&nbsp;&nbsp;&nbsp;|-- css/<br>
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- images/<br>
+|&nbsp;&nbsp;&nbsp;|-- data/<br>
+|&nbsp;&nbsp;&nbsp;|-- images/<br>
+|&nbsp;&nbsp;&nbsp;|-- js/<br>
+|&nbsp;&nbsp;&nbsp;<br>
 |-- design/<br>
-|   |-- latex/<br>
+|&nbsp;&nbsp;&nbsp;|-- latex/<br>
 |<br>
 |-- doc/<br>
-|   |-- latex/<br>
+|&nbsp;&nbsp;&nbsp;|-- latex/<br>
 |<br>
 |-- lib/<br>
-    |-- can/<br>
-    |-- documentjs/<br>
-    |-- funcunit/<br>
-    |-- jmvc/<br>
-    |-- jquery/<br>
-    |-- jquerypp/<br>
-    |-- steal<br>
+&nbsp;&nbsp;&nbsp;|-- can/<br>
+&nbsp;&nbsp;&nbsp;|-- documentjs/<br>
+&nbsp;&nbsp;&nbsp;|-- funcunit/<br>
+&nbsp;&nbsp;&nbsp;|-- jmvc/<br>
+&nbsp;&nbsp;&nbsp;|-- jquery/<br>
+&nbsp;&nbsp;&nbsp;|-- jquerypp/<br>
+&nbsp;&nbsp;&nbsp;|-- steal<br>
 
 
