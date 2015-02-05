@@ -11,15 +11,31 @@
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
       $(document).ready(fetch_items());
+
       function fetch_items(){
+        var counter;
+        var index;
         $.getJSON(
           'http://pub.jamaica-inn.net/fpdb/api.php?username=anddar&password=anddar&action=inventory_get',
           function(data) {
           $("div#drink_table").empty();
-          var searchString = $("#search").val();
+          var search_string = $("#search").val().toLowerCase();
+          var search_array = search_string.split(" ");
+          var lower_bound = Math.ceil((search_array.length)/2);
           $("div#drink_table").append('<table id="drink_table"></table>');
           $.each(data.payload, function (key, beer){
-            if(beer.namn && beer.namn.length > 0 && (!searchString || searchString.length == 0 || beer.namn.toLowerCase().indexOf(searchString.toLowerCase()) >= 0)){
+            var namn = beer.namn.toLowerCase();
+            var tot_namn = namn + ' ' + beer.namn2.toLowerCase();
+
+            counter = 0;
+            for (index = 0; index < search_array.length; index++) {
+              if (search_array[index].length > 0 &&
+                  tot_namn.indexOf(search_array[index]) > -1) {
+                counter++;
+              }
+            }
+
+            if(namn.length > 0 && (search_array.length == 0 || counter >= lower_bound)){
               var beer_namn_string =
                 beer.namn2.length == 0 ?
                   beer.namn :
