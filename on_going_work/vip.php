@@ -1,6 +1,6 @@
-<?php session_start(); ?>
+<?php session_start(); // Makes $_SESSION available?>
 <?php if(count($_SESSION) == 0) {
-  header("Location: index.php");
+  header("Location: index.php"); // Returns to index if no session exists
   }?>
 <!DOCTYPE html>
 <html>
@@ -10,13 +10,15 @@
     <link rel="stylesheet" type="text/css" href="main.css">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript">
-      $(document).ready(fetch_items());
-
-      function fetch_items(){
+      $(document).ready(fetchItems());
+      function fetchItems(){
         var counter;
         var index;
         $.getJSON(
-          'http://pub.jamaica-inn.net/fpdb/api.php?username=anddar&password=anddar&action=inventory_get',
+          'http://pub.jamaica-inn.net/fpdb/api.php?' +
+          'username=<?php echo $_SESSION['username'];?>' +
+          '&password=<?php echo $_SESSION['username'];?>' +
+          '&action=inventory_get',
           function(data) {
           $("div#drink_table").empty();
           var search_string = $("#search").val().toLowerCase();
@@ -34,15 +36,23 @@
                 counter++;
               }
             }
-
-            if(namn.length > 0 && (search_array.length == 0 || counter >= lower_bound)){
+            // Filters out items where name is not empty and where enough
+            // search terms exist in the item
+            if(namn.length > 0 &&
+              (search_string.length == 0 || counter >= lower_bound)){
               var beer_namn_string =
                 beer.namn2.length == 0 ?
                   beer.namn :
                   beer.namn + '<br>(' + beer.namn2 + ')';
               $("table#drink_table").append(
                 '<tr>' +
-                  '<td><button class="item" draggable="true" value="' + beer.beer_id + '">' + beer_namn_string + '</button></td>' +
+                  '<td><button ' +
+                          'class="item"' +
+                          'onclick=addToCart(\'' + encodeURI(beer_namn_string) + '\') ' +
+                          'draggable="true"' +
+                          'value="' + beer.beer_id + '">' +
+                          beer_namn_string +
+                        '</button></td>' +
                   '<td>' + beer.pub_price + '</td>' +
                   '<td>' + beer.count + '</td>' +
                 '</tr>');
@@ -51,15 +61,33 @@
           }
       );
       }
+
+      function addToCart(label) {
+        var row = document.createElement("TR");
+        var node = document.createElement("TD");
+        var decoded_label = decodeURI(label).replace('<br>', ' ');
+        var textnode = document.createTextNode(decoded_label);
+        row.appendChild(node);
+        node.appendChild(textnode);
+        document.getElementById("shopping_cart").appendChild(row);
+      }
     </script>
   </head>
   <body>
+      <button onclick="addToCart()">Klicka</button>
       <h2>Search</h2>
-      <input autocomplete="off" id="search" type="text" onkeydown="fetch_items()"></input>
+      <input autocomplete="off"
+             id="search"
+             type="text"
+             onkeydown="fetchItems()"></input>
       <h2>Available beers:</h2>
-      <div id="drink_table">
-      </div>
+      <div id="drink_table"></div>
       <h2>Most bought</h2>
+      <div id="most_bought"></div>
       <h2>Shopping cart</h2>
+      <div id="cart_div">
+        <ul id="shopping_cart"></ul>
+      </div>
   </body>
 </html>
+<?php exit ?>
