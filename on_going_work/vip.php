@@ -74,7 +74,6 @@
     </script>
   </head>
   <body>
-      <button onclick="addToCart()">Klicka</button>
       <h2>Search</h2>
       <input autocomplete="off"
              id="search"
