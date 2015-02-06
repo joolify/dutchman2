@@ -48,7 +48,7 @@
                 '<tr>' +
                   '<td><button ' +
                           'class="item"' +
-                          'onclick=addToCart(\'' + encodeURI(beer_namn_string) + '\') ' +
+                          'onclick="addToCart(\'' + escape(beer_namn_string) + '\', ' + beer.pub_price + ')" ' +
                           'draggable="true"' +
                           'value="' + beer.beer_id + '">' +
                           beer_namn_string +
@@ -62,14 +62,30 @@
       );
       }
 
-      function addToCart(label) {
+      function addToCart(label, price) {
+        //Create the row containing the name of the beer and price
         var row = document.createElement("TR");
-        var node = document.createElement("TD");
-        var decoded_label = decodeURI(label).replace('<br>', ' ');
-        var textnode = document.createTextNode(decoded_label);
-        row.appendChild(node);
-        node.appendChild(textnode);
+        var nameCell = document.createElement("TD");
+        var decoded_label = unescape(label).replace('<br>', ' ');
+        var nameNode = document.createTextNode(decoded_label);
+        var priceCell = document.createElement("TD");
+        var priceNode = document.createTextNode(price);
+        row.appendChild(nameCell);
+        row.appendChild(priceCell);
+        nameCell.appendChild(nameNode);
+        priceCell.appendChild(priceNode);
+
+        // Append the row
         document.getElementById("shopping_cart").appendChild(row);
+
+        // Add the price to the sessions total
+        var priceNode = document.createElement("TD");
+        if (sessionStorage.subtotal) {
+          sessionStorage.subtotal = Number(sessionStorage.subtotal) + price;
+        } else {
+          sessionStorage.subtotal = price;
+        }
+        document.getElementById("subtotal").innerHTML = sessionStorage.subtotal;
       }
     </script>
   </head>
@@ -85,7 +101,9 @@
       <div id="most_bought"></div>
       <h2>Shopping cart</h2>
       <div id="cart_div">
-        <ul id="shopping_cart"></ul>
+        <table id="shopping_cart">
+        <td>Total:</td><td id="subtotal"></td>
+        </table>
       </div>
   </body>
 </html>
