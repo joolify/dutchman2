@@ -2,43 +2,46 @@
 <?php if(count($_SESSION) == 0) {
   header("Location: index.php");
   }?>
-
-<?php
-  $json_url = 'http://pub.jamaica-inn.net/fpdb/api.php?username=';
-  $json_url .= $_SESSION['username'];
-  $json_url .= '&password=';
-  $json_url .= $_SESSION['password'];
-  $beers_url = $json_url . '&action=inventory_get';
-  $json = file_get_contents($beers_url);
-  $beers = json_decode($json, true);
-  $beers = $beers['payload'];
-  ?>
 <!DOCTYPE html>
 <html>
   <head>
     <title>Stormrider</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(fetch_items());
+      function fetch_items(){
+        $.getJSON(
+          'http://pub.jamaica-inn.net/fpdb/api.php?username=anddar&password=anddar&action=inventory_get',
+          function(data) {
+          $("div#drink_table").empty();
+          var searchString = $("#search").val();
+          $("div#drink_table").append('<table id="drink_table"></table>');
+          $.each(data.payload, function (key, beer){
+            if(beer.namn && beer.namn.length > 0 && (!searchString || searchString.length == 0 || beer.namn.toLowerCase().indexOf(searchString.toLowerCase()) >= 0)){
+              var beer_namn_string =
+                beer.namn2.length == 0 ?
+                  beer.namn :
+                  beer.namn + '<br>(' + beer.namn2 + ')';
+              $("table#drink_table").append(
+                '<tr>' +
+                  '<td><button class="item" draggable="true" value="' + beer.beer_id + '">' + beer_namn_string + '</button></td>' +
+                  '<td>' + beer.pub_price + '</td>' +
+                  '<td>' + beer.count + '</td>' +
+                '</tr>');
+            }
+          });
+          }
+      );
+      }
+    </script>
   </head>
   <body>
       <h2>Search</h2>
-      <input class="search-bar" type="text"></input>
+      <input autocomplete="off" id="search" type="text" onkeydown="fetch_items()"></input>
       <h2>Available beers:</h2>
-      <div class="drink_table">
-        <table class="drink_table">
-        <tr><th class="item">Name</th><th class="item">Price</th><th class="item">In stock</th></tr>
-        <?php
-          foreach ($beers as $beer_id => $beer) {
-            echo '<tr>';
-            echo '<td><button class="item" draggable="true" value="'.$beer_id.'">' . $beer['namn'];
-            echo (!empty($beer['namn2'])) ? '<br>(' . $beer['namn2'] .')' : '';
-            echo '</button></td>';
-            echo '<td>' . $beer['pub_price'] . '</td>';
-            echo '<td>' . $beer['count'] . '</td>';
-            echo '</tr>';
-          }
-        ?>
-        </table>
+      <div id="drink_table">
       </div>
       <h2>Most bought</h2>
       <h2>Shopping cart</h2>

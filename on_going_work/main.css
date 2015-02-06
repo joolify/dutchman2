@@ -1,0 +1,14 @@
+div#drink_table {
+  width: 500px;
+  height: 500px;
+  overflow: scroll;
+}
+
+button.item {
+  width: 16em;
+  height: 4em;
+}
+
+th.item, td.item {
+  min-width: 4em;
+}
