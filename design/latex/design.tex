@@ -6,8 +6,11 @@
 
 \usepackage{natbib}
 \usepackage{graphicx}
+\usepackage{hyperref}
 
 \begin{document}
+
+
 
 \maketitle
 \clearpage
@@ -66,59 +69,217 @@ Marie is a 35 year old Swedish woman with great experience as a pub manager. Dur
 
 \end{itemize}
 \section{Requirements specification}
-\subsection{Functional}
-\begin{itemize}
-\item Credit/sub-total comparison in the interface for regular.
-\item VIP-registration
+\section{Database API}
+\subsection{admin}
+\subsubsection{inventory\_get}
+Gives a list of all drinks available in the system.\\
+\textbf{Parameters:}\\
+none\\
+\textbf{Returns:}\\
+JSON-object:\\
+- type: "inventory\_get"\\
+- payload[]\\
+\indent - namn\\
+\indent - namn2\\
+\indent - sbl\_price\\
+\indent - pub\_price\\
+\indent - beer\_id\\
+\indent - count\\
+\indent - price\\
+\textbf{Usage:}\\
+\url{http://pub.jamaica-inn.net/fpdb/api.php?username=ervtod\&password=ervtod\&action=inventory\_get}\\
 
-  \begin{itemize}
-  \item Generate code for registration, or
-  \item Form for manager where the manager can register a type of user
-  \item Extendible to all types of users
+\subsubsection{purchases\_get\_all}
+Gives a list of all purchases made by all users.\\
+\textbf{Parameters:}\\
+none\\
+\textbf{Returns:}\\
+JSON-object:\\
+- type: "purchases\_get"\\
+- payload[]\\
+\indent - namn\\
+\indent - namn2\\
+\indent - transaction\_id\\
+\indent - user\_id\\
+\indent - beer\_id\\
+\indent - timestamp\\
+\indent - price\\
+\indent - first\_name\\
+\indent - last\_name\\
+\indent - username\\
+\textbf{Usage:}\\
+\url{http://pub.jamaica-inn.net/fpdb/api.php?username=ervtod\&password=ervtod\&action=purchases\_get\_all}\\
 
-  \end{itemize}
-\item Refill credit
-
-  \begin{itemize}
-  \item Handle as an ordinary purchase: instead of buying beer, you're buying back your IOU.
+\subsubsection{payments\_get\_all}
+Returns a list of payments made by all users.\\
+\textbf{Parameters:}\\
+none\\
+\textbf{Returns:}\\
+JSON-object:\\
+- type: "payments\_get\_all"\\
+- payload[]\\
+\indent - admin\_username\\
+\indent - timestamp\\
+\indent - amount\\
+\indent - admin\_id\\
+\indent - username\\
+\indent - first\_name\\
+\indent - last\_name\\
+\textbf{Usage:}\\
+\url{http://pub.jamaica-inn.net/fpdb/api.php?username=ervtod\&password=ervtod\&action=payments\_get\_all}\\
+ 
+\subsubsection{iou\_get\_all}
+Returns all users and amounts they have at their disposal. For users with a negative balance it means that they have a debt.\\
+\textbf{Parameters:}\\
+none\\
+\textbf{Returns:}\\
+JSON-object:\\
+- type: "iou\_get\_all"\\
+- payload[]\\
+\indent - user\_id\\
+\indent - first\_name\\
+\indent - last\_name\\
+\indent - assets\\
+\textbf{Usage:}\\
+\url{http://pub.jamaica-inn.net/fpdb/api.php?username=ervtod\&password=ervtod\&action=iou\_get\_all}\\
     
-  \end{itemize}
-\item Display of favourite purchases (quick-buy?)
-\item All beers in the system should be shown, with a description
-\item The database should update stock dynamically
-\item The stock should be searchable
-\item The system should prepare an order when one or more beers are running out of stock
-\item When a beer is out of stock the system sets its status as no longer available
-\item Beers can be added to the order
-\item The number of beers in the order can be changed
-\item Beers can be removed in the order
-\item The order should be approved before being sent
-\item The price of a beer can be changed in the system
-\item A new beer can be added to the system 
-\item A beer can be set as no longer savable for sale, if the bar decides not to sell that beer anymore or the beer is no longer being made
-\item A bartender can be added to the system
-\item Bartender should set the initial amount of money on the cash register for its shift.
-\item At the beginning of its shift, bartender must check initial stock of beers available.
-\item During a transaction, system should accept two payment methods: cash and card.
-\item Bartender should visualize offers available during its shift.
-\item Bartender should not be able to log out when a transaction is in progress.
-\item In a transaction, the bartender should be able to sell different kind of beers and a quantity lower than the one on stock for each one.
-\end{itemize}
-\subsection{Non-functional}
-\begin{itemize}
-\item Credit/sub-total comparison should be real-time
-\item Registration code should have time constraint and be one-time
-\item User registration should occur instantaneously
+\subsubsection{user\_edit}
+Updates user information. All user information is required as additional parameters.\\
+\textbf{Parameters:}\\
+new\_username\\
+new\_password\\
+first\_name\\
+last\_name\\
+email\\
+phone\\
+\textbf{Returns:}\\
+JSON-object:\\
+- type: "User user added"\\
+- payload[]\\
+\textbf{Usage:}\\
+\url{http://pub.jamaica-inn.net/fpdb/api.php?username=ervtod\&password=ervtod\&action=user\_edit\&new\_username=newusername\&new\_password=newpassword\&first\_name=firstname\&last\_name=lastname\&email=email\&phone=phone}\\
+ 
+\subsubsection{inventory\_append}
+Updates the number of bottles available in stock and the price for a particular beer. The id of the beer to be updated is required along with its price and current amount of available bottles.\\
+\textbf{Parameters:}\\
+beer\_id\\
+amount\\
+price\\
+\textbf{Returns:}\\
+JSON-object:\\
+- type: "empty"\\
+- payload[]\\
+\textbf{Usage:}\\
+\url{http://pub.jamaica-inn.net/fpdb/api.php?username=ervtod\&password=ervtod\&action=inventory\_append\&amount=amount\&price=price}\\
 
-  \begin{itemize}
-  \item I.e., a new VIP should be able to buy beers directly after registering
-  \end{itemize}
-\item Credit should be refilled instantaneously
-\item Quick-buy should be relevant for the specific VIP if possible
-\item It should be easy to see if a beer is in stock or not.
-\end{itemize}
+\subsection{user}
+\subsubsection{purchases\_get}
+Gives a list of all purchases made by the specified user.\\
+\textbf{Parameters:}\\
+none\\
+\textbf{Returns:}\\
+JSON-object:\\
+- type: "purchases\_get"\\
+- payload[]\\
+\indent  - namn\\
+\indent  - namn2\\
+\indent  - transaction\_id\\
+\indent  - user\_id\\
+\indent  - beer\_id\\
+\indent  - timestamp\\
+\indent  - price\\
+\textbf{Usage:}\\
+\url{http://pub.jamaica-inn.net/fpdb/api.php?username=ervtod\&password=ervtod\&action=purchases\_get}\\
+    
+\subsubsection{purchases\_append}
+Adds a purchase of one beer to the system for the specified user. The id of the beer purchased beer is a required additional parameter.\\
+\textbf{Parameters:}\\
+beer\_id\\
+\textbf{Returns:}\\
+JSON-object:\\
+- type: empty\\
+- payload[]\\
+\textbf{Usage:}\\
+\url{http://pub.jamaica-inn.net/fpdb/api.php?username=ervtod\&password=ervtod\&action=purchases\_append\&beer\_id=beerid}\\
+  
+\subsubsection{payments\_get}
+Returns a list of payments made by the specified user.\\
+\textbf{Parameters:}\\
+none\\
+\textbf{Returns:}\\
+JSON-object:\\
+- type: "payments\_get\_all"\\
+- payload[]\\
+\indent - transaction\_id\\
+\indent - user\_id\\
+\indent - admin\_id\\
+\indent - amount\\
+\indent - timestamp\\
+\textbf{Usage:}\\
+\url{http://pub.jamaica-inn.net/fpdb/api.php?username=ervtod\&password=ervtod\&action=payments\_get}\\
 
-\subsection{Usability}
+\subsubsection{payments\_append}
+Adds a payment of specified amount to the system for the specified user. The amount is a required additional parameter.\\
+\textbf{Parameters:}\\
+amount\\
+\textbf{Returns:}\\
+JSON-object:\\
+N/A\\
+\textbf{Usage:}\\
+\url{http://pub.jamaica-inn.net/fpdb/api.php?username=ervtod\&password=ervtod\&action=payments\_append\&amount=amount}\\
+
+\subsubsection{iou\_get}
+Returns the total amount that the specified user has at his disposal for buying beer. A negative balance means that the user has a debt.\\
+\textbf{Parameters:}\\
+none\\
+\textbf{Returns:}\\
+JSON-object:\\
+- type: "iou\_get"\\
+- payload[]\\
+\indent - user\_id\\
+\indent - first\_name\\
+\indent - last\_name\\
+\indent - assets\\
+\textbf{Usage:}\\
+\url{http://pub.jamaica-inn.net/fpdb/api.php?username=ervtod\&password=ervtod\&action=iou\_get}\\
+ 
+\subsubsection{beer\_data\_get}
+Returns all information available in the system for a specified beer. This includes name, price, alcohol volume, etc. The id of the beer for inquiry is a required additional parameter.\\
+\textbf{Parameters:}\\
+beer\_id\\
+\textbf{Returns:}\\
+JSON-object:\\
+- type: "beer\_data\_get"\\
+- payload[]\\
+\indent - nr\\
+\indent - artikelid\\
+\indent - varnummer\\
+\indent - namn\\
+\indent - namn2\\
+\indent - prisinklmoms\\
+\indent - volymiml\\
+\indent - prisperliter\\
+\indent - saljstart\\
+\indent - slutlev\\
+\indent - varugrupp\\
+\indent - forpackning\\
+\indent - forslutning\\
+\indent - ursprung\\
+\indent - ursprungslandnamn\\
+\indent - producent\\
+\indent - leverantor\\
+\indent - argang\\
+\indent - provadargang\\
+\indent - alkoholhalt\\
+\indent - modul\\
+\indent - sortiment\\
+\indent - ekologisk\\
+\indent - koscher\\
+\textbf{Usage:}\\
+\url{http://pub.jamaica-inn.net/fpdb/api.php?username=ervtod\&password=ervtod\&action=beer\_data\_get\&beer\_id=beerid}\\
+
+
+
 \part{Implementation}
 
 \end{document}
