@@ -163,7 +163,7 @@ function DrinkView(model, elements) {
         _this.refresh();
     });
 
-    // lister to HTML input
+    // listener to HTML input
     this._elements.input.keydown(function () {
 	_this.inputModified.notify();
     });
@@ -183,17 +183,16 @@ DrinkView.prototype = {
      * @function refresh
      */
     refresh: function () {
-	var list, itemList = [], key;
+	this._elements.list.empty();
+	var list, itemList = [];
 
         list = this._elements.list;
         list.html('');
 
         itemList = this._model.getItemList();
 
-        for (key in itemList) {
-            if (itemList.hasOwnProperty(key)) {
-                list.append($('<li>' + itemList[key].getName() + '</li>'));
-            }
+	for(var i = 0; i < itemList.length; i++) {
+            list.append($('<li>' + itemList[i].getName() + '</li>'));
         }
     },
 
