@@ -1,3 +1,52 @@
+body {
+  margin: 0;
+}
+
+.jumbotron {
+  padding: 30px 15px;
+  margin-bottom: 30px;
+  background-color: #eee;
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.jumbotron .container h1 {
+  font-size: 64px;
+  text-align: center;
+  font-family: 'Prociono', serif;
+}
+
+.jumbotron .container p {
+  font-size: 24px;
+  text-align: center;
+  font-family: 'Prociono', serif;
+}
+
+.container form{
+  text-align: center;
+}
+
+.container button{
+  margin: 15px;
+  width: 25%;
+  height: 50px;
+}
+
+.container button:hover {
+  background: rgba(188,202,206,0.15);
+  border-color: inherit;
+}
+
+.login-form div input {
+  width: 25%;
+  height: 25px;
+}
+
 div#drink_table {
   width: 500px;
   height: 500px;
