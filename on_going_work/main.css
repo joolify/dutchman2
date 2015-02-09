@@ -1,5 +1,10 @@
+html {
+  width: 100%;
+}
+
 body {
   margin: 0;
+  width: 100%;
 }
 
 .jumbotron {
@@ -35,6 +40,7 @@ body {
   margin: 15px;
   width: 25%;
   height: 50px;
+  font-size: 150%;
 }
 
 .container button:hover {
@@ -47,9 +53,40 @@ body {
   height: 25px;
 }
 
+.wrapper {
+  width: 100%;
+  margin: 10px;
+}
+
+.wrapper .title {
+  height: 15px;
+  width: 33%;
+  display: inline-block;
+  font-size: 150%;
+  font-family: 'Prociono', serif;
+  text-align: center;
+}
+
+.wrapper .row {
+  height: 590px;
+  width: 32%;
+  display: inline-block;
+  border-style: solid;
+}
+
+.wrapper.header {
+  background-color: black;
+}
+
+.wrapper .title h2 {
+  margin: 1%;
+}
+
+.wrapper .title input {
+  width: 90%;
+}
+
 div#drink_table {
-  width: 500px;
-  height: 500px;
   overflow: scroll;
 }
 
