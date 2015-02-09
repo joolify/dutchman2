@@ -52,6 +52,11 @@ Item.prototype = {
 	return this._name2;
     },
 
+    getFullName: function () {
+	return ((this._name2.length == 0) ? this._name :
+		this._name + '<br>(' + this._name2 + ')');
+    },
+
     getSblPrice: function () {
 	return this._sbl_price;
     },
@@ -91,14 +96,19 @@ function DatabaseModel() {
 DatabaseModel.prototype = {
     /*
      * Drops the database.
-     * @function drop
+     * @function _drop
      */
     _drop: function () {
 	while(this._itemList.length > 0) {
 	    this._itemList.pop();
 	}
     },    
-
+    
+    /*
+     * Checks how many of the search term has a match on the label
+     * @function _getCount
+     * @return {Integer} 
+     */
     _getCount: function(name, searchArray) {
 	var count = 0;
         for (var index = 0; index < searchArray.length; index++) {
@@ -110,20 +120,22 @@ DatabaseModel.prototype = {
 	return count;
     },
 
-    _filter: function(query, item) {
+    /*
+     * Filters out items where name is not empty and where enough search terms exist in the item
+     * @function _filter
+     * @return {Item} 
+     */
+    _filter: function(query, item, _this) {
 	var searchString = query.toLowerCase();
         var searchArray = searchString.split(" ");
         var lowerBound = Math.ceil((searchArray.length)/2);
-	var name = item.namn;
-	var nameAndName2 = name.toLowerCase() + ' ' + item.namn2.toLowerCase();
-	var count = this._getCount(nameAndName2, searchArray);
+	var name = item.namn.toLowerCase();
+	var nameAndName2 = name + ' ' + item.namn2.toLowerCase();
+	var count = _this._getCount(nameAndName2, searchArray);
 	
 	if (name.length > 0 && (searchString.length == 0 || count >= lowerBound)) {
-	    if (item.name2.length != 0) {
-		name += '<br>(' + item.name2 + ')';
-	    }
 	     
-	    return new Item(name, item.namn2, item.sbl_price, item.pub_price, item.beer_id, item.count, item.price);
+	    return new Item(item.namn, item.namn2, item.sbl_price, item.pub_price, item.beer_id, item.count, item.price);
 
 	}else{
 	    return null;
@@ -147,17 +159,8 @@ DatabaseModel.prototype = {
             success: function (data) {
 		_this._drop();
 		$.each(data.payload, function (key, item){
-		    
-		    /*
-		    var newItem = _filter(query, item);
+		    var newItem = _this._filter(query, item, _this);
 		    if(newItem) {
-			_this._itemList.push(newItem);
-		    }
-
-		    */
-		    if(item.namn && item.namn.length > 0 && (item.namn.toLowerCase().indexOf(query.toLowerCase()) >= 0)){
-
-			var newItem = new Item(item.namn, item.namn2, item.sbl_price, item.pub_price, item.beer_id, item.count, item.price);
 			_this._itemList.push(newItem);
 		    }
 		});		
@@ -246,7 +249,7 @@ DrinkView.prototype = {
                     'class="item"' +
                     'onclick="addToCart(' + itemList[i].getId() + ')" ' +
                     'draggable="true">' +
-                    itemList[i].getName() + //FIXME
+                    itemList[i].getFullName() + 
                     '</button></td>' +
                     '<td>' + itemList[i].getPubPrice() + '</td>' +
                     '<td>' + itemList[i].getCount() + '</td>' +
