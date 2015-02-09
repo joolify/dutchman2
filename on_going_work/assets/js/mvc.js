@@ -81,7 +81,8 @@ Item.prototype = {
  * Creates a database model
  */
 function DatabaseModel() {
-    this._itemList = []; 
+    this._itemList = [];
+    this._temp = [];
     this._db_inventory = 'http://pub.jamaica-inn.net/fpdb/api.php?username=anddar&password=anddar&action=inventory_get';
 
     this.listUpdated = new Event(this); 
@@ -89,13 +90,54 @@ function DatabaseModel() {
 
 DatabaseModel.prototype = {
     /*
+     * Drops the database.
+     * @function drop
+     */
+    _drop: function () {
+	while(this._itemList.length > 0) {
+	    this._itemList.pop();
+	}
+    },    
+
+    _getCount: function(name, searchArray) {
+	var count = 0;
+        for (var index = 0; index < searchArray.length; index++) {
+            if (searchArray[index].length > 0 &&
+                name.indexOf(searchArray[index]) > -1) {
+                count++;
+            }
+        }
+	return count;
+    },
+
+    _filter: function(query, item) {
+	var searchString = query.toLowerCase();
+        var searchArray = searchString.split(" ");
+        var lowerBound = Math.ceil((searchArray.length)/2);
+	var name = item.namn;
+	var nameAndName2 = name.toLowerCase() + ' ' + item.namn2.toLowerCase();
+	var count = this._getCount(nameAndName2, searchArray);
+	
+	if (name.length > 0 && (searchString.length == 0 || count >= lowerBound)) {
+	    if (item.name2.length != 0) {
+		name += '<br>(' + item.name2 + ')';
+	    }
+	     
+	    return new Item(name, item.namn2, item.sbl_price, item.pub_price, item.beer_id, item.count, item.price);
+
+	}else{
+	    return null;
+	}
+    },
+    /*
      * Query the database. 
      * @function query
      * @param query 
      */
     query: function (query) {
-	console.log("Model.query(): " + query.toString() + ", " + query.length);
-	var itemList = this._itemList;
+	console.log("Model.query(): " + query);
+	var _this = this;
+        
 	$.ajax({
             url: this._db_inventory,
 	    type: "POST",
@@ -103,42 +145,40 @@ DatabaseModel.prototype = {
             dataType: 'json',
             asynch: false,
             success: function (data) {
+		_this._drop();
 		$.each(data.payload, function (key, item){
+		    
+		    var newItem = _filter(query, item);
+		    if(newItem) {
+			_this._itemList.push(newItem);
+		    }
 
-		    if(item.namn && item.namn.length > 0 && (!query || query.length == 0 || item.namn.toLowerCase().indexOf(query.toLowerCase()) >= 0)){
+		    /*
+		    if(item.namn && item.namn.length > 0 && (item.namn.toLowerCase().indexOf(query.toLowerCase()) >= -1)){
 
 			var newItem = new Item(item.namn, item.namn2, item.sbl_price, item.pub_price, item.beer_id, item.count, item.price);
-			itemList.push(newItem);
+			_this._itemList.push(newItem);
 		    }
+		    */
 		});		
 		
+		console.log("Model.query().itemList: ", _this._itemList.length);
+		_this.listUpdated.notify();
             },
             error : function(jqXHR, textStatus, errorThrown) {
                 console.log('an error occurred!');
             }
         });
-	this.listUpdated.notify();
+
     },
 
-    /*
-     * Drops the database.
-     * @function drop
-     */
-    drop: function () {
-	var itemList = this._itemList;
-	while(itemList.length > 0) {
-	    itemList.pop();
-	}
-    },
-
+    
     /*
      * Get an Item list
      * @function getItemList
      * @return {Item[]} a list with Items.
      */
     getItemList: function () {
-	console.log("Model.getItemList");
-	console.log(this._itemList.length);
         return [].concat(this._itemList);
     }
 };
@@ -153,23 +193,28 @@ DatabaseModel.prototype = {
 function DrinkView(model, elements) {
     this._model = model;
     this._elements = elements;
+    this._currentQuery = "";
 
     this.inputModified = new Event(this);
-    
+
     var _this = this;
 
-    // model listener
+    // attach model listener
     this._model.listUpdated.attach(function () {
         _this.refresh();
     });
 
     // listener to HTML input
-    this._elements.input.keydown(function () {
+    this._elements.input.on('input', function(e) {
+	_this._setQuery($(this).val());
 	_this.inputModified.notify();
     });
 }
 
 DrinkView.prototype = {
+    _setQuery: function (newQuery) {
+	this._currentQuery = newQuery;
+    },
     /*
      * Shows the view.
      * @function show
@@ -183,16 +228,29 @@ DrinkView.prototype = {
      * @function refresh
      */
     refresh: function () {
-	this._elements.list.empty();
-	var list, itemList = [];
-
-        list = this._elements.list;
-        list.html('');
-
+	var list = this._elements.list;
+	var itemList = [];
+	
+	list.empty();
+	
+        list.append($('<table id="drink_table"></table>'));
         itemList = this._model.getItemList();
 
+	console.log("View.refresh()", itemList.length);
+
 	for(var i = 0; i < itemList.length; i++) {
-            list.append($('<li>' + itemList[i].getName() + '</li>'));
+
+            list.append($(
+		'<tr>' +
+                    '<td><button ' +
+                    'class="item"' +
+                    'onclick="addToCart(' + itemList[i].getId() + ')" ' +
+                    'draggable="true">' +
+                    itemList[i].getName() + //FIXME
+                    '</button></td>' +
+                    '<td>' + itemList[i].getPubPrice() + '</td>' +
+                    '<td>' + itemList[i].getCount() + '</td>' +
+                    '</tr>'));
         }
     },
 
@@ -202,8 +260,7 @@ DrinkView.prototype = {
      * @return {string} the query
      */
     getQuery: function () {
-	var query = this._elements.input.val();
-	return query;
+	return this._currentQuery;
     }
 };
 
@@ -225,7 +282,6 @@ function DrinkController(model, view) {
     this._view.inputModified.attach(function () {
 	_this.updateView();
     });
-
 }
 
 DrinkController.prototype = {
@@ -235,7 +291,7 @@ DrinkController.prototype = {
      */
     updateView: function () {
 	var query = this._view.getQuery();
-	//this._model.drop();
+	console.log("DrinkController.updateView: "+ query);
 	this._model.query(query);
     }
 };
