@@ -148,18 +148,18 @@ DatabaseModel.prototype = {
 		_this._drop();
 		$.each(data.payload, function (key, item){
 		    
+		    /*
 		    var newItem = _filter(query, item);
 		    if(newItem) {
 			_this._itemList.push(newItem);
 		    }
 
-		    /*
-		    if(item.namn && item.namn.length > 0 && (item.namn.toLowerCase().indexOf(query.toLowerCase()) >= -1)){
+		    */
+		    if(item.namn && item.namn.length > 0 && (item.namn.toLowerCase().indexOf(query.toLowerCase()) >= 0)){
 
 			var newItem = new Item(item.namn, item.namn2, item.sbl_price, item.pub_price, item.beer_id, item.count, item.price);
 			_this._itemList.push(newItem);
 		    }
-		    */
 		});		
 		
 		console.log("Model.query().itemList: ", _this._itemList.length);
