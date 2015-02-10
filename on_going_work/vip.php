@@ -12,7 +12,7 @@
       <div class="wrapper">
         <div class="title">
           <h2>Search available beers</h2>
-          <input autocomplete="off" id="search" type="text" onkeydown="fetchItems()"></input>
+          <input autocomplete="off" id="search" placeholder="Search ..." type="text" onkeydown="fetchItems()"></input>
         </div>
         <div class="title"><h2>Most bought</h2></div>
         <div class="title"><h2>Shopping cart</h2></div>
