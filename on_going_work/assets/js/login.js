@@ -24,7 +24,7 @@ function login() {
 			//window.location.assign("mvc.html");
 		}
 		else {
-			$('p').html('<b>User name or password incorrect</b>');
+			$('#errorMessage').html('<b>User name or password incorrect</b>');
 		}
 	});
 }
