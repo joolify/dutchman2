@@ -1,0 +1,6 @@
+function LanguageModel() {
+}
+
+LanguageModel.prototype = {
+
+};

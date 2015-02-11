@@ -1,0 +1,6 @@
+function LanguageView() {
+}
+
+LanguageView.prototype = {
+
+};
