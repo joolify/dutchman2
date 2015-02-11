@@ -4,21 +4,31 @@
 	<meta http-equiv="Content-type" value="text/html; charset=UTF-8" />
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="assets/css/mvc.css">
-	<script src="assets/js/mvc.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script src="assets/js/controller.js"></script>
+	<script src="assets/js/cartItem.js"></script>
+	<script src="assets/js/cartView.js"></script>
+	<script src="assets/js/cartModel.js"></script>
+	<script src="assets/js/databaseModel.js"></script>
+	<script src="assets/js/drinkView.js"></script>
+	<script src="assets/js/event.js"></script>
+	<script src="assets/js/item.js"></script>
+	<script src="assets/js/languageModel.js"></script>
+	<script src="assets/js/languageView.js"></script>
     </head>
     <body>
 	<div class="row container">
 	    <div class="col-xs-4">
-		<h2>Search</h2><input autocomplete="off" id="query">
+		<h2 id="search">Search</h2><input autocomplete="off" id="query">
 	    </div>
 	    <div class="col-xs-8">
-		<h2>Available items:</h2><div id="drink_table"></div>
+		<h2 id="avail_items">Available items:</h2><div id="drink_table"></div>
 	    </div>
 	    <div class="col-xs-12">
-		<h2>Most bought</h2>
+		<h2 id="most_bought">Most bought</h2>
 	    </div>
 	    <div class="col-xs-16">
-		<h2>Shopping cart</h2>
+		<h2 id="">Shopping cart</h2><div id="cart"></div>
 	    </div>
 	</div>
     </body>
