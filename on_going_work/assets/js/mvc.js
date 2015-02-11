@@ -166,14 +166,16 @@ CartModel.prototype = {
      * @function addAmountToItem
      */
     addAmountToItem: function (itemId) {
-	console.log("tbi");
+	var cartItem = this._getCartItem(itemId);
+	cartItem.add();
     },
     /*
      * Remove one amount from an item
      * @function removeAmountFromItem
      */
     removeAmountFromItem: function (itemId) {
-	console.log("tbi");
+	var cartItem = this._getCartItem(itemId);
+	cartItem.remove();
     },
     /*
      * Get the cart.
