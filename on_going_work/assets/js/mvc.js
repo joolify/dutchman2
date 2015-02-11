@@ -22,7 +22,7 @@ Event.prototype = {
 };
 
 /*
- * An item in a pub. 
+ * An item in a pub.
  * @class Item
  * @param {String} name
  * @param {String} name2
@@ -78,7 +78,7 @@ Item.prototype = {
     }
 };
 /*
- * The amount of a particular item in a cart.  
+ * The amount of a particular item in a cart.
  * @class CartItem
  * @constructor
  * Creates a cart item
@@ -123,17 +123,17 @@ CartItem.prototype = {
     }
 }
 /*
- * Stores the items added by the user. 
+ * Stores the items added by the user.
  * @class CartModel
  * @constructor
  * Creates a cart model
  */
-function CartModel() {
+function Cart() {
     this._cartList = [];
     this.cartUpdated = new Event(this);
 }
 
-CartModel.prototype = {
+Cart.prototype = {
     /*
      * Drops the cart.
      * @function _drop
@@ -156,7 +156,7 @@ CartModel.prototype = {
      * Add an item to the cart.
      * @function addToCart
      */
-    addItemToCart: function (item) {
+    addToCart: function (item) {
 	if (item) {
 	    this._cartList.push(item);
 	}
@@ -198,7 +198,7 @@ function DatabaseModel() {
     this._itemList = [];
     this._db_inventory = 'http://pub.jamaica-inn.net/fpdb/api.php?username=anddar&password=anddar&action=inventory_get';
 
-    this.listUpdated = new Event(this); 
+    this.listUpdated = new Event(this);
 }
 
 DatabaseModel.prototype = {
@@ -210,12 +210,12 @@ DatabaseModel.prototype = {
 	while(this._itemList.length > 0) {
 	    this._itemList.pop();
 	}
-    },    
-    
+    },
+
     /*
      * Checks how many of the search term has a match on the label
      * @function _getCount
-     * @return {Integer} 
+     * @return {Integer}
      */
     _getCount: function(name, searchArray) {
 	var count = 0;
@@ -229,9 +229,10 @@ DatabaseModel.prototype = {
     },
 
     /*
-     * Filters out items where name is not empty and where enough search terms exist in the item
+     * Filters out items where name is not empty and where enough search terms
+     * exist in the item
      * @function _filter
-     * @return {Item} 
+     * @return {Item}
      */
     _filter: function(query, item, _this) {
 	var searchString = query.toLowerCase();
@@ -240,7 +241,7 @@ DatabaseModel.prototype = {
 	var name = item.namn.toLowerCase();
 	var nameAndName2 = name + ' ' + item.namn2.toLowerCase();
 	var count = _this._getCount(nameAndName2, searchArray);
-	
+
 	if (name.length > 0 && (searchString.length == 0 || count >= lowerBound)) {
 	    return new Item(item.namn, item.namn2, item.sbl_price, item.pub_price, item.beer_id, item.count, item.price);
 	}else{
@@ -248,14 +249,14 @@ DatabaseModel.prototype = {
 	}
     },
     /*
-     * Query the database. 
+     * Query the database.
      * @function query
-     * @param query 
+     * @param query
      */
     query: function (query) {
 	console.log("Model.query(): " + query);
 	var _this = this;
-        
+
 	$.ajax({
             url: this._db_inventory,
 	    type: "POST",
@@ -269,8 +270,8 @@ DatabaseModel.prototype = {
 		    if(newItem) {
 			_this._itemList.push(newItem);
 		    }
-		});		
-		
+		});
+
 		console.log("Model.query().itemList: ", _this._itemList.length);
 		_this.listUpdated.notify();
             },
@@ -281,7 +282,7 @@ DatabaseModel.prototype = {
 
     },
 
-    
+
     /*
      * Get an Item list
      * @function getItemList
@@ -327,35 +328,35 @@ DrinkView.prototype = {
     /*
      * Shows the view.
      * @function show
-     */ 
+     */
     show: function () {
 	this.refresh();
     },
 
     /*
-     * Refreshes the view. 
+     * Refreshes the view.
      * @function refresh
      */
     refresh: function () {
 	var list = this._elements.list;
 	var itemList = [];
-	
+
 	list.empty();
-	
+
         list.append($('<table id="drink_table"></table>'));
         itemList = this._model.getItemList();
 
 	console.log("View.refresh()", itemList.length);
 
-	for(var i = 0; i < itemList.length; i++) {
+	for (var i = 0; i < itemList.length; i++) {
 
             list.append($(
-		'<tr>' +
+		                '<tr>' +
                     '<td><button ' +
                     'class="item"' +
                     'onclick="addToCart(' + itemList[i].getId() + ')" ' +
                     'draggable="true">' +
-                    itemList[i].getFullName() + 
+                    itemList[i].getFullName() +
                     '</button></td>' +
                     '<td>' + itemList[i].getPubPrice() + '</td>' +
                     '<td>' + itemList[i].getCount() + '</td>' +
@@ -389,7 +390,7 @@ function DrinkController(model, view) {
     var _this = this;
 
     this._view.inputModified.attach(function () {
-	_this.updateView();
+      _this.updateView();
     });
 }
 
@@ -400,7 +401,7 @@ DrinkController.prototype = {
      */
     updateView: function () {
 	var query = this._view.getQuery();
-	console.log("DrinkController.updateView: "+ query);
+	console.log("DrinkController.updateView(query), argument:"+ query);
 	this._model.query(query);
     }
 };
@@ -417,8 +418,8 @@ function Main() {
 }
 
 Main.prototype = {
-    /* 
-     * Creates an MVC and shows the view. 
+    /*
+     * Creates an MVC and shows the view.
      * @function run
      */
     run: function() {
@@ -428,12 +429,12 @@ Main.prototype = {
 	    'input': $('#query')
 	});
 	this._controller = new DrinkController(this._model, this._view);
-	this._view.show();
+  this._controller.updateView();
     }
 }
 
-/* 
- * Executes Main after the DOM is ready. 
+/*
+ * Executes Main after the DOM is ready.
  * @function ready
  */
 $(function () {
