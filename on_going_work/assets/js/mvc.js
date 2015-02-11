@@ -77,6 +77,113 @@ Item.prototype = {
 	return this._price;
     }
 };
+/*
+ * The amount of a particular item in a cart.  
+ * @class CartItem
+ * @constructor
+ * Creates a cart item
+ */
+function CartItem(item) {
+    this._item = item;
+    this._amount = 0;
+}
+
+CartItem.prototype = {
+    /*
+     * Add an amount of the cart item.
+     * @function add
+     */
+    add: function () {
+	this._amount++;
+    },
+    /*
+     * Remove an amount of the cart item.
+     * @function remove
+     */
+    remove: function () {
+	if(this._amount > 0) {
+	    this._amount--;
+	}
+    },
+    /*
+     * Get the sum of the total amount of an particular item in a cart.
+     * @function getSum
+     * @return {Float}
+     */
+    getSum: function () {
+	return (this._item.getPrice() * this._amount);
+    },
+    /*
+     * Get the cart item id
+     * @function getId
+     * @return {Integer}
+     */
+    getId: function () {
+	return this._item.getId();
+    }
+}
+/*
+ * Stores the items added by the user. 
+ * @class CartModel
+ * @constructor
+ * Creates a cart model
+ */
+function CartModel() {
+    this._cartList = [];
+    this.cartUpdated = new Event(this);
+}
+
+CartModel.prototype = {
+    /*
+     * Drops the cart.
+     * @function _drop
+     */
+    _drop: function () {
+	while(this._cartList.length > 0) {
+	    this._cartList.pop();
+	}
+    },
+    /*
+     * Get cart item by id
+     * @function _getCartItem
+     * return {Item}
+     */
+    _getCartItem: function (cartId) {
+	var elementPos = this._cartList.map(function(x) {return x.getId(); }).indexOf(cartId);
+	return this._cartList[elementPos];
+    },
+    /*
+     * Add an item to the cart.
+     * @function addToCart
+     */
+    addItemToCart: function (item) {
+	if (item) {
+	    this._cartList.push(item);
+	}
+    },
+    /*
+     * Add one amount to an item
+     * @function addAmountToItem
+     */
+    addAmountToItem: function (itemId) {
+	console.log("tbi");
+    },
+    /*
+     * Remove one amount from an item
+     * @function removeAmountFromItem
+     */
+    removeAmountFromItem: function (itemId) {
+	console.log("tbi");
+    },
+    /*
+     * Get the cart.
+     * @function getCart
+     * @return {Item[]}
+     */
+    getCart: function () {
+        return [].concat(this._cartList);
+    }
+}
 
 /*
  * The Model. Model stores items and notifies observers about changes.
@@ -87,7 +194,6 @@ Item.prototype = {
  */
 function DatabaseModel() {
     this._itemList = [];
-    this._temp = [];
     this._db_inventory = 'http://pub.jamaica-inn.net/fpdb/api.php?username=anddar&password=anddar&action=inventory_get';
 
     this.listUpdated = new Event(this); 
@@ -134,9 +240,7 @@ DatabaseModel.prototype = {
 	var count = _this._getCount(nameAndName2, searchArray);
 	
 	if (name.length > 0 && (searchString.length == 0 || count >= lowerBound)) {
-	     
 	    return new Item(item.namn, item.namn2, item.sbl_price, item.pub_price, item.beer_id, item.count, item.price);
-
 	}else{
 	    return null;
 	}
