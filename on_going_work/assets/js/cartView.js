@@ -11,16 +11,28 @@ function CartView(elements) {
 }
 
 CartView.prototype = {
-
+    /*
+     * Increases the amount of an item.
+     * @function _addAmountToItem
+     */
     _addAmountToItem: function (itemId) {
 	console.log("add: ", itemId); 
 	this.amountAdded.notify({itemId: itemId});
     },
 
+    /*
+     * Decreases the amount of an item.
+     * @function _removeAmountFromItem
+     */
     _removeAmountFromItem: function (itemId) {
 	console.log("remove: ", itemId);
 	this.amountRemoved.notify({itemId: itemId});
     },
+
+    /*
+     * Refreshes the cart view
+     * @function refresh
+     */
     refresh: function (cartItemList) {
 	var _this = this;
 	var cart = this._elements.cart;
@@ -57,11 +69,11 @@ CartView.prototype = {
 	    );
 	    
         }
-	// listen to button clicks
+	// listens to + button
 	cart.on('click', '#addAmount', function(e) {
 	    _this._addAmountToItem($(this).val());
 	});
-	// listen to button clicks
+	// listens to - button
 	cart.on('click', '#removeAmount', function(e) {
 	    _this._removeAmountFromItem($(this).val());
 	});

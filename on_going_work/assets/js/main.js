@@ -9,11 +9,15 @@ function Main() {
 }
 
 Main.prototype = {
+    /*
+     * Get the views to be used in the system.
+     * @function _getViews
+     * @return {Views[]}
+     */
     _getViews: function () {
 	var drinkView = new DrinkView({
 	    'list': $('#drink_table'),
-	    'input': $('#query'),
-	    'addButton': $('#addButton')
+	    'input': $('#query')
 	});
 
 	var cartView = new CartView({
@@ -23,6 +27,11 @@ Main.prototype = {
 	return {drink: drinkView, cart: cartView};
     },
     
+    /*
+     * Get the models to be used in the system.
+     * @function _getModels
+     * @return {Models[]}
+     */
     _getModels: function () {
 	var databaseModel = new DatabaseModel();
 	var cartModel = new CartModel();

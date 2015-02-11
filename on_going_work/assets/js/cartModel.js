@@ -40,7 +40,7 @@ CartModel.prototype = {
 	}
     },
     /*
-     * Add one amount to an item
+     * Increases the amount of an item.
      * @function addAmountToItem
      */
     addAmountToItem: function (itemId) {
@@ -51,7 +51,7 @@ CartModel.prototype = {
 	this.cartUpdated.notify();
     },
     /*
-     * Remove one amount from an item
+     * Decreases the amount of an item.
      * @function removeAmountFromItem
      */
     removeAmountFromItem: function (itemId) {
