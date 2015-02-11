@@ -17,19 +17,27 @@
 	<script src="assets/js/languageView.js"></script>
     </head>
     <body>
-	<div class="row container">
-	    <div class="col-xs-4">
-		<h2 id="search">Search</h2><input autocomplete="off" id="query">
-	    </div>
-	    <div class="col-xs-8">
-		<h2 id="avail_items">Available items:</h2><div id="drink_table"></div>
-	    </div>
-	    <div class="col-xs-12">
-		<h2 id="most_bought">Most bought</h2>
-	    </div>
-	    <div class="col-xs-16">
-		<h2 id="">Shopping cart</h2><div id="cart"></div>
-	    </div>
+
+	<!-- DRINK TABLE -->
+	<div id="drinks">
+            <!-- SEARCH BAR -->
+            <div id="search">
+		<label for="query">Search</label>
+		<input autocomplete="off" id="query">
+            </div>
+  	    <h2>Available items:</h2>
+	    <div id="drink_table"></div>
+	</div>
+
+	<!-- QUICK BUY -->
+	<div id="quick_buy">
+	    <h2>Most bought</h2>
+	</div>
+
+	<!-- CART -->
+	<div id="cart">
+	    <h2>Shopping cart</h2>
+	</div>
 	</div>
     </body>
 </html>
