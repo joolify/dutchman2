@@ -49,6 +49,7 @@ CartView.prototype = {
 
 	for(var i = 0; i < cartItemList.length; i++) {
 	    var item = cartItemList[i].getItem();
+	    var buttonId = "button_" + item.getId();
             cart.append(
 		$(
 		    '<tr>' +
@@ -61,10 +62,10 @@ CartView.prototype = {
 			'</td>' +
 			'<td>' + cartItemList[i].getSum() + '</td>' +
 			'<td>' +
-			'<button id="addAmount"' +
+			'<button id="' + buttonId + '"' +
 			'value="' + item.getId() + '"' +  
 			'>+</button>' +
-			'<button id="removeAmount"' +
+			'<button id="' + buttonId + '_2"' +
 			'value="' + item.getId() + '"' +  
 			'>-</button>' +
 			'</td>' + 
@@ -72,14 +73,14 @@ CartView.prototype = {
 		)
 	    );
 	    
+	    // Listens to + button
+	    $('#' + buttonId).bind('click', function(e) {
+		_this._addAmountToItem($(this).val());
+	    });
+	    // Listens to - button
+	    $('#' + buttonId + '_2').bind('click', function(e) {
+		_this._removeAmountFromItem($(this).val());
+	    });
         }
-	// Listens to + button
-	cart.on('click', '#addAmount', function(e) {
-	    _this._addAmountToItem($(this).val());
-	});
-	// Listens to - button
-	cart.on('click', '#removeAmount', function(e) {
-	    _this._removeAmountFromItem($(this).val());
-	});
     }
 };
