@@ -44,28 +44,29 @@ DrinkView.prototype = {
 	console.log("View.refresh().itemList", itemList.length);
 
 	for(var i = 0; i < itemList.length; i++) {
+	    var item = itemList[i];
+	    var buttonAdd = "addButton_" + item.getId();
             list.append(
 		$(
 		    '<tr>' +
 			'<td><button ' +
 			'class="item" ' +
-			'id="addButton" '  +
-			'value="' + itemList[i].getId() + '"' +  
+			'id="' + buttonAdd + '"' +
+			'value="' + item.getId() + '"' +  
 			'draggable="true">' +
-			itemList[i].getFullName() + 
+			item.getFullName() + 
 			'</button></td>' +
-			'<td>' + itemList[i].getPubPrice() + '</td>' +
-			'<td>' + itemList[i].getCount() + '</td>' +
+			'<td>' + item.getPubPrice() + '</td>' +
+			'<td>' + item.getCount() + '</td>' +
 			'</tr>'
 		)
 	    );
 	    
+	    // Listen to button clicks
+	    $('#' + buttonAdd).bind('click', function(e) {
+		_this._addToCart($(this).val());
+	    });
         }
-	// Listen to button clicks
-	list.on('click', '#addButton', function(e) {
-	    _this._addToCart($(this).val());
-	});
-
     }
 };
 
