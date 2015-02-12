@@ -21,9 +21,20 @@ function DrinkView(elements) {
 }
 
 DrinkView.prototype = {
+    /*
+     * Notifys its listeners that it has a new query
+     * @function _queryUpdated
+     * @param {String} newQuery
+     */
     _queryUpdated: function (newQuery) {
 	this.inputModified.notify({query: newQuery});
     },
+
+    /*
+     * Notifys its listeners that a new item has been added
+     * @function _addToCart
+     * @param {Integer} itemId
+     */
     _addToCart: function (itemId) {
 	console.log("DrinkView._addToCart", itemId);
 	this.addItem.notify({itemId: itemId});

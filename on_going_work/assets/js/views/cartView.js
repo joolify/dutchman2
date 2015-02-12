@@ -73,7 +73,6 @@ CartView.prototype = {
 			'</tr>'
 		)
 	    );
-	    
 	    // Listens to + button
 	    $('#' + buttonPlus).bind('click', function(e) {
 		_this._addAmountToItem($(this).val());

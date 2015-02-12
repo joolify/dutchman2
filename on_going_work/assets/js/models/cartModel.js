@@ -29,13 +29,22 @@ CartModel.prototype = {
 	var elementPos = this._cartList.map(function(x) {return x.getId(); }).indexOf(cartId);
 	return this._cartList[elementPos];
     },
+
+    /* Returns true if cart item exists, else false.
+     * @function exists
+     * @param {Item} item
+     * @return {Boolean}
+     */
+    _exists: function (item) {
+	return (this._getCartItem(item.getId()) != null);
+    },
     /*
      * Add an item to the cart.
      * @function addToCart
      * @param {Item} item
      */
     addItemToCart: function (item) {
-	if (item) {
+	if (item && !this._exists(item)) {
 	    var cartItem = new CartItem(item);
 	    this._cartList.push(cartItem);
 	    this.cartUpdated.notify();
