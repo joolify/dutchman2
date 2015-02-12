@@ -49,7 +49,8 @@ CartView.prototype = {
 
 	for(var i = 0; i < cartItemList.length; i++) {
 	    var item = cartItemList[i].getItem();
-	    var buttonId = "button_" + item.getId();
+	    var buttonPlus = "cartPlus_" + item.getId();
+	    var buttonMinus = "cartMinus_" + item.getId();
             cart.append(
 		$(
 		    '<tr>' +
@@ -62,10 +63,10 @@ CartView.prototype = {
 			'</td>' +
 			'<td>' + cartItemList[i].getSum() + '</td>' +
 			'<td>' +
-			'<button id="' + buttonId + '"' +
+			'<button id="' + buttonPlus + '"' +
 			'value="' + item.getId() + '"' +  
 			'>+</button>' +
-			'<button id="' + buttonId + '_2"' +
+			'<button id="' + buttonMinus + '"' +
 			'value="' + item.getId() + '"' +  
 			'>-</button>' +
 			'</td>' + 
@@ -74,11 +75,11 @@ CartView.prototype = {
 	    );
 	    
 	    // Listens to + button
-	    $('#' + buttonId).bind('click', function(e) {
+	    $('#' + buttonPlus).bind('click', function(e) {
 		_this._addAmountToItem($(this).val());
 	    });
 	    // Listens to - button
-	    $('#' + buttonId + '_2').bind('click', function(e) {
+	    $('#' + buttonMinus).bind('click', function(e) {
 		_this._removeAmountFromItem($(this).val());
 	    });
         }
