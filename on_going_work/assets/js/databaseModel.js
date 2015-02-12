@@ -7,7 +7,6 @@
  */
 function DatabaseModel() {
     this._itemList = [];
-    this._temp = [];
     this._db_inventory = 'http://pub.jamaica-inn.net/fpdb/api.php?username=anddar&password=anddar&action=inventory_get';
 
     this.listUpdated = new Event(this); 
@@ -119,5 +118,5 @@ DatabaseModel.prototype = {
     getItem: function (itemId) {
 	var elementPos = this._itemList.map(function(x) {return x.getId(); }).indexOf(itemId);
 	return this._itemList[elementPos];
-    },
+    }
 };

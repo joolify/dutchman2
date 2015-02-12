@@ -7,25 +7,22 @@
  */
 function DrinkView(elements) {
     this._elements = elements;
-    this._currentQuery = "";
-    //this._addButtons = [];
 
     this.inputModified = new Event(this);
     this.addItem = new Event(this);
 
     var _this = this;
 
-    // listener to HTML input
+    // Listens to search input
     this._elements.input.on('input', function(e) {
-	_this._setQuery($(this).val());
+	_this._queryUpdated($(this).val());
     });
 
 }
 
 DrinkView.prototype = {
-    _setQuery: function (newQuery) {
-	this._currentQuery = newQuery;
-	this.inputModified.notify();
+    _queryUpdated: function (newQuery) {
+	this.inputModified.notify({query: newQuery});
     },
     _addToCart: function (itemId) {
 	console.log("DrinkView._addToCart", itemId);
@@ -64,20 +61,11 @@ DrinkView.prototype = {
 	    );
 	    
         }
-	// listen to button clicks
+	// Listen to button clicks
 	list.on('click', '#addButton', function(e) {
 	    _this._addToCart($(this).val());
 	});
 
-    },
-
-    /*
-     * notify the query from input
-     * @function getQuery
-     * @return {string} the query
-     */
-    getQuery: function () {
-	return this._currentQuery;
     }
 };
 

@@ -21,8 +21,8 @@ function Controller(models, views) {
     */
 
     /* DrinkView */
-    this._drinkView.inputModified.attach(function () {
-	_this.queryDatabaseModel();
+    this._drinkView.inputModified.attach(function (sender, args) {
+	_this.queryDatabaseModel(args.query);
     });
 
     this._drinkView.addItem.attach(function (sender, args) {
@@ -63,8 +63,7 @@ Controller.prototype = {
     /* Queries the DatabaseModel
      * @function queryDatabaseModel
      */
-    queryDatabaseModel: function () {
-	var query = this._drinkView.getQuery();
+    queryDatabaseModel: function (query) {
 	console.log("Controller.queryDatabaseModel: "+ query);
 	this._databaseModel.query(query);
     },
