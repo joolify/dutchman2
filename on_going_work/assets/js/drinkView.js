@@ -1,7 +1,6 @@
 /*
- * The View. View presents the model and provides the UI events. The controller is attached to these events to handle the user interraction.
+ * The View presents the model and provides the UI events. The controller is attached to these events to handle the user interaction.
  * @class DataBaseModel
- * @param {DatabaseModel} model
  * @param {Object[]} elements
  * @constructor
  * Creates a DrinkView
@@ -35,6 +34,7 @@ DrinkView.prototype = {
     /*
      * Refreshes the view. 
      * @function refresh
+     * @param {Item[]} itemList
      */
     refresh: function (itemList) {
 	var _this = this;

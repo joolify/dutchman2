@@ -1,5 +1,5 @@
 /*
- * The Controller. Controller responds to user actions and invokes changes on the model.
+ * The controller responds to user actions and invokes changes on the model.
  * @class Controller
  * @param {DatabaseModel} model
  * @param {DrinkView} view
@@ -11,11 +11,16 @@ function Controller(models, views) {
     this._databaseModel = models.database;
     this._cartModel = models.cart;
     this._drinkView = views.drink;
-    this._langModel = models.language;
+    this._languageModel = models.language;
     this._currentLanguage = null;
 
     var _this = this;
 
+   /*
+    * Event listeners
+    */
+
+    /* DrinkView */
     this._drinkView.inputModified.attach(function () {
 	_this.queryDatabaseModel();
     });
@@ -24,14 +29,17 @@ function Controller(models, views) {
 	_this.addToCartModel(args.itemId);
     });
 
+    /* DatabaseModel */
     this._databaseModel.listUpdated.attach(function () {
         _this.refreshDrinkView();
     });
 
+    /* CartModel */
     this._cartModel.cartUpdated.attach(function () {
 	_this.refreshCartView();
     });
 
+    /* CartView */
     this._cartView.amountAdded.attach(function (sender, args) {
 	_this.addAmountToCartModel(args.itemId);
     });
@@ -51,20 +59,40 @@ Controller.prototype = {
 	var initSearch = "";
 	this._databaseModel.query(initSearch);
     },
+     
+    /* Queries the DatabaseModel
+     * @function queryDatabaseModel
+     */
     queryDatabaseModel: function () {
 	var query = this._drinkView.getQuery();
 	console.log("Controller.queryDatabaseModel: "+ query);
 	this._databaseModel.query(query);
     },
+
+    /* Add an item to the CartModel
+     * @function addToCartModel
+     * @param itemId
+     */
     addToCartModel: function (itemId) {
 	var item = this._databaseModel.getItem(itemId);
 	this._cartModel.addItemToCart(item);
 	console.log("Controller.addToCartModel: ", itemId);
     },
+
+    /* Increases the amount of an item.
+     * function addAmountToCartModel
+     * @param itemId
+     */
     addAmountToCartModel: function (itemId) {
 	console.log("Controller.addAmountToCartModel: ", itemId);
 	this._cartModel.addAmountToItem(itemId);
     },
+
+    
+    /* Increases the amount of an item.
+     * @function removeAmountFromCartModel
+     * @param itemId
+     */
     removeAmountFromCartModel: function (itemId) {
 	console.log("Controller.removeAmountFromCartModel: ", itemId);
 	this._cartModel.removeAmountFromItem(itemId);
@@ -79,6 +107,10 @@ Controller.prototype = {
 	this._drinkView.refresh(itemList);
     },
 
+    /*
+     * Refreshes the CartView
+     * @function refreshCartView
+     */
     refreshCartView: function () {
 	var cartItemList = this._cartModel.getCart();
 	console.log("Controller.refreshCartView: " + cartItemList.length);

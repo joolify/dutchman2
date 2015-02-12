@@ -1,7 +1,9 @@
 /*
  * Event handler
  * @class Event
- * @constructor
+ * @param {Object} sender
+ * @constructor 
+ * Creates an Event
  */
 function Event(sender) {
     this._sender = sender;
@@ -9,13 +11,22 @@ function Event(sender) {
 }
 
 Event.prototype = {
+    /*
+     * Attach a listener to an event
+     * @function attach
+     * @param {Object} listener
+     */
     attach: function (listener) {
         this._listeners.push(listener);
     },
-    notify: function (args) {
-        var index;
 
-        for (index = 0; index < this._listeners.length; index += 1) {
+    /* 
+     * Notify listeners if an event occurs
+     * @function notify
+     * @param {Object[]} args
+     */
+    notify: function (args) {
+        for (var index = 0; index < this._listeners.length; index++) {
             this._listeners[index](this._sender, args);
         }
     }

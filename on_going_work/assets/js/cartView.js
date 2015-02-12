@@ -1,6 +1,7 @@
 /*
  * The view for the cart.
  * @class CartView
+ * @param {Object[]} elements
  * @constructor
  * Creates a cart view
  */
@@ -14,6 +15,7 @@ CartView.prototype = {
     /*
      * Increases the amount of an item.
      * @function _addAmountToItem
+     * @param {Integer} itemId
      */
     _addAmountToItem: function (itemId) {
 	console.log("add: ", itemId); 
@@ -23,6 +25,7 @@ CartView.prototype = {
     /*
      * Decreases the amount of an item.
      * @function _removeAmountFromItem
+     * @param {Integer} itemId
      */
     _removeAmountFromItem: function (itemId) {
 	console.log("remove: ", itemId);
@@ -32,6 +35,7 @@ CartView.prototype = {
     /*
      * Refreshes the cart view
      * @function refresh
+     * @param {CartItem[]} cartItemList
      */
     refresh: function (cartItemList) {
 	var _this = this;
@@ -69,11 +73,11 @@ CartView.prototype = {
 	    );
 	    
         }
-	// listens to + button
+	// Listens to + button
 	cart.on('click', '#addAmount', function(e) {
 	    _this._addAmountToItem($(this).val());
 	});
-	// listens to - button
+	// Listens to - button
 	cart.on('click', '#removeAmount', function(e) {
 	    _this._removeAmountFromItem($(this).val());
 	});

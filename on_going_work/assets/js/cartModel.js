@@ -22,6 +22,7 @@ CartModel.prototype = {
     /*
      * Get cart item by id
      * @function _getCartItem
+     * @param {Integer} cartId
      * return {CartItem}
      */
     _getCartItem: function (cartId) {
@@ -31,6 +32,7 @@ CartModel.prototype = {
     /*
      * Add an item to the cart.
      * @function addToCart
+     * @param {Item} item
      */
     addItemToCart: function (item) {
 	if (item) {
@@ -42,6 +44,7 @@ CartModel.prototype = {
     /*
      * Increases the amount of an item.
      * @function addAmountToItem
+     * @param {Integer} itemId
      */
     addAmountToItem: function (itemId) {
 	console.log("CartModel.addAmountToItem", itemId);
@@ -53,6 +56,7 @@ CartModel.prototype = {
     /*
      * Decreases the amount of an item.
      * @function removeAmountFromItem
+     * @param {Integer} itemId
      */
     removeAmountFromItem: function (itemId) {
 	var cartItem = this._getCartItem(itemId);
@@ -62,7 +66,7 @@ CartModel.prototype = {
     /*
      * Get the cart.
      * @function getCart
-     * @return {Item[]}
+     * @return {CartIt
      */
     getCart: function () {
         return [].concat(this._cartList);

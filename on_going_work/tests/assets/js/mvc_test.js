@@ -1,3 +1,4 @@
 QUnit.test( "hello test", function( assert ) {
-    assert.ok( 1 == "1", "Passed!" );
+    var main = new Main();
+    assert.ok( main != null, "Passed!");
 });

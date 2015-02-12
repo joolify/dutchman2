@@ -1,6 +1,7 @@
 /*
  * The amount of a particular item in a cart.  
  * @class CartItem
+ * @param {Item}
  * @constructor
  * Creates a cart item
  */

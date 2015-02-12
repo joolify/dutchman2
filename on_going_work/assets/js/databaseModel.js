@@ -27,6 +27,8 @@ DatabaseModel.prototype = {
     /*
      * Checks how many of the search term has a match on the label
      * @function _getCount
+     * @param name
+     * @param {String} searchArray
      * @return {Integer} 
      */
     _getCount: function(name, searchArray) {
@@ -41,9 +43,13 @@ DatabaseModel.prototype = {
     },
 
     /*
-     * Filters out items where name is not empty and where enough search terms exist in the item
+     * Filters out items where name is not empty and where enough search terms exist in the item.
      * @function _filter
+     * @param {String} query
+     * @param {String} item
+     * @param {DatabaseModel} _this
      * @return {Item} 
+     * @return {null} if not found
      */
     _filter: function(query, item, _this) {
 	var searchString = query.toLowerCase();
@@ -64,7 +70,7 @@ DatabaseModel.prototype = {
     /*
      * Query the database. 
      * @function query
-     * @param query 
+     * @param {String} query 
      */
     query: function (query) {
 	console.log("Model.query(): " + query);
@@ -107,6 +113,7 @@ DatabaseModel.prototype = {
     /*
      * Get item by id
      * @function getItem
+     * @param {Integer} itemId
      * return {Item}
      */
     getItem: function (itemId) {
