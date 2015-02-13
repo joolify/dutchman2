@@ -5,6 +5,9 @@ var PUB_PRICE = 20.0;
 var ID = 1;
 var COUNT = 3;
 var PRICE = 30.0;
+var ITEMID = 1337;
+var QUERY = "hello";
+var ELEMENTS = {'input': $('#query')};
 /*
  * Main test
  */
@@ -18,12 +21,6 @@ QUnit.test( "Main._getViews() is not null", function( assert ) {
     var main = new Main();
     
     assert.ok( main._getViews() != null, "Passed!");
-});
-
-QUnit.test( "Main._getModels() is not null", function( assert ) {
-    var main = new Main();
-    
-    assert.ok( main._getModels() != null, "Passed!");
 });
 
 QUnit.test( "Main._getModels() is not null", function( assert ) {
@@ -169,3 +166,74 @@ QUnit.test( "CartItem.getItem() returns correctly", function( assert ) {
     var cartItem = new CartItem(item);
     assert.ok( cartItem.getItem() == item, "Passed!");
 });
+
+/*
+ * Cart View Test
+ */
+QUnit.test( "CartView is not null", function( assert ) {
+    var cartView = new CartView();
+    assert.ok( cartView != null, "Passed!");
+});
+
+QUnit.test( "CartView._addAmountToItem calls correctly", function( assert ) {
+    this._cartView = new CartView();
+    
+    this._cartView.amountAdded.attach(function (sender, args) {
+	assert.ok( args.itemId == ITEMID, "Passed!");
+    });
+
+    this._cartView._addAmountToItem(ITEMID);
+});
+
+QUnit.test( "CartView._removeAmountFromItem calls correctly", function( assert ) {
+    this._cartView = new CartView();
+    
+    this._cartView.amountRemoved.attach(function (sender, args) {
+	assert.ok( args.itemId == ITEMID, "Passed!");
+    });
+
+    this._cartView._removeAmountFromItem(ITEMID);
+});
+
+/*
+  TODO: CartView.refresh() not tested
+*/  
+
+
+
+/*
+ * Drink View Test
+ */
+QUnit.test( "DrinkView is not null", function( assert ) {
+    var ELEMENTS = {'input': $('#query')};
+    var drinkView = new DrinkView(ELEMENTS);
+    assert.ok( drinkView != null, "Passed!");
+});
+
+QUnit.test( "DrinkView._queryUpdated calls correctly", function( assert ) {
+    var ELEMENTS = {'input': $('#query')};
+    this._drinkView = new DrinkView(ELEMENTS);
+    
+    this._drinkView.inputModified.attach(function (sender, args) {
+	assert.ok( args.query == QUERY, "Passed!");
+    });
+
+    this._drinkView._queryUpdated(QUERY);
+});
+
+QUnit.test( "DrinkView._addToCart calls correctly", function( assert ) {
+    var ELEMENTS = {'input': $('#query')};
+    this._drinkView = new DrinkView(ELEMENTS);
+    
+    this._drinkView.addItem.attach(function (sender, args) {
+	assert.ok( args.itemId == ITEMID, "Passed!");
+    });
+
+    this._drinkView._addToCart(ITEMID);
+});
+
+/*
+  TODO: DrinkView.refresh() not tested
+*/  
+
+
