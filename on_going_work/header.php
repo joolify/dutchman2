@@ -5,7 +5,14 @@
         <link rel="stylesheet" type="text/css" href="main.css">
         <link href='http://fonts.googleapis.com/css?family=Prociono' rel='stylesheet' type='text/css'>
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="translate.js"></script>
         <script type="text/javascript">
+          $(document).ready(function(){
+            translate($("#language option:selected").val());
+            $( "#language" ).change(function() {
+              translate($("#language option:selected").val());
+            });
+          })
           // Makes sure items are listed from the beginning
           $(document).ready(fetchItems());
 
