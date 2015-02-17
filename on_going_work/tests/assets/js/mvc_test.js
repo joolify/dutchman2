@@ -237,3 +237,26 @@ QUnit.test( "DrinkView._addToCart calls correctly", function( assert ) {
 */  
 
 
+
+QUnit.test( "LoginMain is not null", function( assert ) {
+    var loginMain = new LoginMain(); 
+    assert.ok( loginMain != null, "Passed!" );
+});
+
+QUnit.test( "LoginMain._getViews() is not null", function( assert ) {
+    var loginMain = new LoginMain(); 
+    assert.ok( loginMain._getViews() != null, "Passed!");
+});
+
+QUnit.test( "LoginMain._getModels() is not null", function( assert ) {
+    var loginMain = new LoginMain(); 
+    assert.ok( loginMain._getModels() != null, "Passed!");
+});
+
+QUnit.test( "LoginMain._controller is not null", function( assert ) {
+    var loginMain = new LoginMain(); 
+    loginMain.run();
+    assert.ok( loginMain._controller != null, "Passed!");
+});
+
+

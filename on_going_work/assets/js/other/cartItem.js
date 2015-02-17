@@ -17,9 +17,7 @@ CartItem.prototype = {
      * @function add
      */
     add: function () {
-	console.log("CartItem.add(): ", this._amount);
 	this._amount++;
-	console.log("CartItem.add(): ", this._amount);
     },
     /*
      * Remove an amount of the cart item.
@@ -27,9 +25,7 @@ CartItem.prototype = {
      */
     remove: function () {
 	if(this._amount > 0) {
-	console.log("CartItem.remove(): ", this._amount);
 	    this._amount--;
-	console.log("CartItem.remove(): ", this._amount);
 	}
     },
     /*

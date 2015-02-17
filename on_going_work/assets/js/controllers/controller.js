@@ -1,15 +1,15 @@
 /*
  * The controller responds to user actions and invokes changes on the model.
  * @class Controller
- * @param {DatabaseModel} model
- * @param {DrinkView} view
+ * @param {Model[]} model
+ * @param {Views[]} view
  * @constructor
  * Creates a Controller
  */
 function Controller(models, views) {
     this._cartView = views.cart;
-    this._databaseModel = models.database;
     this._cartModel = models.cart;
+    this._databaseModel = models.database;
     this._drinkView = views.drink;
     this._languageModel = models.language;
     this._currentLanguage = null;
@@ -47,6 +47,8 @@ function Controller(models, views) {
     this._cartView.amountRemoved.attach(function (sender, args) {
 	_this.removeAmountFromCartModel(args.itemId);
     });
+
+    
 }
 
 Controller.prototype = {
@@ -97,7 +99,7 @@ Controller.prototype = {
 	this._cartModel.removeAmountFromItem(itemId);
     },
     /*
-     * Refreshes the drink view
+     * Refreshes the DrinkView
      * @function refreshDrinkView
      */
     refreshDrinkView: function () {

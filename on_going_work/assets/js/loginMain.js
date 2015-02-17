@@ -1,49 +1,46 @@
 /*
- * Main
- * @class Main
+ * LoginMain
+ * @class LoginMain
  * @constructor
  * Creates an MVC
  */
-function Main() {
+function LoginMain() {
     this._controller = null;
 }
-Main.prototype = {
+
+LoginMain.prototype = {
     /*
      * Get the views to be used in the system.
      * @function _getViews
      * @return {Views[]}
      */
     _getViews: function () {
-	var cartView = new CartView({
-	    'cart': $('#cart')
-	});
-
-	var drinkView = new DrinkView({
-	    'list': $('#drink_table'),
-	    'input': $('#query')
-	});
-
-	return {cart: cartView, drink: drinkView};
+	var loginView = new LoginView(
+	    {'loginForm': $('#loginForm'),
+	     'username': $('#username'),
+	     'password': $('#password'),
+	     'errorMsg': $('#errorMsg')});
+	
+	return {login: loginView};
     },
+
     /*
      * Get the models to be used in the system.
      * @function _getModels
      * @return {Models[]}
      */
     _getModels: function () {
-	var databaseModel = new DatabaseModel();
-	var cartModel = new CartModel();
-
-	return {cart: cartModel, database: databaseModel};
+	var loginModel = new LoginModel();
+	    
+	return {login: loginModel};
     },
 
     /* 
      * Creates an MVC and shows the view. 
      * @function run
      */
-    run: function() {
-	this._controller = new Controller(this._getModels(), this._getViews());
-	this._controller.run();
+    run: function () {
+	this._controller = new LoginController(this._getModels(), this._getViews());
     }
 };
 
@@ -52,6 +49,6 @@ Main.prototype = {
  * @function ready
  */
 $(function () {
-    var main = new Main();
+    var main = new LoginMain();
     main.run();
 });
