@@ -79,5 +79,27 @@ CartModel.prototype = {
      */
     getCart: function () {
         return [].concat(this._cartList);
+    },
+
+    /*
+     * Get the total price of all cart items
+     * @function getTotaltPrice
+     * @return {Float}
+     */
+    getTotalPrice: function () {
+	var sum = 0;
+	for(var i = 0; i < this._cartList.length; i++) {
+	    sum += this._cartList[i].getSum();
+	}
+	return sum;
+    },
+
+    /* 
+     * Get the user's credit
+     * @function getCredit
+     * @return {Float}
+     */
+    getCredit: function () {
+	return 0;
     }
 };

@@ -33,6 +33,25 @@ CartView.prototype = {
     },
 
     /*
+     * Sets the credit
+     * @function setCredit
+     * @param {Float} credit
+     */ 
+    setCredit: function (credit) {
+	console.log("CartView.setCredit", credit);
+	this._elements.credit.text("Credit: " + credit);
+    },
+    
+    /*
+     * Sets the total price
+     * @function setTotalPrice
+     * @param {Float} price
+     */
+    setTotalPrice: function (price) {
+	console.log("CartView.setTotalPrice", price);
+	this._elements.totalPrice.text("Total price: " + price);
+    },
+    /*
      * Refreshes the cart view
      * @function refresh
      * @param {CartItem[]} cartItemList
