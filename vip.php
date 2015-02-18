@@ -18,9 +18,9 @@
     <script src="assets/js/models/languageModel.js"></script>
     <script src="assets/js/models/menuModel.js"></script>
 
-    <script src="assets/js/other/cartItem.js"></script>
-    <script src="assets/js/other/event.js"></script>
-    <script src="assets/js/other/item.js"></script>
+    <script src="assets/js/helpers/cartItem.js"></script>
+    <script src="assets/js/helpers/event.js"></script>
+    <script src="assets/js/helpers/item.js"></script>
 
     <script src="assets/js/views/cartView.js"></script>
     <script src="assets/js/views/drinkView.js"></script>
