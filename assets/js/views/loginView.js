@@ -27,7 +27,6 @@ LoginView.prototype = {
 	console.log("LoginView.error: ");
 	this._elements.errorMsg.empty();
 	this._elements.errorMsg.text("Login failed: Username/Password is wrong.");
-    }
-    
+    }    
 };
 

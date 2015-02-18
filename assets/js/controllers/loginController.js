@@ -17,28 +17,34 @@ function LoginController(models, views) {
     });
 
     this._loginModel.loginDone.attach(function (sender, args) {
-	_this.redirect(args.msg);
+	_this.check(args.msg);
     });
 }
 
 LoginController.prototype = {
+
     login: function (username, password) {
 	console.log("LoginController.login: ", username, password);
 	this._loginModel.login(username, password);
     },
-
-    redirect: function (msg) {
+    redirect: function (page) {
+	console.log("LoginController.redirect: ", page);
+	window.location.href = page;
+    },
+    check: function (msg) {
 	switch(msg) {
 	case 0:
-	    console.log("LoginController.redirect: vip.php");
-	    window.location.href = "vip.php";
+	    console.log("LoginController.check: vip.php");
+	    this._loginModel.setUser(msg);
+	    this.redirect("vip.php");
 	    break;
 	case 1:
-	    console.log("LoginController.redirect: admin.php");
-	    window.location.href = "admin.php";
+	    console.log("LoginController.check: admin.php");
+	    this._loginModel.setUser(msg);
+	    this.redirect("admin.php");
 	    break;
 	default:
-	    console.log("LoginController.redirect: login.php");
+	    console.log("LoginController.check: login.php");
 	    this._loginView.errorLogin();
 	}
     }

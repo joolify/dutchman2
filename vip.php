@@ -13,11 +13,12 @@ include_once 'check.php';
 
     <script src="assets/js/main/vipMain.js"></script>
 
-    <script src="assets/js/controllers/vipController.js"></script>
+    <script src="assets/js/controllers/controller.js"></script>
 
     <script src="assets/js/models/cartModel.js"></script>
     <script src="assets/js/models/databaseModel.js"></script>
     <script src="assets/js/models/languageModel.js"></script>
+    <script src="assets/js/models/loginModel.js"></script>
     <script src="assets/js/models/menuModel.js"></script>
 
     <script src="assets/js/helpers/cartItem.js"></script>

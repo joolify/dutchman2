@@ -35,8 +35,9 @@ Main.prototype = {
     _getModels: function () {
 	var databaseModel = new DatabaseModel();
 	var cartModel = new CartModel();
+	var loginModel = new LoginModel();
 
-	return {cart: cartModel, database: databaseModel};
+	return {cart: cartModel, database: databaseModel, login: loginModel};
     },
 
     /* 
@@ -45,7 +46,7 @@ Main.prototype = {
      */
     run: function() {
 	this._controller = new Controller(this._getModels(), this._getViews());
-	this._controller.run();
+	this._controller.showDrinks();
     }
 };
 

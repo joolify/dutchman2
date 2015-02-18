@@ -8,7 +8,7 @@
 
     <script src="assets/js/main/loginMain.js"></script>
 
-    <script src="assets/js/controllers/loginController.js"></script>
+    <script src="assets/js/controllers/controller.js"></script>
 
     <script src="assets/js/views/loginView.js"></script>
 
