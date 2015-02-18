@@ -1,6 +1,3 @@
-<?php 
-  include_once 'check.php';
-?>
 <html>
   <head>
     <title>Login</title>
@@ -27,4 +24,3 @@
     </form>
   </body>
 </html>
-<?php exit?>

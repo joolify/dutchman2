@@ -1,5 +1,7 @@
 <?php 
-  include_once 'check.php';
+/*FIXME
+include_once 'check.php';
+*/
 ?>
 <html>
   <head>
