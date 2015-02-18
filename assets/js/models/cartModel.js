@@ -100,7 +100,14 @@ CartModel.prototype = {
      * @return {Float}
      */
     getCredit: function () {
-	http://pub.jamaica-inn.net/fpdb/api.php?username=aamsta&password=aamsta&action=iou_get
+	/*	var _this = this;
+	var iou = 'http://pub.jamaica-inn.net/fpdb/api.php?username=aamsta&password=aamsta&action=iou_get';
+	
+	$.when(
+	    $.getJSON(iou),
+	).done(function(iouJson){
+
+	}*/
 	return 0;
     }
 };
