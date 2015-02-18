@@ -1,13 +1,13 @@
 /*
- * Main
- * @class Main
+ * Vip
+ * @class Vip
  * @constructor
  * Creates an MVC
  */
-function Main() {
+function Vip() {
     this._controller = null;
 }
-Main.prototype = {
+Vip.prototype = {
     /*
      * Get the views to be used in the system.
      * @function _getViews
@@ -51,10 +51,10 @@ Main.prototype = {
 };
 
 /* 
- * Executes Main after the DOM is ready. 
+ * Executes Vip after the DOM is ready. 
  * @function ready
  */
 $(function () {
-    var main = new Main();
-    main.run();
+    var vip = new Vip();
+    vip.run();
 });

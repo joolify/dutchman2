@@ -42,6 +42,7 @@ function Controller(models, views) {
     if(this._cartModel) {
 	this._cartModel.cartUpdated.attach(function () {
 	    _this.refreshCartView();
+	    _this.refreshTotalPrice();
 	});
     }
     if(this._cartView) {
@@ -77,6 +78,7 @@ Controller.prototype = {
 	this.checkUser();
 	var initSearch = "";
 	this._databaseModel.query(initSearch);
+	this.refreshTotalPrice();
     },
 
     /*
@@ -84,7 +86,7 @@ Controller.prototype = {
      * @function showLogin
      */
     showLogin: function() {
-	console.log("Controller.checkUser()");
+	console.log("Controller.showLogin()");
 	this.checkUser();
     },
 
@@ -114,7 +116,6 @@ Controller.prototype = {
 	console.log("Controller.addAmountToCartModel: ", itemId);
 	this._cartModel.addAmountToItem(itemId);
     },
-
     
     /* Increases the amount of an item.
      * @function removeAmountFromCartModel
@@ -145,6 +146,15 @@ Controller.prototype = {
     },
 
     /*
+     * Refreshes the total price
+     * @function refreshTotalPrice
+     */
+    refreshTotalPrice: function () {
+	var totalPrice = this._cartModel.getTotalPrice();
+	this._cartView.setTotalPrice(totalPrice);
+    },
+    
+    /*
      * Login to the system
      * @function login
      * @param username
@@ -170,17 +180,17 @@ Controller.prototype = {
     checkLogin: function (msg) {
 	switch(msg) {
 	case 0:
-	    console.log("Controller.checkLogin: vip.php");
+	    console.log("Controller.checkLogin: vip.html");
 	    this._loginModel.setUser(msg);
-	    this.redirect("vip.php");
+	    this.redirect("vip.html");
 	    break;
 	case 1:
-	    console.log("Controller.checkLogin: admin.php");
+	    console.log("Controller.checkLogin: admin.html");
 	    this._loginModel.setUser(msg);
-	    this.redirect("admin.php");
+	    this.redirect("admin.html");
 	    break;
 	default:
-	    console.log("Controller.checkLogin: login.php");
+	    console.log("Controller.checkLogin: login.html");
 	    this._loginView.errorLogin();
 	}
     },
@@ -200,7 +210,7 @@ Controller.prototype = {
 	    break;
 	default:
 	    console.log("Controller.checkUser: unauthorized");
-	    this.redirect("index.php");
+	    this.redirect("index.html");
 	}
     }
 };

@@ -1,14 +1,14 @@
 /*
- * LoginMain
- * @class LoginMain
+ * Index
+ * @class Index
  * @constructor
  * Creates an MVC
  */
-function LoginMain() {
+function Index() {
     this._controller = null;
 }
 
-LoginMain.prototype = {
+Index.prototype = {
     /*
      * Get the views to be used in the system.
      * @function _getViews
@@ -45,10 +45,10 @@ LoginMain.prototype = {
 };
 
 /* 
- * Executes Main after the DOM is ready. 
+ * Executes Index after the DOM is ready. 
  * @function ready
  */
 $(function () {
-    var main = new LoginMain();
-    main.run();
+    var index = new Index();
+    index.run();
 });
