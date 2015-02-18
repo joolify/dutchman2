@@ -43,6 +43,7 @@ function Controller(models, views) {
 	this._cartModel.cartUpdated.attach(function () {
 	    _this.refreshCartView();
 	    _this.refreshTotalPrice();
+	    _this.refreshCredit();
 	});
     }
     if(this._cartView) {
@@ -79,6 +80,7 @@ Controller.prototype = {
 	var initSearch = "";
 	this._databaseModel.query(initSearch);
 	this.refreshTotalPrice();
+	this.refreshCredit();
     },
 
     /*
@@ -153,7 +155,15 @@ Controller.prototype = {
 	var totalPrice = this._cartModel.getTotalPrice();
 	this._cartView.setTotalPrice(totalPrice);
     },
-    
+     /*
+     * Refreshes the credit
+     * @function refreshCredit
+     */
+
+    refreshCredit: function () {
+	var credit = this._cartModel.getCredit();
+	this._cartView.setCredit(credit);
+    },
     /*
      * Login to the system
      * @function login

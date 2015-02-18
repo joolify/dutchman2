@@ -100,14 +100,20 @@ CartModel.prototype = {
      * @return {Float}
      */
     getCredit: function () {
-	/*	var _this = this;
+	var _this = this;
+	var result = null;
 	var iou = 'http://pub.jamaica-inn.net/fpdb/api.php?username=aamsta&password=aamsta&action=iou_get';
 	
-	$.when(
-	    $.getJSON(iou),
-	).done(function(iouJson){
-
-	}*/
-	return 0;
+	$.ajax({
+	    url: iou,
+	    async: false,
+	    dataType: 'json',
+	    success: function (data) {
+		$.each(data.payload, function (key, value){
+			result = value.assets; 
+		});
+	    }
+	});
+	return result;
     }
 };
