@@ -11,7 +11,7 @@ include_once 'check.php';
 
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
 
-    <script src="assets/js/main/vipMain.js"></script>
+    <script src="assets/js/main/vip.js"></script>
 
     <script src="assets/js/controllers/controller.js"></script>
 

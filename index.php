@@ -6,7 +6,7 @@
 
     <script src="assets/js/helpers/event.js"></script>
 
-    <script src="assets/js/main/loginMain.js"></script>
+    <script src="assets/js/main/index.js"></script>
 
     <script src="assets/js/controllers/controller.js"></script>
 
