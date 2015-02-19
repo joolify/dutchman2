@@ -6,6 +6,7 @@
  */
 function CartModel() {
     this._cartList = [];
+    this._credit = 0;
     this.cartUpdated = new Event(this);
 }
 
@@ -82,6 +83,15 @@ CartModel.prototype = {
 	cartItem.remove();
 	this.cartUpdated.notify();
     },
+
+    /*
+     * Checks if user has enough credit to buy items for
+     * @function hasEnoughCredit
+     * @return {Boolean}
+     */
+    hasEnoughCredit: function () {
+	return (this._credit >= this.getTotalPrice());
+    },
     /*
      * Get the cart.
      * @function getCart
@@ -112,7 +122,7 @@ CartModel.prototype = {
     getCredit: function (username, password) {
 	console.log("CartModel.getCredit: ", username, password);
 	var _this = this;
-	var result = null;
+	var credit = null;
 	var iou = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=iou_get';
 	
 	$.ajax({
@@ -121,10 +131,11 @@ CartModel.prototype = {
 	    dataType: 'json',
 	    success: function (data) {
 		$.each(data.payload, function (key, value){
-			result = value.assets; 
+			credit = value.assets; 
 		});
 	    }
 	});
-	return result;
+	_this._credit = credit;
+	return credit;
     }
 };
