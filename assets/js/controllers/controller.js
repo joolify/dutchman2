@@ -19,10 +19,16 @@ function Controller(models, views) {
     var _this = this;
 
     /*
-     * Event listeners
+     * ===========================================================
+     * ==================== EVENT LISTENERS ======================
+     * ===========================================================
      */
 
-    /* DrinkView */
+    /*
+     * ===========================================================
+     * == DRINK LISTENER =========================================
+     * ===========================================================
+     */
     if(this._drinkView) {
 	this._drinkView.inputModified.attach(function (sender, args) {
 	    _this.queryDatabaseModel(args.query);
@@ -32,19 +38,17 @@ function Controller(models, views) {
 	    _this.addToCartModel(args.itemId);
 	});
     }
-    /* DatabaseModel */
+
     if(this._databaseModel) {
 	this._databaseModel.listUpdated.attach(function () {
             _this.refreshDrinkView();
 	});
     }
-    /* Cart */
-    if(this._cartModel) {
-	this._cartModel.cartUpdated.attach(function () {
-	    _this.refreshCartView();
-	    _this.refreshTotalPrice();
-	});
-    }
+    /*
+     * ===========================================================
+     * == CART LISTENER ==========================================
+     * ===========================================================
+     */
     if(this._cartView) {
 	this._cartView.amountAdded.attach(function (sender, args) {
 	    _this.addAmountToCartModel(args.itemId);
@@ -58,6 +62,17 @@ function Controller(models, views) {
 	    _this.logout();
 	});
     }
+    if(this._cartModel) {
+	this._cartModel.cartUpdated.attach(function () {
+	    _this.refreshCartView();
+	    _this.refreshTotalPrice();
+	});
+    }
+    /*
+     * ===========================================================
+     * == LOGIN LISTENER =========================================
+     * ===========================================================
+     */
     /* Login */ 
     if(this._loginView) {
 	this._loginView.submitClicked.attach(function (sender, args) {
@@ -76,7 +91,17 @@ function Controller(models, views) {
     }
 }
 
+    /*
+     * ===========================================================
+     * ======================== METHODS ==========================
+     * ===========================================================
+     */
 Controller.prototype = {
+    /*
+     * ===========================================================
+     * == SHOW ===================================================
+     * ===========================================================
+     */
     /*
      * Show the drink table
      * @function showDrinks
@@ -100,14 +125,21 @@ Controller.prototype = {
     },
 
     /*
-     * Log out and redirects to index.html
-     * @function logout
+     * ===========================================================
+     * == DRINK ==================================================
+     * ===========================================================
      */
-    logout: function () {
-	console.log("Controller.logout");
-	this._loginModel.logout();
+
+    /*
+     * Refreshes the DrinkView
+     * @function refreshDrinkView
+     */
+    refreshDrinkView: function () {
+	var itemList = this._databaseModel.getItemList();
+	console.log("Controller.refreshDrinkView: " + itemList.length);
+	this._drinkView.refresh(itemList);
     },
-    
+
     /* Queries the DatabaseModel
      * @function queryDatabaseModel
      */
@@ -115,6 +147,12 @@ Controller.prototype = {
 	console.log("Controller.queryDatabaseModel: "+ query);
 	this._databaseModel.query(query);
     },
+
+    /*
+     * ===========================================================
+     * == CART ===================================================
+     * ===========================================================
+     */
 
     /* Add an item to the CartModel
      * @function addToCartModel
@@ -142,15 +180,6 @@ Controller.prototype = {
     removeAmountFromCartModel: function (itemId) {
 	console.log("Controller.removeAmountFromCartModel: ", itemId);
 	this._cartModel.removeAmountFromItem(itemId);
-    },
-    /*
-     * Refreshes the DrinkView
-     * @function refreshDrinkView
-     */
-    refreshDrinkView: function () {
-	var itemList = this._databaseModel.getItemList();
-	console.log("Controller.refreshDrinkView: " + itemList.length);
-	this._drinkView.refresh(itemList);
     },
 
     /*
@@ -182,16 +211,14 @@ Controller.prototype = {
 	var credit = this._cartModel.getCredit(username, password);
 	this._cartView.setCredit(credit);
     },
+
+
     /*
-     * Login to the system
-     * @function login
-     * @param username
-     * @param password
-     */ 
-    login: function (username, password) {
-	console.log("Controller.login: ", username, password);
-	this._loginModel.login(username, password);
-    },
+     * ===========================================================
+     * == LOGIN ==================================================
+     * ===========================================================
+     */
+
     /*
      * Redirects to a new page
      * @function redirect
@@ -219,6 +246,25 @@ Controller.prototype = {
      */
     isCurrentPage: function (page) {
 	return (this.getCurrentPage() == page);
+    },
+    /*
+     * Login to the system
+     * @function login
+     * @param username
+     * @param password
+     */ 
+    login: function (username, password) {
+	console.log("Controller.login: ", username, password);
+	this._loginModel.login(username, password);
+    },
+
+    /*
+     * Log out and redirects to index.html
+     * @function logout
+     */
+    logout: function () {
+	console.log("Controller.logout");
+	this._loginModel.logout();
     },
 
     /* Checks if the login was successful, if so redirect if needed.
