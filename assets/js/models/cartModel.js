@@ -54,6 +54,16 @@ CartModel.prototype = {
     _exists: function (item) {
 	return (this._getCartItem(item.getId()) != null);
     },
+
+    /*
+     * Compare two cart items' names 
+     * @function _compareItems
+     * @param {CartItem} cartItemA
+     * @param {CartItem} cartItemB
+     */
+    _compareItems: function(cartItemA, cartItemB){
+	return(cartItemA.getItem().getName().localeCompare(cartItemB.getItem().getName()));
+    },
     /*
      * ===========================================================
      * ======================== PUBLIC  ==========================
@@ -68,6 +78,7 @@ CartModel.prototype = {
 	if (item && !this._exists(item)) {
 	    var cartItem = new CartItem(item);
 	    this._cartList.push(cartItem);
+	    this._cartList.sort(this._compareItems);
 	    this.cartUpdated.notify();
 	}
     },

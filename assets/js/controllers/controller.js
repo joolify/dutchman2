@@ -257,19 +257,19 @@ Controller.prototype = {
      * @return {Boolean}
      */
     isCurrentPage: function (page) {
-	return (this.getCurrentPage() == page);
+    	return (this.getCurrentPage() == page);
     },
     /*
      * Login to the system
      * @function login
      * @param username
      * @param password
-     */ 
+     */
     login: function (username, password) {
-	console.log("Controller.login: ", username, password);
-	this._loginModel.login(username, password);
+    	console.log("Controller.login: ", username, password);
+    	this._loginModel.login(username, password);
     },
-
+    
     /*
      * Log out and redirects to index.html
      * @function logout
@@ -283,7 +283,7 @@ Controller.prototype = {
      * @function checkLogin
      */
     checkLogin: function () {
-	var page = "index.html"
+	var page = "index.html";
 	var isLoggedIn = +this._loginModel.isLoggedIn();
 	if(isLoggedIn) {
 	    console.log("Controller.checkLogin: " + isLoggedIn);
