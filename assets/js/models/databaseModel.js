@@ -7,8 +7,6 @@
  */
 function DatabaseModel() {
     this._itemList = [];
-    this._db_inventory = 'http://pub.jamaica-inn.net/fpdb/api.php?username=anddar&password=anddar&action=inventory_get';
-
     this.listUpdated = new Event(this); 
 }
 
@@ -99,12 +97,13 @@ DatabaseModel.prototype = {
      * @function query
      * @param {String} query 
      */
-    query: function (query) {
+    query: function (query, username, password) {
+	var urlQuery = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=inventory_get';
 	console.log("Model.query(): " + query);
 	var _this = this;
         
 	$.ajax({
-            url: this._db_inventory,
+            url: urlQuery,
 	    type: "POST",
 	    contentType: "application/json; charset=utf-8",
             dataType: 'json',

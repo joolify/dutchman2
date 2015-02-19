@@ -114,7 +114,7 @@ Controller.prototype = {
 	console.log("Controller.showDrinks()");
 	this.checkLogin();
 	var initSearch = "";
-	this._databaseModel.query(initSearch);
+	this.queryDatabaseModel(initSearch);
 	this.refreshTotalPrice();
 	this.refreshCredit();
     },
@@ -149,7 +149,9 @@ Controller.prototype = {
      */
     queryDatabaseModel: function (query) {
 	console.log("Controller.queryDatabaseModel: "+ query);
-	this._databaseModel.query(query);
+	var username = this._loginModel.getUserName();
+	var password = this._loginModel.getPassWord();
+	this._databaseModel.query(query, username, password);
     },
 
     /*
