@@ -43,7 +43,6 @@ function Controller(models, views) {
 	this._cartModel.cartUpdated.attach(function () {
 	    _this.refreshCartView();
 	    _this.refreshTotalPrice();
-	    _this.refreshCredit();
 	});
     }
     if(this._cartView) {
@@ -54,6 +53,10 @@ function Controller(models, views) {
 	this._cartView.amountRemoved.attach(function (sender, args) {
 	    _this.removeAmountFromCartModel(args.itemId);
 	});
+
+	this._cartView.logout.attach(function () {
+	    _this.logout();
+	});
     }
     /* Login */ 
     if(this._loginView) {
@@ -63,8 +66,12 @@ function Controller(models, views) {
     }
 
     if(this._loginModel) {
-	this._loginModel.loginDone.attach(function (sender, args) {
-	    _this.checkLogin(args.msg);
+	this._loginModel.loginDone.attach(function () {
+	    _this.checkLogin();
+	});
+
+	this._loginModel.logoutDone.attach(function () {
+	    _this.checkLogin();
 	});
     }
 }
@@ -76,7 +83,7 @@ Controller.prototype = {
      */
     showDrinks: function() {
 	console.log("Controller.showDrinks()");
-	this.checkUser();
+	this.checkLogin();
 	var initSearch = "";
 	this._databaseModel.query(initSearch);
 	this.refreshTotalPrice();
@@ -89,9 +96,18 @@ Controller.prototype = {
      */
     showLogin: function() {
 	console.log("Controller.showLogin()");
-	this.checkUser();
+	this.checkLogin();
     },
 
+    /*
+     * Log out and redirects to index.html
+     * @function logout
+     */
+    logout: function () {
+	console.log("Controller.logout");
+	this._loginModel.logout();
+    },
+    
     /* Queries the DatabaseModel
      * @function queryDatabaseModel
      */
@@ -155,13 +171,15 @@ Controller.prototype = {
 	var totalPrice = this._cartModel.getTotalPrice();
 	this._cartView.setTotalPrice(totalPrice);
     },
-     /*
+    /*
      * Refreshes the credit
      * @function refreshCredit
      */
 
     refreshCredit: function () {
-	var credit = this._cartModel.getCredit();
+	var username = this._loginModel.getUserName();
+	var password = this._loginModel.getPassWord();
+	var credit = this._cartModel.getCredit(username, password);
 	this._cartView.setCredit(credit);
     },
     /*
@@ -183,44 +201,52 @@ Controller.prototype = {
 	console.log("Controller.redirect: ", page);
 	window.location.href = page;
     },
-    /* Checks if the login was successful
-     * @function checkLogin
-     * @param msg
+
+    /*
+     * Get the current file name of a page
+     * @function getCurrentPage
+     * @return {String}
      */
-    checkLogin: function (msg) {
-	switch(msg) {
-	case 0:
-	    console.log("Controller.checkLogin: vip.html");
-	    this._loginModel.setUser(msg);
-	    this.redirect("vip.html");
-	    break;
-	case 1:
-	    console.log("Controller.checkLogin: admin.html");
-	    this._loginModel.setUser(msg);
-	    this.redirect("admin.html");
-	    break;
-	default:
-	    console.log("Controller.checkLogin: login.html");
-	    this._loginView.errorLogin();
-	}
+    getCurrentPage: function () {
+	var url = window.location.pathname;
+	var filename = url.substring(url.lastIndexOf('/')+1);
+	return filename;
+    },
+    
+    /* Check if user is on the right page, or should be redirected
+     * @function isCurrentPage
+     * @return {Boolean}
+     */
+    isCurrentPage: function (page) {
+	return (this.getCurrentPage() == page);
     },
 
-    /* Checks what kind of user it is
-     * @function checkUser
+    /* Checks if the login was successful, if so redirect if needed.
+     * @function checkLogin
      */
-    checkUser: function () {
-	var user = +this._loginModel.getUser();
-	console.log("Controller.checkUser:", user);
-	switch(user) {
-	case 0:
-	    console.log("Controller.checkUser: vip");
-	    break;
-	case 1:
-	    console.log("Controller.checkUser: admin");
-	    break;
-	default:
-	    console.log("Controller.checkUser: unauthorized");
-	    this.redirect("index.html");
+    checkLogin: function () {
+	var page = "index.html"
+	var isLoggedIn = +this._loginModel.isLoggedIn();
+	if(isLoggedIn) {
+	    console.log("Controller.checkLogin: " + isLoggedIn);
+	    var user = +this._loginModel.getUserType();
+	    if(0 == user) {
+		page = "vip.html";
+	    }else if(1 == user) {
+		page = "admin.html";
+
+		//FIXME
+		this.logout(); // Just to not get caught in admin.html...
+	    }
+	} 	
+	console.log("Controller.checkLogin: " + page);
+	if(!this.isCurrentPage(page)) {
+	    this.redirect(page);
 	}
+
+	if(this._loginModel.getError() && this.isCurrentPage("index.html")) {
+	    this._loginView.errorLogin();
+	}
+
     }
 };

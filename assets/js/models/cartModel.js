@@ -99,10 +99,11 @@ CartModel.prototype = {
      * @function getCredit
      * @return {Float}
      */
-    getCredit: function () {
+    getCredit: function (username, password) {
+	console.log("CartModel.getCredit: ", username, password);
 	var _this = this;
 	var result = null;
-	var iou = 'http://pub.jamaica-inn.net/fpdb/api.php?username=aamsta&password=aamsta&action=iou_get';
+	var iou = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=iou_get';
 	
 	$.ajax({
 	    url: iou,

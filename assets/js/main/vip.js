@@ -17,7 +17,8 @@ Vip.prototype = {
 	var cartView = new CartView({
 	    'cart': $('#cart'),
 	    'credit': $('#credit'),
-	    'totalPrice': $('#totalPrice')
+	    'totalPrice': $('#totalPrice'),
+	    'logout': $('#logout')
 	});
 
 	var drinkView = new DrinkView({

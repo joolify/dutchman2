@@ -9,9 +9,18 @@ function CartView(elements) {
     this._elements = elements;
     this.amountAdded = new Event(this);
     this.amountRemoved = new Event(this);
+    this.logout = new Event(this);
+    var _this = this;
+
+    this._elements.logout.click(function(e) {
+	_this._logout();
+    });
 }
 
 CartView.prototype = {
+    _logout: function () {
+	this.logout.notify();
+    },
     /*
      * Increases the amount of an item.
      * @function _addAmountToItem

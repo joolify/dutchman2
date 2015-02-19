@@ -41,6 +41,7 @@ Index.prototype = {
      */
     run: function () {
 	this._controller = new Controller(this._getModels(), this._getViews());
+	this._controller.showLogin();
     }
 };
 
