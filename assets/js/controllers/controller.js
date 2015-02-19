@@ -50,6 +50,10 @@ function Controller(models, views) {
      * ===========================================================
      */
     if(this._cartView) {
+	this._cartView.itemRemoved.attach(function (sender, args) {
+	    _this.removeItemFromCartModel(args.itemId);
+	});
+
 	this._cartView.amountAdded.attach(function (sender, args) {
 	    _this.addAmountToCartModel(args.itemId);
 	});
@@ -163,7 +167,15 @@ Controller.prototype = {
 	this._cartModel.addItemToCart(item);
 	console.log("Controller.addToCartModel: ", itemId);
     },
-
+    /*
+     * Remove an item from the CartModel
+     * @function removeItemFromCartModel
+     * @param {Integer} itemId
+     */
+    removeItemFromCartModel: function (itemId) {
+	console.log("Controller.removeItemFromCartModel: ", itemId);
+	this._cartModel.removeItem(itemId);
+    },
     /* Increases the amount of an item.
      * function addAmountToCartModel
      * @param itemId

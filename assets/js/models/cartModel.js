@@ -26,14 +26,24 @@ CartModel.prototype = {
 	}
     },
     /*
+     * Get the position of the cart item
+     * @function _getCartItemIndex
+     * @param {Integer} itemId
+     * @return {Integer}
+     */
+    _getCartItemIndex: function (itemId) {
+	var index = this._cartList.map(function(x) {return x.getId(); }).indexOf(itemId);
+	return index;
+    },
+    /*
      * Get cart item by id
      * @function _getCartItem
-     * @param {Integer} cartId
+     * @param {Integer} itemId
      * return {CartItem}
      */
-    _getCartItem: function (cartId) {
-	var elementPos = this._cartList.map(function(x) {return x.getId(); }).indexOf(cartId);
-	return this._cartList[elementPos];
+    _getCartItem: function (itemId) {
+	var index = this._getCartItemIndex(itemId);
+	return this._cartList[index];
     },
 
     /* Returns true if cart item exists, else false.
@@ -74,16 +84,34 @@ CartModel.prototype = {
 	this.cartUpdated.notify();
     },
     /*
-     * Decreases the amount of an item.
+     * Decreases the amount of an item. If the amount is 1, the item is removed.
      * @function removeAmountFromItem
      * @param {Integer} itemId
      */
     removeAmountFromItem: function (itemId) {
 	var cartItem = this._getCartItem(itemId);
-	cartItem.remove();
+	if(cartItem.getAmount() == 1) {
+	    this.removeItem(itemId);
+	}else{
+	    cartItem.remove();
+	}
 	this.cartUpdated.notify();
     },
 
+    /*
+     * Removes an item from the cart
+     * @function removeItem
+     * @param {Integer} itemId
+     */
+    removeItem: function (itemId) {
+	console.log("CartModel.removeItem: ", itemId);
+	var index = this._getCartItemIndex(itemId);
+	if(index > -1) {
+	    this._cartList.splice(index, 1);
+	    this.cartUpdated.notify();
+	}
+    },
+    
     /*
      * Checks if user has enough credit to buy items for
      * @function hasEnoughCredit
