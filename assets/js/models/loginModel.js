@@ -12,6 +12,11 @@ function LoginModel() {
 
 LoginModel.prototype = {
     /*
+     * ===========================================================
+     * ======================== PRIVATE  =========================
+     * ===========================================================
+     */
+    /*
      * Sets a cookie with a key and a value
      * @function _setCookie
      * @param {String} key
@@ -120,6 +125,11 @@ LoginModel.prototype = {
 	_this._setLoggedIn(0);
 	_this._setError();
     },
+    /*
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
     /* 
      * For debugging: List all available cookies. 
      * @function listCookies

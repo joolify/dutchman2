@@ -22,6 +22,11 @@ function DrinkView(elements) {
 
 DrinkView.prototype = {
     /*
+     * ===========================================================
+     * ======================== PRIVATE  =========================
+     * ===========================================================
+     */
+    /*
      * Notifys its listeners that it has a new query
      * @function _queryUpdated
      * @param {String} newQuery
@@ -39,6 +44,11 @@ DrinkView.prototype = {
 	console.log("DrinkView._addToCart", itemId);
 	this.addItem.notify({itemId: itemId});
     },
+    /*
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
     /*
      * Refreshes the view. 
      * @function refresh

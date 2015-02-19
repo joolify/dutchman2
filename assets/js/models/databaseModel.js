@@ -14,6 +14,11 @@ function DatabaseModel() {
 
 DatabaseModel.prototype = {
     /*
+     * ===========================================================
+     * ======================== PRIVATE  =========================
+     * ===========================================================
+     */
+    /*
      * Drops the database.
      * @function _drop
      */
@@ -67,6 +72,29 @@ DatabaseModel.prototype = {
 	}
     },
     /*
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
+    /*
+     * Get an Item list
+     * @function getItemList
+     * @return {Item[]} a list with Items.
+     */
+    getItemList: function () {
+        return [].concat(this._itemList);
+    },
+    /*
+     * Get item by id
+     * @function getItem
+     * @param {Integer} itemId
+     * return {Item}
+     */
+    getItem: function (itemId) {
+	var elementPos = this._itemList.map(function(x) {return x.getId(); }).indexOf(itemId);
+	return this._itemList[elementPos];
+    },
+    /*
      * Query the database. 
      * @function query
      * @param {String} query 
@@ -97,26 +125,5 @@ DatabaseModel.prototype = {
                 console.log('an error occurred!');
             }
         });
-
-    },
-
-    
-    /*
-     * Get an Item list
-     * @function getItemList
-     * @return {Item[]} a list with Items.
-     */
-    getItemList: function () {
-        return [].concat(this._itemList);
-    },
-    /*
-     * Get item by id
-     * @function getItem
-     * @param {Integer} itemId
-     * return {Item}
-     */
-    getItem: function (itemId) {
-	var elementPos = this._itemList.map(function(x) {return x.getId(); }).indexOf(itemId);
-	return this._itemList[elementPos];
     }
 };

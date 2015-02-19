@@ -12,6 +12,11 @@ function Event(sender) {
 
 Event.prototype = {
     /*
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
+    /*
      * Attach a listener to an event
      * @function attach
      * @param {Object} listener

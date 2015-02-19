@@ -23,6 +23,11 @@ function Item(name, name2, sbl_price, pub_price, id, count, price) {
 
 Item.prototype = {
     /*
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
+    /*
      * Get the name of the Item
      * @function getName
      * @return {String}

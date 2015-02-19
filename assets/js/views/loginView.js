@@ -18,11 +18,26 @@ function LoginView(elements) {
 }
 
 LoginView.prototype = {
+    /*
+     * ===========================================================
+     * ======================== PRIVATE  =========================
+     * ===========================================================
+     */
+    /*
+     * Notifys that the user has clicked the submit button
+     * @function _submit
+     * @param {String} username
+     * @param {String} password
+     */
     _submit: function (username, password) {
 	console.log("LoginView._submit: usr: " + username + ", pwd: " + password);
 	this.submitClicked.notify({username: username, password: password});
     },
 
+    /*
+     * Evokes the error message
+     * @function errorLogin
+     */
     errorLogin: function () {
 	console.log("LoginView.error: ");
 	this._elements.errorMsg.empty();

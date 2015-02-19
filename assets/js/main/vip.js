@@ -9,6 +9,11 @@ function Vip() {
 }
 Vip.prototype = {
     /*
+     * ===========================================================
+     * ======================== PRIVATE  =========================
+     * ===========================================================
+     */
+    /*
      * Get the views to be used in the system.
      * @function _getViews
      * @return {Views[]}
@@ -41,6 +46,11 @@ Vip.prototype = {
 	return {cart: cartModel, database: databaseModel, login: loginModel};
     },
 
+    /*
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
     /* 
      * Creates an MVC and shows the view. 
      * @function run
