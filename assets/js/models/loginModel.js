@@ -120,7 +120,7 @@ LoginModel.prototype = {
      * If login failed, flush cookies, set logged in to false, set error flag
      * @function _loginFailed
      */
-    _loginFailed: function () {
+    _loginFailed: function (_this) {
 	_this._flushCookies();
 	_this._setLoggedIn(0);
 	_this._setError();
@@ -231,7 +231,7 @@ LoginModel.prototype = {
 	    }
 	    else {
 		console.log("LoginModel.login: error");
-		_this.loginFailed();
+		_this._loginFailed(_this);
 		_this.loginDone.notify();
 	    }
 	});
