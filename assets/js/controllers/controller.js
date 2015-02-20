@@ -109,12 +109,18 @@ Controller.prototype = {
     test: function () {
         var cart = this._cartModel.getCart();
         var totalSum = this._cartModel.getTotalPrice();
-        var user = this._loginModel.getUser()
+        var user = "0" //this._loginModel.getUser()
         console.log("pengar", totalSum);
         console.log("antal", cart.length);
         console.log("user", user);
         this._payModel.test(cart, totalSum, user);
-        
+        this._cartModel._drop();
+
+        this.refreshCartView();
+        this.refreshTotalPrice();
+        this.refreshDrinkView();
+        this.refreshCredit();
+        this.showDrinks();
     },
     
     /*

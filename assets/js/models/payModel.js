@@ -21,7 +21,7 @@ PayModel.prototype = {
                 console.log("user", user.id, user.password)
                 this.appendPurchase(user, olId);
             }
-            this.appendPayment(user, total);
+            //this.appendPayment(user, total);
         }
     },
         
