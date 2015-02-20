@@ -13,13 +13,11 @@ PayModel.prototype = {
         if (ok = "true") {
             
             for (var i = 0; i < itemCart.length; i++) {
-                console.log("quw", itemCart[i].getItem());
-                var ol = itemCart[i].getItem();
-                var olId = ol._id;
-                console.log("skickad")
-                console.log("olid", olId);
-                console.log("user", userName, userPass)
-                this.appendPurchase(userName, userPass, olId);
+                var cartItem = itemCart[i].getItem();
+                var cartAmount = itemCart[i].getAmount();
+                var beerId = cartItem._id;
+
+                this.appendPurchase(userName, userPass, beerId, cartAmount);
             }
             //this.appendPayment(userName, userPass, total);
         }
@@ -44,20 +42,22 @@ PayModel.prototype = {
             });
         },
 
-        appendPurchase: function (userName, userPass, beerId){
+        appendPurchase: function (userName, userPass, beerId, cartAmount){
            
             var db_Purchase = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+userName+'&password='+userPass+'&action=purchases_append&beer_id='+beerId;
             console.log("db_purchase", db_Purchase);
-            $.ajax({
-                url: 'http://pub.jamaica-inn.net/fpdb/api.php?username='+userName+'&password='+userPass+'&action=purchases_append&beer_id='+beerId,
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                dataType: 'json',
-                asynch: false,
-                success: function () {
-                    window.alert("öl lagrad");
-                }
-            });
+            for (var i = 0; i < cartAmount; i++) {
+                $.ajax({
+                    url: 'http://pub.jamaica-inn.net/fpdb/api.php?username=' + userName + '&password=' + userPass + '&action=purchases_append&beer_id=' + beerId,
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    asynch: false,
+                    success: function () {
+                        window.alert("öl lagrad");
+                    }
+                });
+            }
         },
 
 }
