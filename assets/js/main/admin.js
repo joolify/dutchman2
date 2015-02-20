@@ -1,18 +1,13 @@
 /*
- * A menu view
- * @class MenuView
+ * Admin
+ * @class Admin
  * @constructor
- * Creates a MenuView
+ * Creates an MVC
  */
-function MenuView() {
-    /*
-     * ===========================================================
-     * ==================== EVENT LISTENERS ======================
-     * ===========================================================
-     */
+function Admin() {
 }
 
-MenuView.prototype = {
+Admin.prototype = {
     /*
      * ===========================================================
      * ======================== PRIVATE  =========================
@@ -24,4 +19,18 @@ MenuView.prototype = {
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
+    /* 
+     * Creates an MVC and shows the view. 
+     * @function run
+     */
+    run: function () {
+    }
 };
+/* 
+ * Executes Admin after the DOM is ready. 
+ * @function ready
+ */
+$(function () {
+    var admin = new Admin();
+    admin.run();
+});

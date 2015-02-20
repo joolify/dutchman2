@@ -6,7 +6,7 @@
  * Creates a DrinkView
  */
 function DrinkView(elements) {
-    this._elements = elements;
+    /** @private */ this._elements = elements;
 
     this.inputModified = new Event(this);
     this.addItem = new Event(this);
@@ -22,7 +22,13 @@ function DrinkView(elements) {
 
 DrinkView.prototype = {
     /*
-     * Notifys its listeners that it has a new query
+     * ===========================================================
+     * ======================== PRIVATE  =========================
+     * ===========================================================
+     */
+    /*
+     * Notifies its listeners that the user has entered a new value
+     * @private
      * @function _queryUpdated
      * @param {String} newQuery
      */
@@ -31,7 +37,8 @@ DrinkView.prototype = {
     },
 
     /*
-     * Notifys its listeners that a new item has been added
+     * Notifies its listeners that the + button has been pressed
+     * @private
      * @function _addToCart
      * @param {Integer} itemId
      */
@@ -39,6 +46,11 @@ DrinkView.prototype = {
 	console.log("DrinkView._addToCart", itemId);
 	this.addItem.notify({itemId: itemId});
     },
+    /*
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
     /*
      * Refreshes the view. 
      * @function refresh

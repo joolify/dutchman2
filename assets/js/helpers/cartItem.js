@@ -7,11 +7,16 @@
  */
 
 function CartItem(item) {
-    this._item = item;
-    this._amount = 1;
+    /** @private */ this._item = item;
+    /** @private */ this._amount = 1;
 }
 
 CartItem.prototype = {
+    /*
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
     /*
      * Add an amount of the cart item.
      * @function add

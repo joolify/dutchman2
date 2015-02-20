@@ -6,34 +6,76 @@
  * Creates a cart view
  */
 function CartView(elements) {
-    this._elements = elements;
+    /** @private */ this._elements = elements;
+
+    this.itemRemoved = new Event(this);
     this.amountAdded = new Event(this);
     this.amountRemoved = new Event(this);
+    this.logout = new Event(this);
+
+    var _this = this;
+
+    /*
+     * ===========================================================
+     * ==================== EVENT LISTENERS ======================
+     * ===========================================================
+     */
+    this._elements.logout.click(function(e) {
+	_this._logout();
+    });
 }
 
 CartView.prototype = {
     /*
-     * Increases the amount of an item.
+     * ===========================================================
+     * ======================== PRIVATE  =========================
+     * ===========================================================
+     */
+
+    /*
+     * Notifies its listeners that the user has pressed the logout button
+     * @function _logout
+     */
+    _logout: function () {
+	this.logout.notify();
+    },
+
+    /*
+     * Notifies its listeners that the user has pressed the remove item button
+     * @function _itemRemoved
+     * @param {Integer} itemId
+     */
+    _itemRemoved: function (itemId) {
+	console.log("CartView._itemRemoved(): ", itemId); 
+	this.itemRemoved.notify({itemId: itemId});
+    },
+    /*
+     * Notifies its listeners that the user has pressed the increase item button
      * @function _addAmountToItem
      * @param {Integer} itemId
      */
     _addAmountToItem: function (itemId) {
-	console.log("add: ", itemId); 
+	console.log("CartView._addAmountToItem(): ", itemId); 
 	this.amountAdded.notify({itemId: itemId});
     },
 
     /*
-     * Decreases the amount of an item.
+     * Notifies its listeners that the user has pressed the decrease item button
      * @function _removeAmountFromItem
      * @param {Integer} itemId
      */
     _removeAmountFromItem: function (itemId) {
-	console.log("remove: ", itemId);
+	console.log("CartView._removeAmountFromItem(): ", itemId);
 	this.amountRemoved.notify({itemId: itemId});
     },
 
     /*
-     * Sets the credit
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
+    /*
+     * Sets the credit text to a new value
      * @function setCredit
      * @param {Float} credit
      */ 
@@ -43,7 +85,7 @@ CartView.prototype = {
     },
     
     /*
-     * Sets the total price
+     * Sets the total price text to a new value
      * @function setTotalPrice
      * @param {Float} price
      */
@@ -68,11 +110,17 @@ CartView.prototype = {
 
 	for(var i = 0; i < cartItemList.length; i++) {
 	    var item = cartItemList[i].getItem();
+	    var buttonRemove = "cartRemove_" + item.getId();
 	    var buttonPlus = "cartPlus_" + item.getId();
 	    var buttonMinus = "cartMinus_" + item.getId();
             cart.append(
 		$(
 		    '<tr>' +
+			'<td>' +
+			'<button id="' + buttonRemove + '"' +
+			'value="' + item.getId() + '"' +  
+			'>x</button>' +
+			'</td>' +
 			'<td>' + 
 			item.getName() + 
 			'</td>' +
@@ -92,6 +140,10 @@ CartView.prototype = {
 			'</tr>'
 		)
 	    );
+	    // Listens to x button
+	    $('#' + buttonRemove).bind('click', function(e) {
+		_this._itemRemoved($(this).val());
+	    });
 	    // Listens to + button
 	    $('#' + buttonPlus).bind('click', function(e) {
 		_this._addAmountToItem($(this).val());

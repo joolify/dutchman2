@@ -5,10 +5,15 @@
  * Creates an MVC
  */
 function Index() {
-    this._controller = null;
+    /** @private */ this._controller = null;
 }
 
 Index.prototype = {
+    /*
+     * ===========================================================
+     * ======================== PRIVATE  =========================
+     * ===========================================================
+     */
     /*
      * Get the views to be used in the system.
      * @function _getViews
@@ -35,12 +40,18 @@ Index.prototype = {
 	return {login: loginModel};
     },
 
+    /*
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
     /* 
      * Creates an MVC and shows the view. 
      * @function run
      */
     run: function () {
 	this._controller = new Controller(this._getModels(), this._getViews());
+	this._controller.showLogin();
     }
 };
 

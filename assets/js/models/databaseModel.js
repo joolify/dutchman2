@@ -6,12 +6,17 @@
  * Creates a database model
  */
 function DatabaseModel() {
-    this._itemList = [];
-    this._db_inventory = 'http://pub.jamaica-inn.net/fpdb/api.php?username=anddar&password=anddar&action=inventory_get';
+
+    /** @private */ this._itemList = [];
     this.listUpdated = new Event(this); 
 }
 
 DatabaseModel.prototype = {
+    /*
+     * ===========================================================
+     * ======================== PRIVATE  =========================
+     * ===========================================================
+     */
     /*
      * Drops the database.
      * @function _drop
@@ -66,16 +71,40 @@ DatabaseModel.prototype = {
 	}
     },
     /*
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
+    /*
+     * Get an Item list
+     * @function getItemList
+     * @return {Item[]} a list with Items.
+     */
+    getItemList: function () {
+        return [].concat(this._itemList);
+    },
+    /*
+     * Get item by id
+     * @function getItem
+     * @param {Integer} itemId
+     * return {Item}
+     */
+    getItem: function (itemId) {
+	var elementPos = this._itemList.map(function(x) {return x.getId(); }).indexOf(itemId);
+	return this._itemList[elementPos];
+    },
+    /*
      * Query the database. 
      * @function query
      * @param {String} query 
      */
-    query: function (query) {
+    query: function (query, username, password) {
+	var urlQuery = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=inventory_get';
 	console.log("Model.query(): " + query);
 	var _this = this;
         
 	$.ajax({
-            url: this._db_inventory,
+            url: urlQuery,
 	    type: "POST",
 	    contentType: "application/json; charset=utf-8",
             dataType: 'json',
@@ -96,26 +125,5 @@ DatabaseModel.prototype = {
                 console.log('an error occurred!');
             }
         });
-
-    },
-
-    
-    /*
-     * Get an Item list
-     * @function getItemList
-     * @return {Item[]} a list with Items.
-     */
-    getItemList: function () {
-        return [].concat(this._itemList);
-    },
-    /*
-     * Get item by id
-     * @function getItem
-     * @param {Integer} itemId
-     * return {Item}
-     */
-    getItem: function (itemId) {
-	var elementPos = this._itemList.map(function(x) {return x.getId(); }).indexOf(itemId);
-	return this._itemList[elementPos];
     }
 };

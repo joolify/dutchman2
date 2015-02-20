@@ -5,9 +5,14 @@
  * Creates an MVC
  */
 function Vip() {
-    this._controller = null;
+    /** @private */ this._controller = null;
 }
 Vip.prototype = {
+    /*
+     * ===========================================================
+     * ======================== PRIVATE  =========================
+     * ===========================================================
+     */
     /*
      * Get the views to be used in the system.
      * @function _getViews
@@ -17,7 +22,8 @@ Vip.prototype = {
 	var cartView = new CartView({
 	    'cart': $('#cart'),
 	    'credit': $('#credit'),
-	    'totalPrice': $('#totalPrice')
+	    'totalPrice': $('#totalPrice'),
+	    'logout': $('#logout')
 	});
 
 	var drinkView = new DrinkView({
@@ -40,6 +46,11 @@ Vip.prototype = {
 	return {cart: cartModel, database: databaseModel, login: loginModel, pay: payModel};
     },
 
+    /*
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
     /* 
      * Creates an MVC and shows the view. 
      * @function run
