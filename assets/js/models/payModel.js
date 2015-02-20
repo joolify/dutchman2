@@ -4,7 +4,7 @@ function PayModel(elements) {
 
 PayModel.prototype = {
     
-    test: function (cart, totalPrice, user) {
+    test: function (cart, totalPrice, userName, userPass) {
         var itemCart = cart;
         var total = totalPrice;
         console.log("längd", itemCart.length);
@@ -18,22 +18,22 @@ PayModel.prototype = {
                 var olId = ol._id;
                 console.log("skickad")
                 console.log("olid", olId);
-                console.log("user", user.id, user.password)
-                this.appendPurchase(user, olId);
+                console.log("user", userName, userPass)
+                this.appendPurchase(userName, userPass, olId);
             }
-            //this.appendPayment(user, total);
+            //this.appendPayment(userName, userPass, total);
         }
     },
         
 
-        appendPayment: function (user, amount){
+        appendPayment: function (userName, userPass, amount){
             console.log("append payment");
 
-            // var db_Payment = "http://pub.jamaica-inn.net/fpdb/api.php?username="+user.id+"&password="+user.password+"&action=payments_append&amount="+amount;
-            var db_Payment = 'http://pub.jamaica-inn.net/fpdb/api.php?username=aamsta&password=aamsta&action=payments_append&amount='+amount;
+     
+            var db_Payment = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+userName+'&password='+userPass+'&action=payments_append&amount='+amount;
             console.log("db_payment", db_Payment);
             $.ajax({
-                url: 'http://pub.jamaica-inn.net/fpdb/api.php?username=aamsta&password=aamsta&action=payments_append&amount=9000',
+                url: 'http://pub.jamaica-inn.net/fpdb/api.php?username=' + userName + '&password=' + userPass + '&action=payments_append&amount=' + amount,
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataType: 'json',
@@ -44,12 +44,12 @@ PayModel.prototype = {
             });
         },
 
-        appendPurchase: function (user, beerId){
-            //var db_Purchase = "http://pub.jamaica-inn.net/fpdb/api.php?username="+user.id+"&password="+user.password+"&action=purchases_append&=beer_id="+beerId;
-            var db_Purchase = "http://pub.jamaica-inn.net/fpdb/api.php?username=&password=aamsta&action=aamsta&action=purchases_append&=beer_id=" + beerId;
+        appendPurchase: function (userName, userPass, beerId){
+           
+            var db_Purchase = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+userName+'&password='+userPass+'&action=purchases_append&beer_id='+beerId;
             console.log("db_purchase", db_Purchase);
             $.ajax({
-                url: 'http://pub.jamaica-inn.net/fpdb/api.php?username=aamsta&password=aamsta&action=purchases_append&beer_id='+beerId,
+                url: 'http://pub.jamaica-inn.net/fpdb/api.php?username='+userName+'&password='+userPass+'&action=purchases_append&beer_id='+beerId,
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataType: 'json',

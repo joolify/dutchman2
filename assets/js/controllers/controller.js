@@ -110,10 +110,12 @@ Controller.prototype = {
         var cart = this._cartModel.getCart();
         var totalSum = this._cartModel.getTotalPrice();
         var user = "0" //this._loginModel.getUser()
+        var userName = this._loginModel.getUserName();
+        var userPass = this._loginModel.getPassWord();
         console.log("pengar", totalSum);
         console.log("antal", cart.length);
-        console.log("user", user);
-        this._payModel.test(cart, totalSum, user);
+        console.log("user", userName, userPass);
+        this._payModel.test(cart, totalSum, userName, userPass);
         this._cartModel._drop();
 
         this.refreshCartView();
