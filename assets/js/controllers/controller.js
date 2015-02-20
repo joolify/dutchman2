@@ -14,6 +14,7 @@ function Controller(models, views) {
     /** @private */ this._loginModel = models.login;
     /** @private */ this._loginView = views.login;
     /** @private */ this._languageModel = models.language;
+    /** @private */ this._languageView = views.language;
     /** @private */ this._currentLanguage = null;
 
     var _this = this;
@@ -77,7 +78,7 @@ function Controller(models, views) {
      * == LOGIN LISTENER =========================================
      * ===========================================================
      */
-    /* Login */ 
+    /* Login */
     if(this._loginView) {
 	this._loginView.submitClicked.attach(function (sender, args) {
 	    _this.login(args.username, args.password);
@@ -92,7 +93,22 @@ function Controller(models, views) {
 	this._loginModel.logoutDone.attach(function () {
 	    _this.checkLogin();
 	});
-    }}
+    }
+
+    /*
+     * ===========================================================
+     * == LANGUAGE LISTENER ======================================
+     * ===========================================================
+     */
+
+    if(this._languageView) {
+        this._languageView.languageSelected.attach(function (sender, args) {
+            _this.getLanguage(args.language);
+        });
+    }
+
+
+}
 
 
 Controller.prototype = {
@@ -308,5 +324,16 @@ Controller.prototype = {
 	    this._loginView.errorLogin();
 	}
 
+    },
+
+    /*
+     * ===========================================================
+     * == TRANSLATION ============================================
+     * ===========================================================
+     */
+
+    getLanguage: function(language) {
+        var dictionary = this._languageModel.searchLanguage(language);
+        this._languageView.translate(dictionary);
     }
 };
