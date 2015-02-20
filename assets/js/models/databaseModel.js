@@ -8,7 +8,6 @@
 function DatabaseModel() {
     this._itemList = [];
     this._db_inventory = 'http://pub.jamaica-inn.net/fpdb/api.php?username=anddar&password=anddar&action=inventory_get';
-
     this.listUpdated = new Event(this); 
 }
 
@@ -23,6 +22,30 @@ DatabaseModel.prototype = {
 	}
     },    
     
+    
+    _appendPayment: function(){
+        console.log("append payment")
+
+        /*var db_Payment = "http://pub.jamaica-inn.net/fpdb/api.php?username="+user.id+"&"+"password="+password.id+"&action=payments_append&amount="+amount;
+        console.log("db_payment", db_Payment);
+        $.ajax({
+            url: db_Payment,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            asynch: false,
+            success: function () {
+                return "true";
+                    }
+                });	 user, amount	*/
+    },
+
+    _appendPurchase: function(user, beerId){
+        var db_Purchase = 'http://pub.jamaica-inn.net/fpdb/api.php?username=anddar&password=anddar&action=purchases_append';
+
+    },
+
+
     /*
      * Checks how many of the search term has a match on the label
      * @function _getCount
@@ -30,7 +53,8 @@ DatabaseModel.prototype = {
      * @param {String} searchArray
      * @return {Integer} 
      */
-    _getCount: function(name, searchArray) {
+
+    _getCount: function (name, searchArray) {
 	var count = 0;
         for (var index = 0; index < searchArray.length; index++) {
             if (searchArray[index].length > 0 &&

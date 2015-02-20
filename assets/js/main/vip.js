@@ -36,8 +36,8 @@ Vip.prototype = {
 	var databaseModel = new DatabaseModel();
 	var cartModel = new CartModel();
 	var loginModel = new LoginModel();
-
-	return {cart: cartModel, database: databaseModel, login: loginModel};
+	var payModel = new PayModel();
+	return {cart: cartModel, database: databaseModel, login: loginModel, pay: payModel};
     },
 
     /* 

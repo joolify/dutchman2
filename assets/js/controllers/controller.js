@@ -15,7 +15,7 @@ function Controller(models, views) {
     this._loginView = views.login;
     this._languageModel = models.language;
     this._currentLanguage = null;
-
+    this._payModel = models.pay;
     var _this = this;
 
     /*
@@ -67,9 +67,24 @@ function Controller(models, views) {
 	    _this.checkLogin(args.msg);
 	});
     }
+    if (this._payModel) {
+        document.getElementById('button').onclick = function () {
+            _this.test();
+        }
+    }
+  
 }
 
 Controller.prototype = {
+    test: function () {
+        var cart = this._cartModel.getCart();
+        var totalSum = this._cartModel.getTotalPrice();
+        console.log("pengar", totalSum);
+        console.log("antal", cart.length);
+        this._payModel.test(cart, totalSum);
+        
+    },
+    
     /*
      * Show the drink table
      * @function showDrinks
@@ -154,6 +169,7 @@ Controller.prototype = {
     refreshTotalPrice: function () {
 	var totalPrice = this._cartModel.getTotalPrice();
 	this._cartView.setTotalPrice(totalPrice);
+
     },
      /*
      * Refreshes the credit

@@ -7,7 +7,7 @@ include_once 'check.php';
   <head>
     <title>VIP</title>
     <meta http-equiv="Content-type" value="text/html; charset=UTF-8" />
-    <script src="lib/jquery/jquery-latest.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
 
@@ -29,6 +29,7 @@ include_once 'check.php';
     <script src="assets/js/views/drinkView.js"></script>
     <script src="assets/js/views/languageView.js"></script>
     <script src="assets/js/views/menuView.js"></script>
+    <script src="assets/js/models/payModel.js"></script>
   </head>
   <body>
 
@@ -51,6 +52,7 @@ include_once 'check.php';
     <div id="cart">
     </div>
     <h2 id="credit">Credit:</h2> <h2 id="totalPrice">Total price:</h2>
+    <input id="button" type="submit" name="button" value="enter" />
   </body>
 </html>
 <?php exit?>
