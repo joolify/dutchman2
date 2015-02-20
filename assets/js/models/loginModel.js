@@ -5,7 +5,6 @@
  * Creates a LoginModel
  */
 function LoginModel() {
-    this._user = null;
     this.loginDone = new Event(this);
     this.logoutDone = new Event(this);
 }

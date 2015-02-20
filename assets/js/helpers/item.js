@@ -12,13 +12,13 @@
  * Creates an Item
  */
 function Item(name, name2, sbl_price, pub_price, id, count, price) {
-    this._name = name;
-    this._name2 = name2;
-    this._sbl_price = sbl_price;
-    this._pub_price = pub_price;
-    this._id = id;
-    this._count = count;
-    this._price = price;
+    /** @private */ this._name = name;
+    /** @private */ this._name2 = name2;
+    /** @private */ this._sbl_price = sbl_price;
+    /** @private */ this._pub_price = pub_price;
+    /** @private */ this._id = id;
+    /** @private */ this._count = count;
+    /** @private */ this._price = price;
 }
 
 Item.prototype = {

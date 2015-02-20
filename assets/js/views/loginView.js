@@ -6,12 +6,17 @@
  * Creates a login view
  */
 function LoginView(elements) {
-    this._elements = elements;
+    /** @private */ this._elements = elements;
 
     this.submitClicked = new Event(this);
 
     var _this = this;
     
+    /*
+     * ===========================================================
+     * ==================== EVENT LISTENERS ======================
+     * ===========================================================
+     */
     this._elements.loginForm.submit(function(e) {
 	_this._submit(_this._elements.username.val(), _this._elements.password.val());
     });
@@ -24,7 +29,7 @@ LoginView.prototype = {
      * ===========================================================
      */
     /*
-     * Notifys that the user has clicked the submit button
+     * Notifies that the user has clicked the submit button
      * @function _submit
      * @param {String} username
      * @param {String} password
@@ -34,6 +39,11 @@ LoginView.prototype = {
 	this.submitClicked.notify({username: username, password: password});
     },
 
+    /*
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
     /*
      * Evokes the error message
      * @function errorLogin

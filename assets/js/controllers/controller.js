@@ -7,14 +7,14 @@
  * Creates a Controller
  */
 function Controller(models, views) {
-    this._cartView = views.cart;
-    this._cartModel = models.cart;
-    this._databaseModel = models.database;
-    this._drinkView = views.drink;
-    this._loginModel = models.login;
-    this._loginView = views.login;
-    this._languageModel = models.language;
-    this._currentLanguage = null;
+    /** @private */ this._cartView = views.cart;
+    /** @private */ this._cartModel = models.cart;
+    /** @private */ this._databaseModel = models.database;
+    /** @private */ this._drinkView = views.drink;
+    /** @private */ this._loginModel = models.login;
+    /** @private */ this._loginView = views.login;
+    /** @private */ this._languageModel = models.language;
+    /** @private */ this._currentLanguage = null;
 
     var _this = this;
 
@@ -92,8 +92,8 @@ function Controller(models, views) {
 	this._loginModel.logoutDone.attach(function () {
 	    _this.checkLogin();
 	});
-    }
-}
+    }}
+
 
 Controller.prototype = {
     /*

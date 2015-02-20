@@ -7,8 +7,8 @@
  */
 
 function CartItem(item) {
-    this._item = item;
-    this._amount = 1;
+    /** @private */ this._item = item;
+    /** @private */ this._amount = 1;
 }
 
 CartItem.prototype = {

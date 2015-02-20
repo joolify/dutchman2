@@ -5,7 +5,7 @@
  * Creates an MVC
  */
 function Vip() {
-    this._controller = null;
+    /** @private */ this._controller = null;
 }
 Vip.prototype = {
     /*

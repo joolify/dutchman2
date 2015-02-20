@@ -6,13 +6,20 @@
  * Creates a cart view
  */
 function CartView(elements) {
-    this._elements = elements;
+    /** @private */ this._elements = elements;
+
     this.itemRemoved = new Event(this);
     this.amountAdded = new Event(this);
     this.amountRemoved = new Event(this);
     this.logout = new Event(this);
+
     var _this = this;
 
+    /*
+     * ===========================================================
+     * ==================== EVENT LISTENERS ======================
+     * ===========================================================
+     */
     this._elements.logout.click(function(e) {
 	_this._logout();
     });
@@ -24,15 +31,26 @@ CartView.prototype = {
      * ======================== PRIVATE  =========================
      * ===========================================================
      */
+
+    /*
+     * Notifies its listeners that the user has pressed the logout button
+     * @function _logout
+     */
     _logout: function () {
 	this.logout.notify();
     },
+
+    /*
+     * Notifies its listeners that the user has pressed the remove item button
+     * @function _itemRemoved
+     * @param {Integer} itemId
+     */
     _itemRemoved: function (itemId) {
 	console.log("CartView._itemRemoved(): ", itemId); 
 	this.itemRemoved.notify({itemId: itemId});
     },
     /*
-     * Increases the amount of an item.
+     * Notifies its listeners that the user has pressed the increase item button
      * @function _addAmountToItem
      * @param {Integer} itemId
      */
@@ -42,7 +60,7 @@ CartView.prototype = {
     },
 
     /*
-     * Decreases the amount of an item.
+     * Notifies its listeners that the user has pressed the decrease item button
      * @function _removeAmountFromItem
      * @param {Integer} itemId
      */
@@ -57,7 +75,7 @@ CartView.prototype = {
      * ===========================================================
      */
     /*
-     * Sets the credit
+     * Sets the credit text to a new value
      * @function setCredit
      * @param {Float} credit
      */ 
@@ -67,7 +85,7 @@ CartView.prototype = {
     },
     
     /*
-     * Sets the total price
+     * Sets the total price text to a new value
      * @function setTotalPrice
      * @param {Float} price
      */

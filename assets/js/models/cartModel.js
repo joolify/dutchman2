@@ -5,8 +5,9 @@
  * Creates a cart model
  */
 function CartModel() {
-    this._cartList = [];
-    this._credit = 0;
+    /** @private */ this._cartList = [];
+    /** @private */ this._credit = 0;
+
     this.cartUpdated = new Event(this);
 }
 
@@ -21,9 +22,9 @@ CartModel.prototype = {
      * @function _drop
      */
     _drop: function () {
-	while(this._cartList.length > 0) {
-	    this._cartList.pop();
-	}
+    	while(this._cartList.length > 0) {
+    	    this._cartList.pop();
+    	}
     },
     /*
      * Get the position of the cart item

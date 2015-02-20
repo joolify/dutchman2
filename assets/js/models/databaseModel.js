@@ -6,7 +6,8 @@
  * Creates a database model
  */
 function DatabaseModel() {
-    this._itemList = [];
+    /** @private */ this._itemList = [];
+
     this.listUpdated = new Event(this); 
 }
 

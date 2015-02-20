@@ -5,7 +5,7 @@
  * Creates an MVC
  */
 function Index() {
-    this._controller = null;
+    /** @private */ this._controller = null;
 }
 
 Index.prototype = {
