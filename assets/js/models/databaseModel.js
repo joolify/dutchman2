@@ -17,35 +17,10 @@ DatabaseModel.prototype = {
      * @function _drop
      */
     _drop: function () {
-	while(this._itemList.length > 0) {
-	    this._itemList.pop();
-	}
-    },    
-    
-    
-    _appendPayment: function(){
-        console.log("append payment")
-
-        /*var db_Payment = "http://pub.jamaica-inn.net/fpdb/api.php?username="+user.id+"&"+"password="+password.id+"&action=payments_append&amount="+amount;
-        console.log("db_payment", db_Payment);
-        $.ajax({
-            url: db_Payment,
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            dataType: 'json',
-            asynch: false,
-            success: function () {
-                return "true";
-                    }
-                });	 user, amount	*/
+        while(this._itemList.length > 0) {
+            this._itemList.pop();
+        }
     },
-
-    _appendPurchase: function(user, beerId){
-        var db_Purchase = 'http://pub.jamaica-inn.net/fpdb/api.php?username=anddar&password=anddar&action=purchases_append';
-
-    },
-
-
     /*
      * Checks how many of the search term has a match on the label
      * @function _getCount

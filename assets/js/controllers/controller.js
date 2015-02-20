@@ -79,9 +79,11 @@ Controller.prototype = {
     test: function () {
         var cart = this._cartModel.getCart();
         var totalSum = this._cartModel.getTotalPrice();
+        var user = this._loginModel.getUser()
         console.log("pengar", totalSum);
         console.log("antal", cart.length);
-        this._payModel.test(cart, totalSum);
+        console.log("user", user);
+        this._payModel.test(cart, totalSum, user);
         
     },
     
