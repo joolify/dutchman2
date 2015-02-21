@@ -32,17 +32,17 @@ function Controller(models, views) {
      */
     if(this._drinkView) {
 	this._drinkView.inputModified.attach(function (sender, args) {
-	    _this.queryDatabaseModel(args.query);
+	    _this.queryDrinks(args.query);
 	});
 
 	this._drinkView.addItem.attach(function (sender, args) {
-	    _this.addToCartModel(args.itemId);
+	    _this.pushCartItem(args.itemId);
 	});
     }
 
     if(this._databaseModel) {
 	this._databaseModel.listUpdated.attach(function () {
-            _this.refreshDrinkView();
+            _this.refreshDrinks();
 	});
     }
     /*
@@ -56,11 +56,11 @@ function Controller(models, views) {
 	});
 
 	this._cartView.amountAdded.attach(function (sender, args) {
-	    _this.addAmountToCartModel(args.itemId);
+	    _this.incrementCartItem(args.itemId);
 	});
 
 	this._cartView.amountRemoved.attach(function (sender, args) {
-	    _this.removeAmountFromCartModel(args.itemId);
+	    _this.decrementCartItem(args.itemId);
 	});
 
 	this._cartView.logout.attach(function () {
@@ -69,7 +69,7 @@ function Controller(models, views) {
     }
     if(this._cartModel) {
 	this._cartModel.cartUpdated.attach(function () {
-	    _this.refreshCartView();
+	    _this.refreshCart();
 	    _this.refreshTotalPrice();
 	});
     }
@@ -87,11 +87,11 @@ function Controller(models, views) {
 
     if(this._loginModel) {
 	this._loginModel.loginDone.attach(function () {
-	    _this.checkLogin();
+	    _this.isLoggedIn();
 	});
 
 	this._loginModel.logoutDone.attach(function () {
-	    _this.checkLogin();
+	    _this.isLoggedIn();
 	});
     }
 
@@ -128,9 +128,9 @@ Controller.prototype = {
      */
     showDrinks: function() {
 	console.log("Controller.showDrinks()");
-	this.checkLogin();
+	this.isLoggedIn();
 	var initSearch = "";
-	this.queryDatabaseModel(initSearch);
+	this.queryDrinks(initSearch);
 	this.refreshTotalPrice();
 	this.refreshCredit();
     },
@@ -141,7 +141,7 @@ Controller.prototype = {
      */
     showLogin: function() {
 	console.log("Controller.showLogin()");
-	this.checkLogin();
+	this.isLoggedIn();
     },
 
     /*
@@ -152,19 +152,19 @@ Controller.prototype = {
 
     /*
      * Refreshes the DrinkView
-     * @function refreshDrinkView
+     * @function refreshDrinks
      */
-    refreshDrinkView: function () {
+    refreshDrinks: function () {
 	var itemList = this._databaseModel.getItemList();
-	console.log("Controller.refreshDrinkView: " + itemList.length);
+	console.log("Controller.refreshDrinks: " + itemList.length);
 	this._drinkView.refresh(itemList);
     },
 
     /* Queries the DatabaseModel
-     * @function queryDatabaseModel
+     * @function queryDrinks
      */
-    queryDatabaseModel: function (query) {
-	console.log("Controller.queryDatabaseModel: "+ query);
+    queryDrinks: function (query) {
+	console.log("Controller.queryDrinks: "+ query);
 	var username = this._loginModel.getUserName();
 	var password = this._loginModel.getPassWord();
 	this._databaseModel.query(query, username, password);
@@ -177,13 +177,13 @@ Controller.prototype = {
      */
 
     /* Add an item to the CartModel
-     * @function addToCartModel
+     * @function pushCartItem
      * @param itemId
      */
-    addToCartModel: function (itemId) {
+    pushCartItem: function (itemId) {
 	var item = this._databaseModel.getItem(itemId);
 	this._cartModel.addItemToCart(item);
-	console.log("Controller.addToCartModel: ", itemId);
+	console.log("Controller.pushCartItem: ", itemId);
     },
     /*
      * Remove an item from the CartModel
@@ -195,30 +195,30 @@ Controller.prototype = {
 	this._cartModel.removeItem(itemId);
     },
     /* Increases the amount of an item.
-     * function addAmountToCartModel
+     * function incrementCartItem
      * @param itemId
      */
-    addAmountToCartModel: function (itemId) {
-	console.log("Controller.addAmountToCartModel: ", itemId);
+    incrementCartItem: function (itemId) {
+	console.log("Controller.incrementCartItem: ", itemId);
 	this._cartModel.addAmountToItem(itemId);
     },
     
     /* Increases the amount of an item.
-     * @function removeAmountFromCartModel
+     * @function decrementCartItem
      * @param itemId
      */
-    removeAmountFromCartModel: function (itemId) {
-	console.log("Controller.removeAmountFromCartModel: ", itemId);
+    decrementCartItem: function (itemId) {
+	console.log("Controller.decrementCartItem: ", itemId);
 	this._cartModel.removeAmountFromItem(itemId);
     },
 
     /*
      * Refreshes the CartView
-     * @function refreshCartView
+     * @function refreshCart
      */
-    refreshCartView: function () {
+    refreshCart: function () {
 	var cartItemList = this._cartModel.getCart();
-	console.log("Controller.refreshCartView: " + cartItemList.length);
+	console.log("Controller.refreshCart: " + cartItemList.length);
 	this._cartView.refresh(cartItemList);
     },
 
@@ -251,11 +251,11 @@ Controller.prototype = {
 
     /*
      * Redirects to a new page
-     * @function redirect
+     * @function _redirect
      * @param page
      */ 
-    redirect: function (page) {
-	console.log("Controller.redirect: ", page);
+    _redirect: function (page) {
+	console.log("Controller._redirect: ", page);
 	window.location.href = page;
     },
 
@@ -271,10 +271,10 @@ Controller.prototype = {
     },
     
     /* Check if user is on the right page, or should be redirected
-     * @function isCurrentPage
+     * @function _isCurrentPage
      * @return {Boolean}
      */
-    isCurrentPage: function (page) {
+    _isCurrentPage: function (page) {
     	return (this.getCurrentPage() == page);
     },
     /*
@@ -298,13 +298,13 @@ Controller.prototype = {
     },
 
     /* Checks if the login was successful, if so redirect if needed.
-     * @function checkLogin
+     * @function isLoggedIn
      */
-    checkLogin: function () {
+    isLoggedIn: function () {
 	var page = "index.html";
 	var isLoggedIn = +this._loginModel.isLoggedIn();
 	if(isLoggedIn) {
-	    console.log("Controller.checkLogin: " + isLoggedIn);
+	    console.log("Controller.isLoggedIn: " + isLoggedIn);
 	    var user = +this._loginModel.getUserType();
 	    if(0 == user) {
 		page = "vip.html";
@@ -315,12 +315,12 @@ Controller.prototype = {
 		this.logout(); // Just to not get caught in admin.html...
 	    }
 	} 	
-	console.log("Controller.checkLogin: " + page);
-	if(!this.isCurrentPage(page)) {
-	    this.redirect(page);
+	console.log("Controller.isLoggedIn: " + page);
+	if(!this._isCurrentPage(page)) {
+	    this._redirect(page);
 	}
 
-	if(this._loginModel.getError() && this.isCurrentPage("index.html")) {
+	if(this._loginModel.getError() && this._isCurrentPage("index.html")) {
 	    this._loginView.errorLogin();
 	}
 
