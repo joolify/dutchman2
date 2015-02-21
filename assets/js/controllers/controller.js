@@ -87,11 +87,11 @@ function Controller(models, views) {
 
     if(this._loginModel) {
 	this._loginModel.loginDone.attach(function () {
-	    _this.checkLogin();
+	    _this.isLoggedIn();
 	});
 
 	this._loginModel.logoutDone.attach(function () {
-	    _this.checkLogin();
+	    _this.isLoggedIn();
 	});
     }
 
@@ -128,7 +128,7 @@ Controller.prototype = {
      */
     showDrinks: function() {
 	console.log("Controller.showDrinks()");
-	this.checkLogin();
+	this.isLoggedIn();
 	var initSearch = "";
 	this.queryDrinks(initSearch);
 	this.refreshTotalPrice();
@@ -141,7 +141,7 @@ Controller.prototype = {
      */
     showLogin: function() {
 	console.log("Controller.showLogin()");
-	this.checkLogin();
+	this.isLoggedIn();
     },
 
     /*
@@ -251,11 +251,11 @@ Controller.prototype = {
 
     /*
      * Redirects to a new page
-     * @function redirect
+     * @function _redirect
      * @param page
      */ 
-    redirect: function (page) {
-	console.log("Controller.redirect: ", page);
+    _redirect: function (page) {
+	console.log("Controller._redirect: ", page);
 	window.location.href = page;
     },
 
@@ -271,10 +271,10 @@ Controller.prototype = {
     },
     
     /* Check if user is on the right page, or should be redirected
-     * @function isCurrentPage
+     * @function _isCurrentPage
      * @return {Boolean}
      */
-    isCurrentPage: function (page) {
+    _isCurrentPage: function (page) {
     	return (this.getCurrentPage() == page);
     },
     /*
@@ -298,13 +298,13 @@ Controller.prototype = {
     },
 
     /* Checks if the login was successful, if so redirect if needed.
-     * @function checkLogin
+     * @function isLoggedIn
      */
-    checkLogin: function () {
+    isLoggedIn: function () {
 	var page = "index.html";
 	var isLoggedIn = +this._loginModel.isLoggedIn();
 	if(isLoggedIn) {
-	    console.log("Controller.checkLogin: " + isLoggedIn);
+	    console.log("Controller.isLoggedIn: " + isLoggedIn);
 	    var user = +this._loginModel.getUserType();
 	    if(0 == user) {
 		page = "vip.html";
@@ -315,12 +315,12 @@ Controller.prototype = {
 		this.logout(); // Just to not get caught in admin.html...
 	    }
 	} 	
-	console.log("Controller.checkLogin: " + page);
-	if(!this.isCurrentPage(page)) {
-	    this.redirect(page);
+	console.log("Controller.isLoggedIn: " + page);
+	if(!this._isCurrentPage(page)) {
+	    this._redirect(page);
 	}
 
-	if(this._loginModel.getError() && this.isCurrentPage("index.html")) {
+	if(this._loginModel.getError() && this._isCurrentPage("index.html")) {
 	    this._loginView.errorLogin();
 	}
 
