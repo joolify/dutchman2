@@ -36,17 +36,17 @@ function Controller(models, views) {
      */
     if(this._drinkView) {
 	this._drinkView.inputModified.attach(function (sender, args) {
-	    _this.queryDatabaseModel(args.query);
+	    _this.queryDrinks(args.query);
 	});
 
 	this._drinkView.addItem.attach(function (sender, args) {
-	    _this.addToCartModel(args.itemId);
+	    _this.pushCartItem(args.itemId);
 	});
     }
 
     if(this._databaseModel) {
 	this._databaseModel.listUpdated.attach(function () {
-            _this.refreshDrinkView();
+            _this.refreshDrinks();
 	});
     }
     /*
@@ -60,11 +60,11 @@ function Controller(models, views) {
 	});
 
 	this._cartView.amountAdded.attach(function (sender, args) {
-	    _this.addAmountToCartModel(args.itemId);
+	    _this.incrementCartItem(args.itemId);
 	});
 
 	this._cartView.amountRemoved.attach(function (sender, args) {
-	    _this.removeAmountFromCartModel(args.itemId);
+	    _this.decrementCartItem(args.itemId);
 	});
 
 	this._cartView.logout.attach(function () {
@@ -73,7 +73,7 @@ function Controller(models, views) {
     }
     if(this._cartModel) {
 	this._cartModel.cartUpdated.attach(function () {
-	    _this.refreshCartView();
+	    _this.refreshCart();
 	    _this.refreshTotalPrice();
 	});
     }
@@ -163,7 +163,7 @@ Controller.prototype = {
 	console.log("Controller.showDrinks()");
 	this.checkLogin();
 	var initSearch = "";
-	this.queryDatabaseModel(initSearch);
+	this.queryDrinks(initSearch);
 	this.refreshTotalPrice();
 	this.refreshCredit();
       this.updateMenu();
@@ -187,19 +187,19 @@ Controller.prototype = {
 
     /*
      * Refreshes the DrinkView
-     * @function refreshDrinkView
+     * @function refreshDrinks
      */
-    refreshDrinkView: function () {
+    refreshDrinks: function () {
 	var itemList = this._databaseModel.getItemList();
-	console.log("Controller.refreshDrinkView: " + itemList.length);
+	console.log("Controller.refreshDrinks: " + itemList.length);
 	this._drinkView.refresh(itemList);
     },
 
     /* Queries the DatabaseModel
-     * @function queryDatabaseModel
+     * @function queryDrinks
      */
-    queryDatabaseModel: function (query) {
-	console.log("Controller.queryDatabaseModel: "+ query);
+    queryDrinks: function (query) {
+	console.log("Controller.queryDrinks: "+ query);
 	var username = this._loginModel.getUserName();
 	var password = this._loginModel.getPassWord();
 	this._databaseModel.query(query, username, password);
@@ -212,13 +212,13 @@ Controller.prototype = {
      */
 
     /* Add an item to the CartModel
-     * @function addToCartModel
+     * @function pushCartItem
      * @param itemId
      */
-    addToCartModel: function (itemId) {
+    pushCartItem: function (itemId) {
 	var item = this._databaseModel.getItem(itemId);
 	this._cartModel.addItemToCart(item);
-	console.log("Controller.addToCartModel: ", itemId);
+	console.log("Controller.pushCartItem: ", itemId);
     },
     /*
      * Remove an item from the CartModel
@@ -230,30 +230,30 @@ Controller.prototype = {
 	this._cartModel.removeItem(itemId);
     },
     /* Increases the amount of an item.
-     * function addAmountToCartModel
+     * function incrementCartItem
      * @param itemId
      */
-    addAmountToCartModel: function (itemId) {
-	console.log("Controller.addAmountToCartModel: ", itemId);
+    incrementCartItem: function (itemId) {
+	console.log("Controller.incrementCartItem: ", itemId);
 	this._cartModel.addAmountToItem(itemId);
     },
     
     /* Increases the amount of an item.
-     * @function removeAmountFromCartModel
+     * @function decrementCartItem
      * @param itemId
      */
-    removeAmountFromCartModel: function (itemId) {
-	console.log("Controller.removeAmountFromCartModel: ", itemId);
+    decrementCartItem: function (itemId) {
+	console.log("Controller.decrementCartItem: ", itemId);
 	this._cartModel.removeAmountFromItem(itemId);
     },
 
     /*
      * Refreshes the CartView
-     * @function refreshCartView
+     * @function refreshCart
      */
-    refreshCartView: function () {
+    refreshCart: function () {
 	var cartItemList = this._cartModel.getCart();
-	console.log("Controller.refreshCartView: " + cartItemList.length);
+	console.log("Controller.refreshCart: " + cartItemList.length);
 	this._cartView.refresh(cartItemList);
     },
 
