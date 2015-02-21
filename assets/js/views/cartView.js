@@ -46,7 +46,7 @@ CartView.prototype = {
      * @param {Integer} itemId
      */
     _itemRemoved: function (itemId) {
-	console.log("CartView._itemRemoved(): ", itemId);
+	console.log("CartView._itemRemoved(): ", itemId); 
 	this.itemRemoved.notify({itemId: itemId});
     },
     /*
@@ -55,7 +55,7 @@ CartView.prototype = {
      * @param {Integer} itemId
      */
     _addAmountToItem: function (itemId) {
-	console.log("CartView._addAmountToItem(): ", itemId);
+	console.log("CartView._addAmountToItem(): ", itemId); 
 	this.amountAdded.notify({itemId: itemId});
     },
 
@@ -78,12 +78,12 @@ CartView.prototype = {
      * Sets the credit text to a new value
      * @function setCredit
      * @param {Float} credit
-     */
+     */ 
     setCredit: function (credit) {
 	console.log("CartView.setCredit", credit);
 	this._elements.credit.text("Credit: " + credit);
     },
-
+    
     /*
      * Sets the total price text to a new value
      * @function setTotalPrice
@@ -100,11 +100,11 @@ CartView.prototype = {
      */
     refresh: function (cartItemList) {
 	var _this = this;
-	var cart = this._elements.cart_table;
+	var cart = this._elements.cart;
 
 	cart.empty();
 
-	cart.append($('<table id="cart_table"></table>'));
+	cart.append($('<table id="cart"></table>'));
 
 	console.log('CartView.refresh().cartItemList', cartItemList.length);
 
@@ -118,25 +118,25 @@ CartView.prototype = {
 		    '<tr>' +
 			'<td>' +
 			'<button id="' + buttonRemove + '"' +
-			'value="' + item.getId() + '"' +
+			'value="' + item.getId() + '"' +  
 			'>x</button>' +
 			'</td>' +
-			'<td>' +
-			item.getName() +
+			'<td>' + 
+			item.getName() + 
 			'</td>' +
-			'<td>' +
-			cartItemList[i].getAmount() + '*' +
+			'<td>' + 
+			cartItemList[i].getAmount() + '*' + 
 			item.getPubPrice() +
 			'</td>' +
 			'<td>' + cartItemList[i].getSum() + '</td>' +
 			'<td>' +
 			'<button id="' + buttonPlus + '"' +
-			'value="' + item.getId() + '"' +
+			'value="' + item.getId() + '"' +  
 			'>+</button>' +
 			'<button id="' + buttonMinus + '"' +
-			'value="' + item.getId() + '"' +
+			'value="' + item.getId() + '"' +  
 			'>-</button>' +
-			'</td>' +
+			'</td>' + 
 			'</tr>'
 		)
 	    );
