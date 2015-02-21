@@ -20,7 +20,7 @@ Vip.prototype = {
      */
     _getViews: function () {
 	var cartView = new CartView({
-	    'cart': $('#cart'),
+	    'cart': $('#cart_table'),
 	    'credit': $('#credit'),
 	    'totalPrice': $('#totalPrice'),
 	    'logout': $('#logout')
@@ -51,8 +51,8 @@ Vip.prototype = {
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
-    /* 
-     * Creates an MVC and shows the view. 
+    /*
+     * Creates an MVC and shows the view.
      * @function run
      */
     run: function() {
@@ -61,8 +61,8 @@ Vip.prototype = {
     }
 };
 
-/* 
- * Executes Vip after the DOM is ready. 
+/*
+ * Executes Vip after the DOM is ready.
  * @function ready
  */
 $(function () {
