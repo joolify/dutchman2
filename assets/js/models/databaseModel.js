@@ -8,7 +8,7 @@
 function DatabaseModel() {
     /** @private */ this._itemList = [];
 
-    this.listUpdated = new Event(this); 
+    this.drinksUpdated = new Event(this); 
 }
 
 DatabaseModel.prototype = {
@@ -29,12 +29,12 @@ DatabaseModel.prototype = {
     
     /*
      * Checks how many of the search term has a match on the label
-     * @function _getCount
+     * @function _getSearchHits
      * @param name
      * @param {String} searchArray
      * @return {Integer} 
      */
-    _getCount: function(name, searchArray) {
+    _getSearchHits: function(name, searchArray) {
 	var count = 0;
         for (var index = 0; index < searchArray.length; index++) {
             if (searchArray[index].length > 0 &&
@@ -47,20 +47,20 @@ DatabaseModel.prototype = {
 
     /*
      * Filters out items where name is not empty and where enough search terms exist in the item.
-     * @function _filter
+     * @function _filterByMatch
      * @param {String} query
      * @param {String} item
      * @param {DatabaseModel} _this
      * @return {Item} 
      * @return {null} if not found
      */
-    _filter: function(query, item, _this) {
+    _filterByMatch: function(query, item, _this) {
 	var searchString = query.toLowerCase();
         var searchArray = searchString.split(" ");
         var lowerBound = Math.ceil((searchArray.length)/2);
 	var name = item.namn.toLowerCase();
 	var nameAndName2 = name + ' ' + item.namn2.toLowerCase();
-	var count = _this._getCount(nameAndName2, searchArray);
+	var count = _this._getSearchHits(nameAndName2, searchArray);
 	
 	if (name.length > 0 && (searchString.length == 0 || count >= lowerBound)) {
 	     
@@ -77,10 +77,10 @@ DatabaseModel.prototype = {
      */
     /*
      * Get an Item list
-     * @function getItemList
+     * @function getItems
      * @return {Item[]} a list with Items.
      */
-    getItemList: function () {
+    getItems: function () {
         return [].concat(this._itemList);
     },
     /*
@@ -112,14 +112,14 @@ DatabaseModel.prototype = {
             success: function (data) {
 		_this._drop();
 		$.each(data.payload, function (key, item){
-		    var newItem = _this._filter(query, item, _this);
+		    var newItem = _this._filterByMatch(query, item, _this);
 		    if(newItem) {
 			_this._itemList.push(newItem);
 		    }
 		});		
 		
 		console.log("Model.query().itemList: ", _this._itemList.length);
-		_this.listUpdated.notify();
+		_this.drinksUpdated.notify();
             },
             error : function(jqXHR, textStatus, errorThrown) {
                 console.log('an error occurred!');

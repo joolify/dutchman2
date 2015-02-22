@@ -35,17 +35,17 @@ function Controller(models, views) {
      * ===========================================================
      */
     if(this._drinkView) {
-	this._drinkView.inputModified.attach(function (sender, args) {
+	this._drinkView.searchFieldModified.attach(function (sender, args) {
 	    _this.queryDrinks(args.query);
 	});
 
-	this._drinkView.addItem.attach(function (sender, args) {
+	this._drinkView.itemBtnPushed.attach(function (sender, args) {
 	    _this.pushCartItem(args.itemId);
 	});
     }
 
     if(this._databaseModel) {
-	this._databaseModel.listUpdated.attach(function () {
+	this._databaseModel.drinksUpdated.attach(function () {
             _this.refreshDrinks();
 	});
     }
@@ -55,11 +55,11 @@ function Controller(models, views) {
      * ===========================================================
      */
     if(this._cartView) {
-	this._cartView.itemRemoved.attach(function (sender, args) {
-	    _this.removeItemFromCartModel(args.itemId);
+	this._cartView.popBtnClicked.attach(function (sender, args) {
+	    _this.popCartItem(args.itemId);
 	});
 
-	this._cartView.amountAdded.attach(function (sender, args) {
+	this._cartView.incrementBtnClicked.attach(function (sender, args) {
 	    _this.incrementCartItem(args.itemId);
 	});
 
@@ -67,7 +67,7 @@ function Controller(models, views) {
 	    _this.decrementCartItem(args.itemId);
 	});
 
-	this._cartView.logout.attach(function () {
+	this._cartView.logoutBtnClicked.attach(function () {
 	    _this.logout();
 	});
     }
@@ -84,7 +84,7 @@ function Controller(models, views) {
      */
     /* Login */
     if(this._loginView) {
-	this._loginView.submitClicked.attach(function (sender, args) {
+	this._loginView.loginBtnClicked.attach(function (sender, args) {
 	    _this.login(args.username, args.password);
 	});
     }
@@ -190,7 +190,7 @@ Controller.prototype = {
      * @function refreshDrinks
      */
     refreshDrinks: function () {
-	var itemList = this._databaseModel.getItemList();
+	var itemList = this._databaseModel.getItems();
 	console.log("Controller.refreshDrinks: " + itemList.length);
 	this._drinkView.refresh(itemList);
     },
@@ -217,17 +217,17 @@ Controller.prototype = {
      */
     pushCartItem: function (itemId) {
 	var item = this._databaseModel.getItem(itemId);
-	this._cartModel.addItemToCart(item);
+	this._cartModel.push(item);
 	console.log("Controller.pushCartItem: ", itemId);
     },
     /*
      * Remove an item from the CartModel
-     * @function removeItemFromCartModel
+     * @function popCartItem
      * @param {Integer} itemId
      */
-    removeItemFromCartModel: function (itemId) {
-	console.log("Controller.removeItemFromCartModel: ", itemId);
-	this._cartModel.removeItem(itemId);
+    popCartItem: function (itemId) {
+	console.log("Controller.popCartItem: ", itemId);
+	this._cartModel.pop(itemId);
     },
     /* Increases the amount of an item.
      * function incrementCartItem
@@ -235,7 +235,7 @@ Controller.prototype = {
      */
     incrementCartItem: function (itemId) {
 	console.log("Controller.incrementCartItem: ", itemId);
-	this._cartModel.addAmountToItem(itemId);
+	this._cartModel.increment(itemId);
     },
     
     /* Increases the amount of an item.
@@ -244,7 +244,7 @@ Controller.prototype = {
      */
     decrementCartItem: function (itemId) {
 	console.log("Controller.decrementCartItem: ", itemId);
-	this._cartModel.removeAmountFromItem(itemId);
+	this._cartModel.decrement(itemId);
     },
 
     /*
@@ -355,8 +355,8 @@ Controller.prototype = {
 	    this._redirect(page);
 	}
 
-	if(this._loginModel.getError() && this._isCurrentPage("index.html")) {
-	    this._loginView.errorLogin();
+	if(this._loginModel.hasError() && this._isCurrentPage("index.html")) {
+	    this._loginView.showErrorMsg();
 	}
 
     },
