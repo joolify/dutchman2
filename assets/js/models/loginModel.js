@@ -131,9 +131,9 @@ LoginModel.prototype = {
      */
     /* 
      * For debugging: List all available cookies. 
-     * @function listCookies
+     * @function getCookies
      */
-    listCookies: function () {
+    getCookies: function () {
 	var theCookies = document.cookie.split(';');
 	var aString = '';
 	for (var i = 1 ; i <= theCookies.length; i++) {
@@ -174,7 +174,7 @@ LoginModel.prototype = {
      * @function
      * @return {Boolean}
      */
-    getError: function () {
+    hasError: function () {
 	return this._getCookie("error");
     },
 

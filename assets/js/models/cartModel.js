@@ -33,7 +33,7 @@ CartModel.prototype = {
      * @return {Integer}
      */
     _getCartItemIndex: function (itemId) {
-	var index = this._cartList.map(function(x) {return x.getId(); }).indexOf(itemId);
+	var index = this._cartList.map(function(x) {return x.getItemId(); }).indexOf(itemId);
 	return index;
     },
     /*
@@ -48,21 +48,21 @@ CartModel.prototype = {
     },
 
     /* Returns true if cart item exists, else false.
-     * @function exists
+     * @function hasCartItem
      * @param {Item} item
      * @return {Boolean}
      */
-    _exists: function (item) {
+    _hasCartItem: function (item) {
 	return (this._getCartItem(item.getId()) != null);
     },
 
     /*
      * Compare two cart items' names 
-     * @function _compareItems
+     * @function _sortByName
      * @param {CartItem} cartItemA
      * @param {CartItem} cartItemB
      */
-    _compareItems: function(cartItemA, cartItemB){
+    _sortByName: function(cartItemA, cartItemB){
 	return(cartItemA.getItem().getName().localeCompare(cartItemB.getItem().getName()));
     },
     /*
@@ -75,48 +75,48 @@ CartModel.prototype = {
      * @function addToCart
      * @param {Item} item
      */
-    addItemToCart: function (item) {
-	if (item && !this._exists(item)) {
+    push: function (item) {
+	if (item && !this._hasCartItem(item)) {
 	    var cartItem = new CartItem(item);
 	    this._cartList.push(cartItem);
-	    this._cartList.sort(this._compareItems);
+	    this._cartList.sort(this._sortByName);
 	    this.cartUpdated.notify();
 	}
     },
     /*
      * Increases the amount of an item.
-     * @function addAmountToItem
+     * @function increment
      * @param {Integer} itemId
      */
-    addAmountToItem: function (itemId) {
-	console.log("CartModel.addAmountToItem", itemId);
+    increment: function (itemId) {
+	console.log("CartModel.increment", itemId);
 	var cartItem = this._getCartItem(itemId);
-	console.log("CartModel.addAmountToItem", cartItem);
-	cartItem.add();
+	console.log("CartModel.increment", cartItem);
+	cartItem.increment();
 	this.cartUpdated.notify();
     },
     /*
      * Decreases the amount of an item. If the amount is 1, the item is removed.
-     * @function removeAmountFromItem
+     * @function decrement
      * @param {Integer} itemId
      */
-    removeAmountFromItem: function (itemId) {
+    decrement: function (itemId) {
 	var cartItem = this._getCartItem(itemId);
 	if(cartItem.getAmount() == 1) {
-	    this.removeItem(itemId);
+	    this.pop(itemId);
 	}else{
-	    cartItem.remove();
+	    cartItem.decrement();
 	}
 	this.cartUpdated.notify();
     },
 
     /*
      * Removes an item from the cart
-     * @function removeItem
+     * @function pop
      * @param {Integer} itemId
      */
-    removeItem: function (itemId) {
-	console.log("CartModel.removeItem: ", itemId);
+    pop: function (itemId) {
+	console.log("CartModel.pop: ", itemId);
 	var index = this._getCartItemIndex(itemId);
 	if(index > -1) {
 	    this._cartList.splice(index, 1);
