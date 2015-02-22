@@ -8,10 +8,10 @@
 function CartView(elements) {
     /** @private */ this._elements = elements;
 
-    this.itemRemoved = new Event(this);
-    this.amountAdded = new Event(this);
+    this.popBtnClicked = new Event(this);
+    this.incrementBtnClicked = new Event(this);
     this.amountRemoved = new Event(this);
-    this.logout = new Event(this);
+    this.logoutBtnClicked = new Event(this);
 
     var _this = this;
 
@@ -37,35 +37,35 @@ CartView.prototype = {
      * @function _logout
      */
     _logout: function () {
-	this.logout.notify();
+	this.logoutBtnClicked.notify();
     },
 
     /*
      * Notifies its listeners that the user has pressed the remove item button
-     * @function _itemRemoved
+     * @function _pop
      * @param {Integer} itemId
      */
-    _itemRemoved: function (itemId) {
-	console.log("CartView._itemRemoved(): ", itemId);
-	this.itemRemoved.notify({itemId: itemId});
+    _pop: function (itemId) {
+	console.log("CartView._pop(): ", itemId);
+	this.popBtnClicked.notify({itemId: itemId});
     },
     /*
      * Notifies its listeners that the user has pressed the increase item button
-     * @function _addAmountToItem
+     * @function _increment
      * @param {Integer} itemId
      */
-    _addAmountToItem: function (itemId) {
-	console.log("CartView._addAmountToItem(): ", itemId);
-	this.amountAdded.notify({itemId: itemId});
+    _increment: function (itemId) {
+	console.log("CartView._increment(): ", itemId);
+	this.incrementBtnClicked.notify({itemId: itemId});
     },
 
     /*
      * Notifies its listeners that the user has pressed the decrease item button
-     * @function _removeAmountFromItem
+     * @function _decrement
      * @param {Integer} itemId
      */
-    _removeAmountFromItem: function (itemId) {
-	console.log("CartView._removeAmountFromItem(): ", itemId);
+    _decrement: function (itemId) {
+	console.log("CartView._decrement(): ", itemId);
 	this.amountRemoved.notify({itemId: itemId});
     },
 
@@ -142,15 +142,15 @@ CartView.prototype = {
 	    );
 	    // Listens to x button
 	    $('#' + buttonRemove).bind('click', function(e) {
-		_this._itemRemoved($(this).val());
+		_this._pop($(this).val());
 	    });
 	    // Listens to + button
 	    $('#' + buttonPlus).bind('click', function(e) {
-		_this._addAmountToItem($(this).val());
+		_this._increment($(this).val());
 	    });
 	    // Listens to - button
 	    $('#' + buttonMinus).bind('click', function(e) {
-		_this._removeAmountFromItem($(this).val());
+		_this._decrement($(this).val());
 	    });
         }
     }
