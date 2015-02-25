@@ -5,6 +5,7 @@
  * Creates a MenuModel
  */
 function MenuModel() {
+    this.menuUpdated = new Event(this);
 }
 
 MenuModel.prototype = {
@@ -19,4 +20,10 @@ MenuModel.prototype = {
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
+  update: function() {
+    var _this = this;
+    /* fetch data*/
+    var menuList = "Hello Menu!";
+    _this.menuUpdated.notify({menuList: menuList});
+  }
 };

@@ -4,7 +4,11 @@
  * @constructor
  * Creates a MenuView
  */
-function MenuView() {
+function MenuView(elements) {
+    /** @private */ this._elements = elements;
+
+    var _this = this;
+
     /*
      * ===========================================================
      * ==================== EVENT LISTENERS ======================
@@ -24,4 +28,9 @@ MenuView.prototype = {
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
+  refresh: function(menuList) {
+    var _this = this;
+    var menu = this._elements.menu;
+    menu.append(menuList);
+  }
 };

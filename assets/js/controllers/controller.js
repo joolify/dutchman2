@@ -15,6 +15,8 @@ function Controller(models, views) {
     /** @private */ this._loginView = views.login;
     /** @private */ this._languageModel = models.language;
     /** @private */ this._languageView = views.language;
+    /** @private */ this._menuModel = models.menu;
+    /** @private */ this._menuView = views.menu;
     /** @private */ this._currentLanguage = null;
 
     var _this = this;
@@ -107,7 +109,20 @@ function Controller(models, views) {
         });
     }
 
+    /*
+     * ===========================================================
+     * == MENU LISTENER ==========================================
+     * ===========================================================
+     */
+  if(this._menuView) {
+    /*Listen for menu button clicks*/
+  }
 
+  if(this._menuModel) {
+    this._menuModel.menuUpdated.attach(function (sender, args) {
+      _this.refreshMenu(args.menuList);
+    });
+  }
 }
 
 
@@ -133,6 +148,7 @@ Controller.prototype = {
 	this.queryDatabaseModel(initSearch);
 	this.refreshTotalPrice();
 	this.refreshCredit();
+      this.updateMenu();
     },
 
     /*
@@ -326,6 +342,18 @@ Controller.prototype = {
 
     },
 
+    /*
+     * ===========================================================
+     * == MENU ===================================================
+     * ===========================================================
+     */
+  updateMenu: function() {
+    this._menuModel.update();
+  },
+
+  refreshMenu: function(menuList) {
+    this._menuView.refresh(menuList);
+  },
     /*
      * ===========================================================
      * == TRANSLATION ============================================

@@ -31,7 +31,11 @@ Vip.prototype = {
 	    'input': $('#query')
 	});
 
-	return {cart: cartView, drink: drinkView};
+	var menuView = new MenuView({
+	    'menu': $('#menu')
+	});
+
+      return {cart: cartView, drink: drinkView, menu: menuView};
     },
     /*
      * Get the models to be used in the system.
@@ -42,8 +46,9 @@ Vip.prototype = {
 	var databaseModel = new DatabaseModel();
 	var cartModel = new CartModel();
 	var loginModel = new LoginModel();
+	var menuModel = new MenuModel();
 
-	return {cart: cartModel, database: databaseModel, login: loginModel};
+      return {cart: cartModel, database: databaseModel, login: loginModel, menu: menuModel};
     },
 
     /*
