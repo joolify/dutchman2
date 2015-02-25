@@ -35,7 +35,11 @@ Vip.prototype = {
 	    'menu': $('#menu')
 	});
 
-      return {cart: cartView, drink: drinkView, menu: menuView};
+	var quickView = new QuickView({
+	    'quickBuy': $('#quick_buy')
+	});
+
+      return {cart: cartView, drink: drinkView, menu: menuView, quick: quickView};
     },
     /*
      * Get the models to be used in the system.
@@ -47,8 +51,9 @@ Vip.prototype = {
 	var cartModel = new CartModel();
 	var loginModel = new LoginModel();
 	var menuModel = new MenuModel();
+	var quickModel = new QuickModel();
 
-      return {cart: cartModel, database: databaseModel, login: loginModel, menu: menuModel};
+      return {cart: cartModel, database: databaseModel, login: loginModel, menu: menuModel, quick: quickModel};
     },
 
     /*

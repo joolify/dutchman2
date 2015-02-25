@@ -17,6 +17,8 @@ function Controller(models, views) {
     /** @private */ this._languageView = views.language;
     /** @private */ this._menuModel = models.menu;
     /** @private */ this._menuView = views.menu;
+    /** @private */ this._quickModel = models.quick;
+    /** @private */ this._quickView = views.quick;
     /** @private */ this._currentLanguage = null;
 
     var _this = this;
@@ -123,6 +125,22 @@ function Controller(models, views) {
       _this.refreshMenu(args.menuList);
     });
   }
+
+  
+    /*
+     * ===========================================================
+     * == QUICK LISTENER =========================================
+     * ===========================================================
+     */
+  if(this._quickView) {
+    /*Listen for quick buttons clicks*/
+  }
+
+  if(this._quickModel) {
+    this._quickModel.quickUpdated.attach(function (sender, args) {
+      _this.refreshQuick(args.quickList);
+    });
+  }
 }
 
 
@@ -149,6 +167,7 @@ Controller.prototype = {
 	this.refreshTotalPrice();
 	this.refreshCredit();
       this.updateMenu();
+      this.updateQuick();
     },
 
     /*
@@ -353,6 +372,19 @@ Controller.prototype = {
 
   refreshMenu: function(menuList) {
     this._menuView.refresh(menuList);
+  },
+
+      /*
+     * ===========================================================
+     * == QUICK ==================================================
+     * ===========================================================
+     */
+  updateQuick: function() {
+    this._quickModel.update();
+  },
+
+  refreshQuick: function(quickList) {
+    this._quickView.refresh(quickList);
   },
     /*
      * ===========================================================
