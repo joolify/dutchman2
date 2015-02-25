@@ -296,10 +296,10 @@ Controller.prototype = {
 
     /*
      * Get the current file name of a page
-     * @function getCurrentPage
+     * @function _getCurrentPage
      * @return {String}
      */
-    getCurrentPage: function () {
+    _getCurrentPage: function () {
 	var url = window.location.pathname;
 	var filename = url.substring(url.lastIndexOf('/')+1);
 	return filename;
@@ -310,7 +310,7 @@ Controller.prototype = {
      * @return {Boolean}
      */
     _isCurrentPage: function (page) {
-    	return (this.getCurrentPage() == page);
+    	return (this._getCurrentPage() == page);
     },
     /*
      * Login to the system
