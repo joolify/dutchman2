@@ -16,7 +16,7 @@ function Controller(models, views) {
     /** @private */ this._languageModel = models.language;
     /** @private */ this._currentLanguage = null;
     this._payModel = models.pay;
-
+    this._payView = views.pay;
     var _this = this;
 
     /*
@@ -73,6 +73,7 @@ function Controller(models, views) {
 	    _this.refreshTotalPrice();
 	});
     }
+
     /*
      * ===========================================================
      * == LOGIN LISTENER =========================================
@@ -91,15 +92,21 @@ function Controller(models, views) {
 	});
 
     }
-    if (this._payModel) {
-        document.getElementById('button').onclick = function () {
-            _this.test();
-        }
-    }
+
     this._loginModel.logoutDone.attach(function () {
         _this.checkLogin();
     });
 
+
+    if (this._payModel) {
+        //document.getElementById('button').onclick = function () {
+           // _this.test();
+       // }
+    }
+
+   // _this._payView.button.attach(function () {
+     //  _this.test();
+    //})
 }
 
 

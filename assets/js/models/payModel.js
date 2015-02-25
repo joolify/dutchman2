@@ -15,9 +15,7 @@ PayModel.prototype = {
             for (var i = 0; i < itemCart.length; i++) {
                 var cartItem = itemCart[i].getItem();
                 var cartAmount = itemCart[i].getAmount();
-                var beerId = cartItem._id;
-
-                this.appendPurchase(userName, userPass, beerId, cartAmount);
+                this.appendPurchase(userName, userPass, cartItem._id, cartAmount);
             }
             //this.appendPayment(userName, userPass, total);
         }
