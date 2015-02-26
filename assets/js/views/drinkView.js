@@ -59,9 +59,7 @@ DrinkView.prototype = {
     refresh: function (itemList) {
 	var _this = this;
 	var list = this._elements.list;
-	
 	list.empty();
-	
         list.append($('<table id="drink_table"></table>'));
 
 	console.log("View.refresh().itemList", itemList.length);

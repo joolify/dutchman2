@@ -18,13 +18,16 @@ function Controller(models, views) {
     /** @private */ this._loginController = new LoginController(models.login, views.login);
   }
 
-  /** @private */ this._languageModel = models.language;
-  /** @private */ this._languageView = views.language;
-  /** @private */ this._menuModel = models.menu;
-  /** @private */ this._menuView = views.menu;
-  /** @private */ this._quickModel = models.quick;
-  /** @private */ this._quickView = views.quick;
-  /** @private */ this._currentLanguage = null;
+  if(models.language && views.language) {
+    /** @private */ this._languageController = new LanguageController(models.language, views.language);
+  }
+  if(models.menu && views.menu) {
+    /** @private */ this._menuController = new MenuController(models.menu, views.menu);
+  }
+  if(models.quick && views.quick) {
+  console.log("Controller()", models.quick, views.quick);
+    /** @private */ this._quickController = new QuickController(models.quick, views.quick);
+  }
 
   var _this = this;
 
@@ -34,49 +37,6 @@ function Controller(models, views) {
    * ==================== EVENT LISTENERS ======================
    * ===========================================================
    */
-
-
-  /*
-   * ===========================================================
-   * == LANGUAGE LISTENER ======================================
-   * ===========================================================
-   */
-
-  if(this._languageView) {
-    this._languageView.languageSelected.attach(function (sender, args) {
-      _this.getLanguage(args.language);
-    });
-  }
-
-  /*
-   * ===========================================================
-   * == MENU LISTENER ==========================================
-   * ===========================================================
-   */
-  if(this._menuView) {
-    /*Listen for menu button clicks*/
-  }
-
-  if(this._menuModel) {
-    this._menuModel.menuUpdated.attach(function (sender, args) {
-      _this.refreshMenu(args.menuList);
-    });
-  }
-
-  /*
-   * ===========================================================
-   * == QUICK LISTENER =========================================
-   * ===========================================================
-   */
-  if(this._quickView) {
-    /*Listen for quick buttons clicks*/
-  }
-
-  if(this._quickModel) {
-    this._quickModel.quickUpdated.attach(function (sender, args) {
-      _this.refreshQuick(args.quickList);
-    });
-  }
 }
 
 
@@ -93,61 +53,24 @@ Controller.prototype = {
    */
   /*
    * Show the drink table
-   * @function showDrinks
+   * @function run
    */
-  showDrinks: function() {
-    console.log("Controller.showDrinks()");
-    // this.isLoggedIn();
+  run: function() {
+    console.log("Controller.run()");
     this._loginController.run(); //TODO: needs username + password
     this._drinkController.run(); //TODO: needs username + password
     this._cartController.run(); //TODO: needs username + password
-    this.updateMenu();
-    this.updateQuick();
+    this._menuController.run();
+    this._quickController.run();
   },
 
   /*
-   * Show the login 
+   * Show the login
    * @function showLogin
    */
   showLogin: function() {
     console.log("Controller.showLogin()");
+    this._languageController.run(); //TODO: needs username + password
     //this._loginController.run(); //TODO: needs username + password
   },
-
-
-  /*
-   * ===========================================================
-   * == MENU ===================================================
-   * ===========================================================
-   */
-  updateMenu: function() {
-    this._menuModel.update();
-  },
-
-  refreshMenu: function(menuList) {
-    this._menuView.refresh(menuList);
-  },
-
-  /*
-   * ===========================================================
-   * == QUICK ==================================================
-   * ===========================================================
-   */
-  updateQuick: function() {
-    this._quickModel.update();
-  },
-
-  refreshQuick: function(quickList) {
-    this._quickView.refresh(quickList);
-  },
-  /*
-   * ===========================================================
-   * == TRANSLATION ============================================
-   * ===========================================================
-   */
-
-  getLanguage: function(language) {
-    var dictionary = this._languageModel.searchLanguage(language);
-    this._languageView.translate(dictionary);
-  }
 };

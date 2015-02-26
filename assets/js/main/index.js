@@ -24,7 +24,7 @@ Index.prototype = {
       {'loginForm': $('#loginForm'),
        'username': $('#username'),
        'password': $('#password'),
-       'errorMsg': $('#errorMsg')});
+       'errorMsg': $('#errorMsg')})
 
     var languageView = new LanguageView({
       'language': $('#language')
@@ -57,7 +57,6 @@ Index.prototype = {
   run: function () {
     this._controller = new Controller(this._getModels(), this._getViews());
     this._controller.showLogin();
-    this._controller.getLanguage($('#language').val());
   }
 };
 
