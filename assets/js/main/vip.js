@@ -50,13 +50,13 @@ Vip.prototype = {
      * @return {Models[]}
      */
     _getModels: function () {
-	var databaseModel = new DatabaseModel();
+	var drinkModel = new DrinkModel();
 	var cartModel = new CartModel();
 	var loginModel = new LoginModel();
 	var menuModel = new MenuModel();
 	var quickModel = new QuickModel();
 
-      return {cart: cartModel, database: databaseModel, login: loginModel, menu: menuModel, quick: quickModel};
+      return {cart: cartModel, drink: drinkModel, login: loginModel, menu: menuModel, quick: quickModel};
     },
 
     /*

@@ -12,11 +12,11 @@ function LoginController(model, view) {
    */
   if(this._view) {
     this._view.loginBtnClicked.attach(function (sender, args) {
-      _this.login(args.username, args.password);
+      _this._login(args.username, args.password);
     });
 
     this._view.logoutBtnClicked.attach(function () {
-      _this.logout();
+      _this._logout();
     });
   }
 
@@ -33,10 +33,11 @@ function LoginController(model, view) {
 }
 
 LoginController.prototype = {
-  run: function () {
-    console.log("LoginController.run()");
-    this.isLoggedIn();
-  },
+  /*
+   * ===========================================================
+   * ======================== PRIVATE  =========================
+   * ===========================================================
+   */
   /*
    * Redirects to a new page
    * @function _redirect
@@ -67,25 +68,35 @@ LoginController.prototype = {
   },
   /*
    * Login to the system
-   * @function login
+   * @function _login
    * @param username
    * @param password
    */
-  login: function (username, password) {
-    console.log("LoginController.login: ", username, password);
-    this._model.login(username, password);
+  _login: function (username, password) {
+    console.log("LoginController._login: ", username, password);
+    this._model._login(username, password);
   },
 
   /*
    * Log out and redirects to index.html
-   * @function logout
+   * @function _logout
    */
-  logout: function () {
-    console.log("LoginController.logout");
+  _logout: function () {
+    console.log("LoginController._logout");
     this._model.logout();
   },
 
-  /* Checks if the login was successful, if so redirect if needed.
+  /*
+   * ===========================================================
+   * ======================== PUBLIC  ==========================
+   * ===========================================================
+   */
+  run: function () {
+    console.log("LoginController.run()");
+    this.isLoggedIn();
+  },
+
+  /* Checks if the _login was successful, if so redirect if needed.
    * @function isLoggedIn
    */
   isLoggedIn: function() {
@@ -95,13 +106,13 @@ LoginController.prototype = {
     if(_isLoggedIn) {
       console.log("LoginController.isLoggedIn: " + _isLoggedIn);
       var user = +this._model.getUserType();
-      if(0 == user) {
+      if(0 === user) {
         page = "vip.html";
       }else if(1 == user) {
         page = "admin.html";
 
         //FIXME
-        this.logout(); // Just to not get caught in admin.html...
+        this._logout(); // Just to not get caught in admin.html...
       }
     }
     console.log("LoginController.isLoggedIn: " + page);
@@ -112,5 +123,12 @@ LoginController.prototype = {
     if(this._model.hasError() && this._isCurrentPage("index.html")) {
       this._view.showErrorMsg();
     }
+  },
+
+  getUserName: function () {
+    return this._loginModel.getUserName();
+  },
+  getPassWord: function () {
+    return this._loginModel.getPassWord();
   }
 };

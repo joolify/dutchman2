@@ -82,7 +82,6 @@ DrinkView.prototype = {
 			'</tr>'
 		)
 	    );
-	    
 	    // Listen to button clicks
 	    $('#' + buttonAdd).bind('click', function(e) {
 		_this._pushItem($(this).val());

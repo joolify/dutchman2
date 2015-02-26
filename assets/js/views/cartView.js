@@ -27,15 +27,6 @@ CartView.prototype = {
      * ======================== PRIVATE  =========================
      * ===========================================================
      */
-
-    /*
-     * Notifies its listeners that the user has pressed the logout button
-     * @function _logout
-     */
-    _logout: function () {
-	this.logoutBtnClicked.notify();
-    },
-
     /*
      * Notifies its listeners that the user has pressed the remove item button
      * @function _pop

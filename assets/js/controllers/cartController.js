@@ -50,8 +50,8 @@ CartController.prototype = {
    * @param itemId
    */
   pushCartItem: function (itemId) {
-    //TODO: Needs item from databaseModel
-    var item = null; // this._databaseModel.getItem(itemId);
+    //TODO: Needs item from drinkModel
+    var item = null; // this._drinkModel.getItem(itemId);
     this._model.push(item);
     console.log("Controller.pushCartItem: ", itemId);
   },
