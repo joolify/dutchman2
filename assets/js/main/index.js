@@ -26,7 +26,11 @@ Index.prototype = {
 	     'password': $('#password'),
 	     'errorMsg': $('#errorMsg')});
 	
-	return {login: loginView};
+    var languageView = new LanguageView({
+        'language': $('#language')
+    });
+
+	return {login: loginView, language: languageView};
     },
 
     /*
@@ -36,11 +40,12 @@ Index.prototype = {
      */
     _getModels: function () {
 	var loginModel = new LoginModel();
+    var languageModel = new LanguageModel();
 	    
-	return {login: loginModel};
+	return {login: loginModel, language: languageModel};
     },
 
-    /*
+    /*f
      * ===========================================================
      * ======================== PUBLIC  ==========================
      * ===========================================================
@@ -52,6 +57,7 @@ Index.prototype = {
     run: function () {
 	this._controller = new Controller(this._getModels(), this._getViews());
 	this._controller.showLogin();
+    this._controller.getLanguage($('#language').val());
     }
 };
 

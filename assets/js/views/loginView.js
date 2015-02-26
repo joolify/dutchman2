@@ -8,7 +8,7 @@
 function LoginView(elements) {
     /** @private */ this._elements = elements;
 
-    this.submitClicked = new Event(this);
+    this.loginBtnClicked = new Event(this);
 
     var _this = this;
     
@@ -18,7 +18,7 @@ function LoginView(elements) {
      * ===========================================================
      */
     this._elements.loginForm.submit(function(e) {
-	_this._submit(_this._elements.username.val(), _this._elements.password.val());
+	_this._login(_this._elements.username.val(), _this._elements.password.val());
     });
 }
 
@@ -30,13 +30,13 @@ LoginView.prototype = {
      */
     /*
      * Notifies that the user has clicked the submit button
-     * @function _submit
+     * @function _login
      * @param {String} username
      * @param {String} password
      */
-    _submit: function (username, password) {
-	console.log("LoginView._submit: usr: " + username + ", pwd: " + password);
-	this.submitClicked.notify({username: username, password: password});
+    _login: function (username, password) {
+	console.log("LoginView._login: usr: " + username + ", pwd: " + password);
+	this.loginBtnClicked.notify({username: username, password: password});
     },
 
     /*
@@ -46,9 +46,9 @@ LoginView.prototype = {
      */
     /*
      * Evokes the error message
-     * @function errorLogin
+     * @function showErrorMsg
      */
-    errorLogin: function () {
+    showErrorMsg: function () {
 	console.log("LoginView.error: ");
 	this._elements.errorMsg.empty();
 	this._elements.errorMsg.text("Login failed: Username/Password is wrong.");

@@ -1,14 +1,14 @@
 /*
- * A menu model
- * @class MenuModel
+ * A quick model
+ * @class QuickModel
  * @constructor
- * Creates a MenuModel
+ * Creates a QuickModel
  */
-function MenuModel() {
-    this.menuUpdated = new Event(this);
+function QuickModel() {
+    this.quickUpdated = new Event(this);
 }
 
-MenuModel.prototype = {
+QuickModel.prototype = {
     /*
      * ===========================================================
      * ======================== PRIVATE  =========================
@@ -23,7 +23,7 @@ MenuModel.prototype = {
   update: function() {
     var _this = this;
     /* fetch data*/
-    var menuList = "Hello Menu!";
-    _this.menuUpdated.notify({menuList: menuList});
+    var quickList = "Hello Quick!";
+    _this.quickUpdated.notify({quickList: quickList});
   }
 };

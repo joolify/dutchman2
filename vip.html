@@ -2,9 +2,12 @@
   <head>
     <title>VIP</title>
     <meta http-equiv="Content-type" value="text/html; charset=UTF-8" />
+
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <script src="lib/jquery/jquery-latest.min.js"></script>
 
     <script src="assets/js/main/vip.js"></script>
 
@@ -15,6 +18,7 @@
     <script src="assets/js/models/languageModel.js"></script>
     <script src="assets/js/models/loginModel.js"></script>
     <script src="assets/js/models/menuModel.js"></script>
+    <script src="assets/js/models/quickModel.js"></script>
 
     <script src="assets/js/helpers/cartItem.js"></script>
     <script src="assets/js/helpers/event.js"></script>
@@ -24,33 +28,44 @@
     <script src="assets/js/views/drinkView.js"></script>
     <script src="assets/js/views/languageView.js"></script>
     <script src="assets/js/views/menuView.js"></script>
+
     <script src="assets/js/models/payModel.js"></script>
     <script src="assets/js/views/payView.js"></script>
+
+    <script src="assets/js/views/quickView.js"></script>
+
   </head>
   <body>
 
+    <!-- MENU -->
+    <div id="menu"></div>
     <!-- DRINK TABLE -->
     <div id="drinks">
       <!-- SEARCH BAR -->
       <div id="search">
 	<label for="query">Search</label>
+  <br>
 	<input autocomplete="off" id="query">
       </div>
       <h2>Available items:</h2>
       <div id="drink_table"></div>
     </div>
     <!-- QUICK BUY -->
-    <h2>Most bought</h2>
     <div id="quick_buy">
+      <h2>Most bought</h2>
     </div>
     <!-- CART -->
-    <h2>Shopping cart</h2>
     <div id="cart">
+      <h2>Shopping cart</h2>
+      <div id="cart_table">
+      </div>
+      <div id="cost_row">
+        <p id="credit">Credit:</p><p id="totalPrice">Total price:</p>
+      </div>
     </div>
     <h2 id="credit">Credit:</h2> <h2 id="totalPrice">Total price:</h2>
 
     <input id="button" type="submit" name="button" value="enter" />
-
     <button id="logout">Log out</button>
 
   </body>

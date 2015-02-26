@@ -8,14 +8,14 @@
 function DrinkView(elements) {
     /** @private */ this._elements = elements;
 
-    this.inputModified = new Event(this);
-    this.addItem = new Event(this);
+    this.searchFieldModified = new Event(this);
+    this.itemBtnPushed = new Event(this);
 
     var _this = this;
 
     // Listens to search input
     this._elements.input.on('input', function(e) {
-	_this._queryUpdated($(this).val());
+	_this._searchFieldModified($(this).val());
     });
 
 }
@@ -29,22 +29,22 @@ DrinkView.prototype = {
     /*
      * Notifies its listeners that the user has entered a new value
      * @private
-     * @function _queryUpdated
+     * @function _searchFieldModified
      * @param {String} newQuery
      */
-    _queryUpdated: function (newQuery) {
-	this.inputModified.notify({query: newQuery});
+    _searchFieldModified: function (newQuery) {
+	this.searchFieldModified.notify({query: newQuery});
     },
 
     /*
      * Notifies its listeners that the + button has been pressed
      * @private
-     * @function _addToCart
+     * @function _pushItem
      * @param {Integer} itemId
      */
-    _addToCart: function (itemId) {
-	console.log("DrinkView._addToCart", itemId);
-	this.addItem.notify({itemId: itemId});
+    _pushItem: function (itemId) {
+	console.log("DrinkView._pushItem", itemId);
+	this.itemBtnPushed.notify({itemId: itemId});
     },
     /*
      * ===========================================================
@@ -87,7 +87,7 @@ DrinkView.prototype = {
 	    
 	    // Listen to button clicks
 	    $('#' + buttonAdd).bind('click', function(e) {
-		_this._addToCart($(this).val());
+		_this._pushItem($(this).val());
 	    });
         }
     }

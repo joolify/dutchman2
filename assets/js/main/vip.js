@@ -20,7 +20,7 @@ Vip.prototype = {
      */
     _getViews: function () {
 	var cartView = new CartView({
-	    'cart': $('#cart'),
+	    'cart': $('#cart_table'),
 	    'credit': $('#credit'),
 	    'totalPrice': $('#totalPrice'),
 	    'logout': $('#logout')
@@ -31,7 +31,14 @@ Vip.prototype = {
 	    'input': $('#query')
 	});
 
-	return {cart: cartView, drink: drinkView};
+	var menuView = new MenuView({
+	    'menu': $('#menu')
+	});
+
+	var payView = new payView({
+	});
+
+      return {cart: cartView, drink: drinkView, menu: menuView, payV: payView};
     },
     /*
      * Get the models to be used in the system.
@@ -44,6 +51,7 @@ Vip.prototype = {
 	var loginModel = new LoginModel();
 	var payModel = new PayModel();
 	return {cart: cartModel, database: databaseModel, login: loginModel, pay: payModel};
+
     },
 
     /*
@@ -51,8 +59,8 @@ Vip.prototype = {
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
-    /* 
-     * Creates an MVC and shows the view. 
+    /*
+     * Creates an MVC and shows the view.
      * @function run
      */
     run: function() {
@@ -61,8 +69,8 @@ Vip.prototype = {
     }
 };
 
-/* 
- * Executes Vip after the DOM is ready. 
+/*
+ * Executes Vip after the DOM is ready.
  * @function ready
  */
 $(function () {
