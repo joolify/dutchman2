@@ -8,6 +8,7 @@
  */
 function Controller(models, views) {
     /** @private */ this._drinkController = new DrinkController(models.database, views.drink);
+    /** @private */ this._cartController = new CartController(models.cart, views.cart);
 
     /** @private */ this._cartView = views.cart;
     /** @private */ this._cartModel = models.cart;
@@ -30,34 +31,6 @@ function Controller(models, views) {
      * ===========================================================
      */
 
-    /*
-     * ===========================================================
-     * == CART LISTENER ==========================================
-     * ===========================================================
-     */
-    if(this._cartView) {
-	this._cartView.popBtnClicked.attach(function (sender, args) {
-	    _this.popCartItem(args.itemId);
-	});
-
-	this._cartView.incrementBtnClicked.attach(function (sender, args) {
-	    _this.incrementCartItem(args.itemId);
-	});
-
-	this._cartView.amountRemoved.attach(function (sender, args) {
-	    _this.decrementCartItem(args.itemId);
-	});
-
-	this._cartView.logoutBtnClicked.attach(function () {
-	    _this.logout();
-	});
-    }
-    if(this._cartModel) {
-	this._cartModel.cartUpdated.attach(function () {
-	    _this.refreshCart();
-	    _this.refreshTotalPrice();
-	});
-    }
     /*
      * ===========================================================
      * == LOGIN LISTENER =========================================
@@ -144,8 +117,7 @@ Controller.prototype = {
 	console.log("Controller.showDrinks()");
 	this.isLoggedIn();
       this._drinkController.run(); //TODO: needs username + password
-	this.refreshTotalPrice();
-	this.refreshCredit();
+      this._cartController.run(); //TODO: needs username + password
       this.updateMenu();
       this.updateQuick();
     },
@@ -157,79 +129,6 @@ Controller.prototype = {
     showLogin: function() {
 	console.log("Controller.showLogin()");
 	this.isLoggedIn();
-    },
-
-    /*
-     * ===========================================================
-     * == CART ===================================================
-     * ===========================================================
-     */
-
-    /* Add an item to the CartModel
-     * @function pushCartItem
-     * @param itemId
-     */
-    pushCartItem: function (itemId) {
-      //TODO: Needs item from databaseModel
-      var item = null; // this._databaseModel.getItem(itemId);
-	this._cartModel.push(item);
-	console.log("Controller.pushCartItem: ", itemId);
-    },
-    /*
-     * Remove an item from the CartModel
-     * @function popCartItem
-     * @param {Integer} itemId
-     */
-    popCartItem: function (itemId) {
-	console.log("Controller.popCartItem: ", itemId);
-	this._cartModel.pop(itemId);
-    },
-    /* Increases the amount of an item.
-     * function incrementCartItem
-     * @param itemId
-     */
-    incrementCartItem: function (itemId) {
-	console.log("Controller.incrementCartItem: ", itemId);
-	this._cartModel.increment(itemId);
-    },
-    
-    /* Increases the amount of an item.
-     * @function decrementCartItem
-     * @param itemId
-     */
-    decrementCartItem: function (itemId) {
-	console.log("Controller.decrementCartItem: ", itemId);
-	this._cartModel.decrement(itemId);
-    },
-
-    /*
-     * Refreshes the CartView
-     * @function refreshCart
-     */
-    refreshCart: function () {
-	var cartItemList = this._cartModel.getCart();
-	console.log("Controller.refreshCart: " + cartItemList.length);
-	this._cartView.refresh(cartItemList);
-    },
-
-    /*
-     * Refreshes the total price
-     * @function refreshTotalPrice
-     */
-    refreshTotalPrice: function () {
-	var totalPrice = this._cartModel.getTotalPrice();
-	this._cartView.setTotalPrice(totalPrice);
-    },
-    /*
-     * Refreshes the credit
-     * @function refreshCredit
-     */
-
-    refreshCredit: function () {
-	var username = this._loginModel.getUserName();
-	var password = this._loginModel.getPassWord();
-	var credit = this._cartModel.getCredit(username, password);
-	this._cartView.setCredit(credit);
     },
 
 
