@@ -15,14 +15,22 @@ function Controller(models, views) {
     this._loginView = views.login;
     this._languageModel = models.language;
     this._currentLanguage = null;
+	this._menuModel = models.menu;
+	this._menuView = views.menu;
 
     var _this = this;
 
     /*
-     * Event listeners
-     */
-
-    /* DrinkView */
+      * ===========================================================
+      * ==================== EVENT LISTENERS ======================
+      * ===========================================================
+      */
+ 
+     /*
+      * ===========================================================
+      * == DRINK LISTENER =========================================
+      * ===========================================================
+      */
     if(this._drinkView) {
 	this._drinkView.inputModified.attach(function (sender, args) {
 	    _this.queryDatabaseModel(args.query);
@@ -38,7 +46,11 @@ function Controller(models, views) {
             _this.refreshDrinkView();
 	});
     }
-    /* Cart */
+     /*
+      * ===========================================================
+      * == CART LISTENER ==========================================
+      * ===========================================================
+      */
     if(this._cartModel) {
 	this._cartModel.cartUpdated.attach(function () {
 	    _this.refreshCartView();
@@ -54,7 +66,11 @@ function Controller(models, views) {
 	    _this.removeAmountFromCartModel(args.itemId);
 	});
     }
-    /* Login */ 
+    /*
+      * ===========================================================
+      * == LOGIN LISTENER =========================================
+      * ===========================================================
+      */
     if(this._loginView) {
 	this._loginView.submitClicked.attach(function (sender, args) {
 	    _this.login(args.username, args.password);
@@ -66,9 +82,38 @@ function Controller(models, views) {
 	    _this.checkLogin(args.msg);
 	});
     }
+	 /*
+      * ===========================================================
+      * == LANGUAGE LISTENER ======================================
+      * ===========================================================
+      */
+ 
+     if(this._languageView) {
+         this._languageView.languageSelected.attach(function (sender, args) {
+             _this.getLanguage(args.language);
+         });
+     }
+	/*
++     * ===========================================================
++     * == MENU LISTENER ==========================================
++     * ===========================================================
++     */
+	if(this._menuView) {
+	this._menuView.menuUpdate.attach(function (sender, args) {
+	    _this.menuUpdate();
+	});
+    }
+	
+	if(this._menuModel) {
++    this._menuModel.menuUpdated.attach(function (sender, args) {
++      _this.refreshMenu(args.menuList);
++    });
++  }
 }
 
 Controller.prototype = {
+	
+
     /*
      * Show the drink table
      * @function showDrinks
@@ -212,5 +257,9 @@ Controller.prototype = {
 	    console.log("Controller.checkUser: unauthorized");
 	    this.redirect("index.html");
 	}
-    }
+    },
+	menuUpdate: function () {
+		var menu = this._menuModel.menuUpdate();
+		console.log("Controller.createMenu()"+menu);
+	}
 };
