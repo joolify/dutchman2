@@ -28,9 +28,11 @@ MenuView.prototype = {
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
-  refresh: function(menuList) {
+	menuList : [],
+  refresh: function(categories) {
     var _this = this;
     var menu = this._elements.menu;
-    menu.append(menuList);
+	this.menuList.push(categories);
+    menu.append(categories.toString());
   }
 };

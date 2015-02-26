@@ -22,9 +22,9 @@ DatabaseModel.prototype = {
      * @function _drop
      */
     _drop: function () {
-	while(this._itemList.length > 0) {
-	    this._itemList.pop();
-	}
+		while(this._itemList.length > 0) {
+			this._itemList.pop();
+		}
     },    
     
     /*
@@ -35,14 +35,14 @@ DatabaseModel.prototype = {
      * @return {Integer} 
      */
     _getSearchHits: function(name, searchArray) {
-	var count = 0;
+		var count = 0;
         for (var index = 0; index < searchArray.length; index++) {
             if (searchArray[index].length > 0 &&
                 name.indexOf(searchArray[index]) > -1) {
                 count++;
             }
         }
-	return count;
+		return count;
     },
 
     /*
@@ -55,20 +55,18 @@ DatabaseModel.prototype = {
      * @return {null} if not found
      */
     _filterByMatch: function(query, item, _this) {
-	var searchString = query.toLowerCase();
-        var searchArray = searchString.split(" ");
-        var lowerBound = Math.ceil((searchArray.length)/2);
-	var name = item.namn.toLowerCase();
-	var nameAndName2 = name + ' ' + item.namn2.toLowerCase();
-	var count = _this._getSearchHits(nameAndName2, searchArray);
-	
-	if (name.length > 0 && (searchString.length == 0 || count >= lowerBound)) {
-	     
-	    return new Item(item.namn, item.namn2, item.sbl_price, item.pub_price, item.beer_id, item.count, item.price);
-
-	}else{
-	    return null;
-	}
+		var searchString = query.toLowerCase();
+		var searchArray = searchString.split(" ");
+		var lowerBound = Math.ceil((searchArray.length)/2);
+		var name = item.namn.toLowerCase();
+		var nameAndName2 = name + ' ' + item.namn2.toLowerCase();
+		var count = _this._getSearchHits(nameAndName2, searchArray);
+		
+		if (name.length > 0 && (searchString.length == 0 || count >= lowerBound)) {
+			return new Item(item.namn, item.namn2, item.sbl_price, item.pub_price, item.beer_id, item.count, item.price);
+		}else{
+			return null;
+		}
     },
     /*
      * ===========================================================
@@ -90,8 +88,8 @@ DatabaseModel.prototype = {
      * return {Item}
      */
     getItem: function (itemId) {
-	var elementPos = this._itemList.map(function(x) {return x.getId(); }).indexOf(itemId);
-	return this._itemList[elementPos];
+		var elementPos = this._itemList.map(function(x) {return x.getId(); }).indexOf(itemId);
+		return this._itemList[elementPos];
     },
     /*
      * Query the database. 
@@ -99,31 +97,31 @@ DatabaseModel.prototype = {
      * @param {String} query 
      */
     query: function (query, username, password) {
-	var urlQuery = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=inventory_get';
-	console.log("Model.query(): " + query);
-	var _this = this;
-        
-	$.ajax({
-            url: urlQuery,
-	    type: "POST",
-	    contentType: "application/json; charset=utf-8",
-            dataType: 'json',
-            asynch: false,
-            success: function (data) {
-		_this._drop();
-		$.each(data.payload, function (key, item){
-		    var newItem = _this._filterByMatch(query, item, _this);
-		    if(newItem) {
-			_this._itemList.push(newItem);
-		    }
-		});		
-		
-		console.log("Model.query().itemList: ", _this._itemList.length);
-		_this.drinksUpdated.notify();
-            },
-            error : function(jqXHR, textStatus, errorThrown) {
-                console.log('an error occurred!');
-            }
-        });
-    }
-};
+		var urlQuery = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=inventory_get';
+		console.log("Model.query(): " + query);
+		var _this = this;
+			
+		$.ajax({
+			url: urlQuery,
+			type: "POST",
+			contentType: "application/json; charset=utf-8",
+				dataType: 'json',
+				asynch: false,
+				success: function (data) {
+			_this._drop();
+			$.each(data.payload, function (key, item){
+				var newItem = _this._filterByMatch(query, item, _this);
+				if(newItem) {
+				_this._itemList.push(newItem);
+				}
+			});		
+			
+			console.log("Model.query().itemList: ", _this._itemList.length);
+			_this.drinksUpdated.notify();
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					console.log('an error occurred!');
+				}
+			});
+		}
+	};

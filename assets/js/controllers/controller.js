@@ -122,7 +122,7 @@ function Controller(models, views) {
 
   if(this._menuModel) {
     this._menuModel.menuUpdated.attach(function (sender, args) {
-      _this.refreshMenu(args.menuList);
+      _this.refreshMenu(args.categories);
     });
   }
 
@@ -370,8 +370,8 @@ Controller.prototype = {
     this._menuModel.update();
   },
 
-  refreshMenu: function(menuList) {
-    this._menuView.refresh(menuList);
+  refreshMenu: function(categories) {
+    this._menuView.refresh(categories);
   },
 
       /*
