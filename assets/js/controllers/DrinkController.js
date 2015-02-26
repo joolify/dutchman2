@@ -4,7 +4,6 @@ function DrinkController(model, view){
   /** @private */ this._QUERY_INIT = "";
 
   var _this = this;
-  console.log("DrinkController()", this._databaseModel, this._drinkView);
   /*
    * ===========================================================
    * ==================== EVENT LISTENERS ======================

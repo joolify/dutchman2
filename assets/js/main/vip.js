@@ -23,12 +23,15 @@ Vip.prototype = {
 	    'cart': $('#cart_table'),
 	    'credit': $('#credit'),
 	    'totalPrice': $('#totalPrice'),
-	    'logout': $('#logout')
 	});
 
 	var drinkView = new DrinkView({
 	    'list': $('#drink_table'),
 	    'input': $('#query')
+	});
+
+	var loginView = new LoginView({
+	    'logout': $('#logoutBtn')
 	});
 
 	var menuView = new MenuView({
@@ -39,7 +42,7 @@ Vip.prototype = {
 	    'quickBuy': $('#quick_buy')
 	});
 
-      return {cart: cartView, drink: drinkView, menu: menuView, quick: quickView};
+      return {cart: cartView, drink: drinkView, login: loginView, menu: menuView, quick: quickView};
     },
     /*
      * Get the models to be used in the system.

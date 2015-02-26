@@ -23,9 +23,6 @@ function CartController(model, view) {
       _this.decrementCartItem(args.itemId);
     });
 
-    this._view.logoutBtnClicked.attach(function () {
-      _this.logout();
-    });
   }
   if(this._model) {
     this._model.cartUpdated.attach(function () {

@@ -192,7 +192,7 @@ LoginModel.prototype = {
      * @function logout
      */ 
     logout: function () {
-	console.log("Controller.logout");
+	console.log("LoginModel.logout");
 	this._flushCookies();
 	this.logoutDone.notify();
     },
@@ -213,7 +213,6 @@ LoginModel.prototype = {
 	    $.getJSON(urlCheck),
 	    $.getJSON(urlLogin)
 	).done(function(resultCheck, resultLogin){
-	    
 	    var loginResponse = resultLogin[0];
 	    if(loginResponse.type != "error"){
 		var isVip = resultCheck[0].type == "error";

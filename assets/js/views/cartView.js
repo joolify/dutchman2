@@ -11,7 +11,6 @@ function CartView(elements) {
     this.popBtnClicked = new Event(this);
     this.incrementBtnClicked = new Event(this);
     this.amountRemoved = new Event(this);
-    this.logoutBtnClicked = new Event(this);
 
     var _this = this;
 
@@ -20,9 +19,6 @@ function CartView(elements) {
      * ==================== EVENT LISTENERS ======================
      * ===========================================================
      */
-    this._elements.logout.click(function(e) {
-	_this._logout();
-    });
 }
 
 CartView.prototype = {
