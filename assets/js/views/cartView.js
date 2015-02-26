@@ -6,44 +6,86 @@
  * Creates a cart view
  */
 function CartView(elements) {
-    this._elements = elements;
-    this.amountAdded = new Event(this);
+    /** @private */ this._elements = elements;
+
+    this.popBtnClicked = new Event(this);
+    this.incrementBtnClicked = new Event(this);
     this.amountRemoved = new Event(this);
+    this.logoutBtnClicked = new Event(this);
+
+    var _this = this;
+
+    /*
+     * ===========================================================
+     * ==================== EVENT LISTENERS ======================
+     * ===========================================================
+     */
+    this._elements.logout.click(function(e) {
+	_this._logout();
+    });
 }
 
 CartView.prototype = {
     /*
-     * Increases the amount of an item.
-     * @function _addAmountToItem
-     * @param {Integer} itemId
+     * ===========================================================
+     * ======================== PRIVATE  =========================
+     * ===========================================================
      */
-    _addAmountToItem: function (itemId) {
-	console.log("add: ", itemId); 
-	this.amountAdded.notify({itemId: itemId});
+
+    /*
+     * Notifies its listeners that the user has pressed the logout button
+     * @function _logout
+     */
+    _logout: function () {
+	this.logoutBtnClicked.notify();
     },
 
     /*
-     * Decreases the amount of an item.
-     * @function _removeAmountFromItem
+     * Notifies its listeners that the user has pressed the remove item button
+     * @function _pop
      * @param {Integer} itemId
      */
-    _removeAmountFromItem: function (itemId) {
-	console.log("remove: ", itemId);
+    _pop: function (itemId) {
+	console.log("CartView._pop(): ", itemId);
+	this.popBtnClicked.notify({itemId: itemId});
+    },
+    /*
+     * Notifies its listeners that the user has pressed the increase item button
+     * @function _increment
+     * @param {Integer} itemId
+     */
+    _increment: function (itemId) {
+	console.log("CartView._increment(): ", itemId);
+	this.incrementBtnClicked.notify({itemId: itemId});
+    },
+
+    /*
+     * Notifies its listeners that the user has pressed the decrease item button
+     * @function _decrement
+     * @param {Integer} itemId
+     */
+    _decrement: function (itemId) {
+	console.log("CartView._decrement(): ", itemId);
 	this.amountRemoved.notify({itemId: itemId});
     },
 
     /*
-     * Sets the credit
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
+    /*
+     * Sets the credit text to a new value
      * @function setCredit
      * @param {Float} credit
-     */ 
+     */
     setCredit: function (credit) {
 	console.log("CartView.setCredit", credit);
 	this._elements.credit.text("Credit: " + credit);
     },
-    
+
     /*
-     * Sets the total price
+     * Sets the total price text to a new value
      * @function setTotalPrice
      * @param {Float} price
      */
@@ -62,43 +104,53 @@ CartView.prototype = {
 
 	cart.empty();
 
-	cart.append($('<table id="cart"></table>'));
+	cart.append($('<table id="cart_table"></table>'));
 
 	console.log('CartView.refresh().cartItemList', cartItemList.length);
 
 	for(var i = 0; i < cartItemList.length; i++) {
 	    var item = cartItemList[i].getItem();
+	    var buttonRemove = "cartRemove_" + item.getId();
 	    var buttonPlus = "cartPlus_" + item.getId();
 	    var buttonMinus = "cartMinus_" + item.getId();
             cart.append(
 		$(
 		    '<tr>' +
-			'<td>' + 
-			item.getName() + 
+			'<td>' +
+			'<button id="' + buttonRemove + '"' +
+			'value="' + item.getId() + '"' +
+			'>x</button>' +
 			'</td>' +
-			'<td>' + 
-			cartItemList[i].getAmount() + '*' + 
+			'<td>' +
+			item.getName() +
+			'</td>' +
+			'<td>' +
+			cartItemList[i].getAmount() + '*' +
 			item.getPubPrice() +
 			'</td>' +
 			'<td>' + cartItemList[i].getSum() + '</td>' +
 			'<td>' +
 			'<button id="' + buttonPlus + '"' +
-			'value="' + item.getId() + '"' +  
+			'value="' + item.getId() + '"' +
 			'>+</button>' +
 			'<button id="' + buttonMinus + '"' +
-			'value="' + item.getId() + '"' +  
+			'value="' + item.getId() + '"' +
 			'>-</button>' +
-			'</td>' + 
+			'</td>' +
 			'</tr>'
 		)
 	    );
+	    // Listens to x button
+	    $('#' + buttonRemove).bind('click', function(e) {
+		_this._pop($(this).val());
+	    });
 	    // Listens to + button
 	    $('#' + buttonPlus).bind('click', function(e) {
-		_this._addAmountToItem($(this).val());
+		_this._increment($(this).val());
 	    });
 	    // Listens to - button
 	    $('#' + buttonMinus).bind('click', function(e) {
-		_this._removeAmountFromItem($(this).val());
+		_this._decrement($(this).val());
 	    });
         }
     }

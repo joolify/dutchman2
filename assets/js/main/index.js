@@ -5,10 +5,15 @@
  * Creates an MVC
  */
 function Index() {
-    this._controller = null;
+    /** @private */ this._controller = null;
 }
 
 Index.prototype = {
+    /*
+     * ===========================================================
+     * ======================== PRIVATE  =========================
+     * ===========================================================
+     */
     /*
      * Get the views to be used in the system.
      * @function _getViews
@@ -21,7 +26,11 @@ Index.prototype = {
 	     'password': $('#password'),
 	     'errorMsg': $('#errorMsg')});
 	
-	return {login: loginView};
+    var languageView = new LanguageView({
+        'language': $('#language')
+    });
+
+	return {login: loginView, language: languageView};
     },
 
     /*
@@ -31,16 +40,24 @@ Index.prototype = {
      */
     _getModels: function () {
 	var loginModel = new LoginModel();
+    var languageModel = new LanguageModel();
 	    
-	return {login: loginModel};
+	return {login: loginModel, language: languageModel};
     },
 
+    /*f
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
     /* 
      * Creates an MVC and shows the view. 
      * @function run
      */
     run: function () {
 	this._controller = new Controller(this._getModels(), this._getViews());
+	this._controller.showLogin();
+    this._controller.getLanguage($('#language').val());
     }
 };
 

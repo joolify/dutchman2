@@ -1,14 +1,13 @@
 /*
- * A menu model
- * @class MenuModel
+ * Admin
+ * @class Admin
  * @constructor
- * Creates a MenuModel
+ * Creates an MVC
  */
-function MenuModel() {
-    this.menuUpdated = new Event(this);
+function Admin() {
 }
 
-MenuModel.prototype = {
+Admin.prototype = {
     /*
      * ===========================================================
      * ======================== PRIVATE  =========================
@@ -20,10 +19,18 @@ MenuModel.prototype = {
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
-  update: function() {
-    var _this = this;
-    /* fetch data*/
-    var menuList = "Hello Menu!";
-    _this.menuUpdated.notify({menuList: menuList});
-  }
+    /* 
+     * Creates an MVC and shows the view. 
+     * @function run
+     */
+    run: function () {
+    }
 };
+/* 
+ * Executes Admin after the DOM is ready. 
+ * @function ready
+ */
+$(function () {
+    var admin = new Admin();
+    admin.run();
+});

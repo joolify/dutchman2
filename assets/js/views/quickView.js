@@ -1,10 +1,10 @@
 /*
- * A menu view
- * @class MenuView
+ * A quick view
+ * @class QuickView
  * @constructor
- * Creates a MenuView
+ * Creates a QuickView
  */
-function MenuView(elements) {
+function QuickView(elements) {
     /** @private */ this._elements = elements;
 
     var _this = this;
@@ -16,7 +16,7 @@ function MenuView(elements) {
      */
 }
 
-MenuView.prototype = {
+QuickView.prototype = {
     /*
      * ===========================================================
      * ======================== PRIVATE  =========================
@@ -28,9 +28,9 @@ MenuView.prototype = {
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
-  refresh: function(menuList) {
+  refresh: function(quickList) {
     var _this = this;
-    var menu = this._elements.menu;
-    menu.append(menuList);
+    var quick = this._elements.quickBuy;
+    quick.append(quickList);
   }
 };

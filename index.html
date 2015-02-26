@@ -13,13 +13,24 @@
     <script src="assets/js/views/loginView.js"></script>
 
     <script src="assets/js/models/loginModel.js"></script>
+
+    <script src="assets/js/views/languageView.js"></script>
+
+    <script src="assets/js/models/languageModel.js"></script>
   </head>
   <body>
+    <select id="language">
+      <option value="english" selected="selected">English</option>
+      <option value="swedish">Svenska</option>
+      <option value="spanish">Español</option>
+    </select> 
+    <h1 id="titleIndex"></h1>
+    <h2 id="subTitleIndex"></h2>
     <!-- LOGIN FORM -->
     <form id="loginForm" action="#">
       <input id="username" value="aamsta">
       <input id="password" value="aamsta">
-      <button type="submit">submit</button>
+      <button id="loginButton" type="submit">login</button>
       <p><h2 id="errorMsg"></p>
     </form>
   </body>

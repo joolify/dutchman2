@@ -6,24 +6,49 @@
  * Creates a login view
  */
 function LoginView(elements) {
-    this._elements = elements;
+    /** @private */ this._elements = elements;
 
-    this.submitClicked = new Event(this);
+    this.loginBtnClicked = new Event(this);
 
     var _this = this;
     
+    /*
+     * ===========================================================
+     * ==================== EVENT LISTENERS ======================
+     * ===========================================================
+     */
     this._elements.loginForm.submit(function(e) {
-	_this._submit(_this._elements.username.val(), _this._elements.password.val());
+	_this._login(_this._elements.username.val(), _this._elements.password.val());
     });
 }
 
 LoginView.prototype = {
-    _submit: function (username, password) {
-	console.log("LoginView._submit: usr: " + username + ", pwd: " + password);
-	this.submitClicked.notify({username: username, password: password});
+    /*
+     * ===========================================================
+     * ======================== PRIVATE  =========================
+     * ===========================================================
+     */
+    /*
+     * Notifies that the user has clicked the submit button
+     * @function _login
+     * @param {String} username
+     * @param {String} password
+     */
+    _login: function (username, password) {
+	console.log("LoginView._login: usr: " + username + ", pwd: " + password);
+	this.loginBtnClicked.notify({username: username, password: password});
     },
 
-    errorLogin: function () {
+    /*
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
+    /*
+     * Evokes the error message
+     * @function showErrorMsg
+     */
+    showErrorMsg: function () {
 	console.log("LoginView.error: ");
 	this._elements.errorMsg.empty();
 	this._elements.errorMsg.text("Login failed: Username/Password is wrong.");

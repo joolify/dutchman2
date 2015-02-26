@@ -6,11 +6,16 @@
  * Creates an Event
  */
 function Event(sender) {
-    this._sender = sender;
-    this._listeners = [];
+    /** @private */ this._sender = sender;
+    /** @private */ this._listeners = [];
 }
 
 Event.prototype = {
+    /*
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
     /*
      * Attach a listener to an event
      * @function attach

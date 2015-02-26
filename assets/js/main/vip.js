@@ -5,9 +5,14 @@
  * Creates an MVC
  */
 function Vip() {
-    this._controller = null;
+    /** @private */ this._controller = null;
 }
 Vip.prototype = {
+    /*
+     * ===========================================================
+     * ======================== PRIVATE  =========================
+     * ===========================================================
+     */
     /*
      * Get the views to be used in the system.
      * @function _getViews
@@ -15,9 +20,10 @@ Vip.prototype = {
      */
     _getViews: function () {
 	var cartView = new CartView({
-	    'cart': $('#cart'),
+	    'cart': $('#cart_table'),
 	    'credit': $('#credit'),
-	    'totalPrice': $('#totalPrice')
+	    'totalPrice': $('#totalPrice'),
+	    'logout': $('#logout')
 	});
 
 	var drinkView = new DrinkView({
@@ -25,7 +31,15 @@ Vip.prototype = {
 	    'input': $('#query')
 	});
 
-	return {cart: cartView, drink: drinkView};
+	var menuView = new MenuView({
+	    'menu': $('#menu')
+	});
+
+	var quickView = new QuickView({
+	    'quickBuy': $('#quick_buy')
+	});
+
+      return {cart: cartView, drink: drinkView, menu: menuView, quick: quickView};
     },
     /*
      * Get the models to be used in the system.
@@ -36,12 +50,19 @@ Vip.prototype = {
 	var databaseModel = new DatabaseModel();
 	var cartModel = new CartModel();
 	var loginModel = new LoginModel();
+	var menuModel = new MenuModel();
+	var quickModel = new QuickModel();
 
-	return {cart: cartModel, database: databaseModel, login: loginModel};
+      return {cart: cartModel, database: databaseModel, login: loginModel, menu: menuModel, quick: quickModel};
     },
 
-    /* 
-     * Creates an MVC and shows the view. 
+    /*
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
+    /*
+     * Creates an MVC and shows the view.
      * @function run
      */
     run: function() {
@@ -50,8 +71,8 @@ Vip.prototype = {
     }
 };
 
-/* 
- * Executes Vip after the DOM is ready. 
+/*
+ * Executes Vip after the DOM is ready.
  * @function ready
  */
 $(function () {
