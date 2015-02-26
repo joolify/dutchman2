@@ -7,10 +7,10 @@
  * Creates a Controller
  */
 function Controller(models, views) {
+    /** @private */ this._drinkController = new DrinkController(models.database, views.drink);
+
     /** @private */ this._cartView = views.cart;
     /** @private */ this._cartModel = models.cart;
-    /** @private */ this._databaseModel = models.database;
-    /** @private */ this._drinkView = views.drink;
     /** @private */ this._loginModel = models.login;
     /** @private */ this._loginView = views.login;
     /** @private */ this._languageModel = models.language;
@@ -23,32 +23,13 @@ function Controller(models, views) {
 
     var _this = this;
 
+
     /*
      * ===========================================================
      * ==================== EVENT LISTENERS ======================
      * ===========================================================
      */
 
-    /*
-     * ===========================================================
-     * == DRINK LISTENER =========================================
-     * ===========================================================
-     */
-    if(this._drinkView) {
-	this._drinkView.searchFieldModified.attach(function (sender, args) {
-	    _this.queryDrinks(args.query);
-	});
-
-	this._drinkView.itemBtnPushed.attach(function (sender, args) {
-	    _this.pushCartItem(args.itemId);
-	});
-    }
-
-    if(this._databaseModel) {
-	this._databaseModel.drinksUpdated.attach(function () {
-            _this.refreshDrinks();
-	});
-    }
     /*
      * ===========================================================
      * == CART LISTENER ==========================================
@@ -162,8 +143,7 @@ Controller.prototype = {
     showDrinks: function() {
 	console.log("Controller.showDrinks()");
 	this.isLoggedIn();
-	var initSearch = "";
-	this.queryDrinks(initSearch);
+      this._drinkController.run(); //TODO: needs username + password
 	this.refreshTotalPrice();
 	this.refreshCredit();
       this.updateMenu();
@@ -181,32 +161,6 @@ Controller.prototype = {
 
     /*
      * ===========================================================
-     * == DRINK ==================================================
-     * ===========================================================
-     */
-
-    /*
-     * Refreshes the DrinkView
-     * @function refreshDrinks
-     */
-    refreshDrinks: function () {
-	var itemList = this._databaseModel.getItems();
-	console.log("Controller.refreshDrinks: " + itemList.length);
-	this._drinkView.refresh(itemList);
-    },
-
-    /* Queries the DatabaseModel
-     * @function queryDrinks
-     */
-    queryDrinks: function (query) {
-	console.log("Controller.queryDrinks: "+ query);
-	var username = this._loginModel.getUserName();
-	var password = this._loginModel.getPassWord();
-	this._databaseModel.query(query, username, password);
-    },
-
-    /*
-     * ===========================================================
      * == CART ===================================================
      * ===========================================================
      */
@@ -216,7 +170,8 @@ Controller.prototype = {
      * @param itemId
      */
     pushCartItem: function (itemId) {
-	var item = this._databaseModel.getItem(itemId);
+      //TODO: Needs item from databaseModel
+      var item = null; // this._databaseModel.getItem(itemId);
 	this._cartModel.push(item);
 	console.log("Controller.pushCartItem: ", itemId);
     },

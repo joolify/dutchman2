@@ -8,7 +8,7 @@
 function DatabaseModel() {
     /** @private */ this._itemList = [];
 
-    this.drinksUpdated = new Event(this); 
+    this.drinksUpdated = new Event(this);
 }
 
 DatabaseModel.prototype = {
@@ -25,8 +25,8 @@ DatabaseModel.prototype = {
 	while(this._itemList.length > 0) {
 	    this._itemList.pop();
 	}
-    },    
-    
+    },
+
     /*
      * Checks how many of the search term has a match on the label
      * @function _getSearchHits
@@ -61,11 +61,9 @@ DatabaseModel.prototype = {
 	var name = item.namn.toLowerCase();
 	var nameAndName2 = name + ' ' + item.namn2.toLowerCase();
 	var count = _this._getSearchHits(nameAndName2, searchArray);
-	
-	if (name.length > 0 && (searchString.length == 0 || count >= lowerBound)) {
-	     
-	    return new Item(item.namn, item.namn2, item.sbl_price, item.pub_price, item.beer_id, item.count, item.price);
 
+	if (name.length > 0 && (searchString.length == 0 || count >= lowerBound)) {
+	    return new Item(item.namn, item.namn2, item.sbl_price, item.pub_price, item.beer_id, item.count, item.price);
 	}else{
 	    return null;
 	}
@@ -99,10 +97,10 @@ DatabaseModel.prototype = {
      * @param {String} query 
      */
     query: function (query, username, password) {
+      console.log("DatabaseModel.query()", query, username, password);
 	var urlQuery = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=inventory_get';
-	console.log("Model.query(): " + query);
 	var _this = this;
-        
+
 	$.ajax({
             url: urlQuery,
 	    type: "POST",
@@ -110,14 +108,14 @@ DatabaseModel.prototype = {
             dataType: 'json',
             asynch: false,
             success: function (data) {
-		_this._drop();
+		_this._drop(); //Clear itemList before new query
 		$.each(data.payload, function (key, item){
 		    var newItem = _this._filterByMatch(query, item, _this);
 		    if(newItem) {
 			_this._itemList.push(newItem);
 		    }
-		});		
-		
+		});
+
 		console.log("Model.query().itemList: ", _this._itemList.length);
 		_this.drinksUpdated.notify();
             },
