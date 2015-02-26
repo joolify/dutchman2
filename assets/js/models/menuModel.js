@@ -5,13 +5,15 @@
  * Creates a MenuModel
  */
 function MenuModel() {
-	this._menuList = [];
+	this.menuUpdated = new Event(this); 
+
+	/*this._menuList = [];
 	this._db_inventory = 'http://pub.jamaica-inn.net/fpdb/api.php?username=anddar&password=anddar&action=inventory_get';
-	this._db_menuItem = 'http://pub.jamaica-inn.net/fpdb/api.php?username=anddar&password=anddar&action=beer_data_get&beer_id=';
+	this._db_menuItem = 'http://pub.jamaica-inn.net/fpdb/api.php?username=anddar&password=anddar&action=beer_data_get&beer_id=';*/
 }
 
 MenuModel.prototype = {
-	_menuUpdate: function (){
+	/*_menuUpdate: function (){
 		$.getJSON(
 		_db_inventory,
 		function(data) { 
@@ -34,5 +36,5 @@ MenuModel.prototype = {
 			});		
 		});
 		return _menuList;
-	}
+	}*/
 };
