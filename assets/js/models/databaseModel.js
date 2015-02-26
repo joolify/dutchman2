@@ -9,7 +9,7 @@ function DatabaseModel() {
     /** @private */ this._itemList = [];
 
     this.drinksUpdated = new Event(this); 
-}
+    }
 
 DatabaseModel.prototype = {
     /*
@@ -125,5 +125,20 @@ DatabaseModel.prototype = {
                 console.log('an error occurred!');
             }
         });
-    }
+    },
+    
+  
 };
+
+/*
+JSON-object:
+- type: ”purchases get”
+- payload[]
+16- namn
+- namn2
+- transaction id
+- user id
+- beer id
+- timestamp
+- price
+*/

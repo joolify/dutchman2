@@ -22,6 +22,14 @@ div {
   ====================*/
 div#drinks {
   position: fixed;
+  top: 30%;
+  left: 30%;
+  width: 40%;
+  height: 80%;
+}
+
+div#recommended {
+  position: fixed;
   top: 10%;
   left: ;
   width: 40%;
@@ -33,6 +41,11 @@ input#query {
 }
 
 div#drink_table {
+  height: 80%;
+  overflow: auto;
+}
+
+div#recommended_table {
   height: 80%;
   overflow: auto;
 }

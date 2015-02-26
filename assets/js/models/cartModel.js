@@ -8,7 +8,7 @@ function CartModel() {
     /** @private */ this._cartList = [];
     /** @private */ this._credit = 0;
 
-    this.cartUpdated = new Event(this);
+    this.cartUpdated = new Event(this);x
 }
 
 CartModel.prototype = {

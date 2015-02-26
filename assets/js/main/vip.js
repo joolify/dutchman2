@@ -67,6 +67,7 @@ Vip.prototype = {
      */
     run: function() {
 	this._controller = new Controller(this._getModels(), this._getViews());
+//    this._controller.showRecommended();
 	this._controller.showDrinks();
     }
 };

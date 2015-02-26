@@ -136,6 +136,13 @@ function Controller(models, views) {
     /*Listen for quick buttons clicks*/
   }
 
+    if(this._quickModel) {
+    this._quickModel.recommendedUpdated.attach(function () {
+            _this.refreshRecommended(); //TBI
+    });
+    }
+
+
   if(this._quickModel) {
     this._quickModel.quickUpdated.attach(function (sender, args) {
       _this.refreshQuick(args.quickList);
@@ -160,7 +167,7 @@ Controller.prototype = {
      * @function showDrinks
      */
     showDrinks: function() {
-	console.log("Controller.showDrinks()");
+	console.log("Controller.showDrinks()!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	this.isLoggedIn();
 	var initSearch = "";
 	this.queryDrinks(initSearch);
@@ -171,12 +178,30 @@ Controller.prototype = {
     },
 
     /*
+     * Show the recommended table
+     * @function showRecommended
+     */
+    showRecommended: function() {
+    console.log("Controller.showRecommended()--------------------------------------------------------------------------");
+    this.isLoggedIn();
+    var initSearch = "";
+    this.queryRecommended(initSearch);
+    this.refreshTotalPrice();
+    this.refreshCredit();
+      this.updateMenu();
+      this.updateQuick();
+    },
+
+
+
+    /*
      * Show the login 
      * @function showLogin
      */
     showLogin: function() {
 	console.log("Controller.showLogin()");
 	this.isLoggedIn();
+    this.queryRecommended("")
     },
 
     /*
@@ -204,6 +229,14 @@ Controller.prototype = {
 	var password = this._loginModel.getPassWord();
 	this._databaseModel.query(query, username, password);
     },
+
+    queryRecommended: function (query) {
+    console.log("Controller.queryRecommended: "+ query);
+    var username = this._loginModel.getUserName();
+    var password = this._loginModel.getPassWord();
+    this._quickModel.query(query, username, password);
+    },
+
 
     /*
      * ===========================================================
@@ -382,6 +415,12 @@ Controller.prototype = {
   updateQuick: function() {
     this._quickModel.update();
   },
+
+  refreshRecommended: function () {
+    var itemList = this._quickModel.getRecommended();
+    console.log("Controller.refreshRecommended: " + itemList.length);
+    this._quickView.refresh(itemList);
+    },
 
   refreshQuick: function(quickList) {
     this._quickView.refresh(quickList);

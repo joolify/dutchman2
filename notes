@@ -1,0 +1,10 @@
+controller
+listener -> 'a' querydrinks
+
+drinkView
+
+
+event 
+notifiy {skicka med nyckel,värde-par}
+lyssnar på detta i controllern
+skickar med sender, args
