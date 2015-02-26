@@ -34,8 +34,8 @@ QuickController.prototype = {
   refreshQuick: function(quickList) {
     this._view.refresh(quickList);
   },
-    run: function () {
-      console.log("QuickController.run()");
-      this.updateQuick();
-    }
+  run: function () {
+    console.log("QuickController.run()");
+    this.updateQuick();
+  }
 };
