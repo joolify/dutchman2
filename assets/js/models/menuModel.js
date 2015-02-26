@@ -5,7 +5,7 @@
  * Creates a MenuModel
  */
 function MenuModel() {
-	this.menuUpdated = new Event(this); 
+	this.menuUpdated = new Event(this);
 
 	/*this._menuList = [];
 	this._db_inventory = 'http://pub.jamaica-inn.net/fpdb/api.php?username=anddar&password=anddar&action=inventory_get';
@@ -13,6 +13,24 @@ function MenuModel() {
 }
 
 MenuModel.prototype = {
+	/*
+     * ===========================================================
+     * ======================== PRIVATE  =========================
+     * ===========================================================
+     */
+
+    /*
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
+  update: function() {
+    var _this = this;
+    /* fetch data*/
+    var menuList = "Hello Menu!";
+    _this.menuUpdated.notify({menuList: menuList});
+  }
+	
 	/*_menuUpdate: function (){
 		$.getJSON(
 		_db_inventory,

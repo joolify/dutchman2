@@ -7,23 +7,28 @@
  */
 
 function CartItem(item) {
-    this._item = item;
-    this._amount = 1;
+    /** @private */ this._item = item;
+    /** @private */ this._amount = 1;
 }
 
 CartItem.prototype = {
     /*
-     * Add an amount of the cart item.
-     * @function add
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
      */
-    add: function () {
+    /*
+     * Increment an amount of the cart item.
+     * @function increment
+     */
+    increment: function () {
 	this._amount++;
     },
     /*
-     * Remove an amount of the cart item.
-     * @function remove
+     * Decrement an amount of the cart item.
+     * @function decrement
      */
-    remove: function () {
+    decrement: function () {
 	if(this._amount > 0) {
 	    this._amount--;
 	}
@@ -47,10 +52,10 @@ CartItem.prototype = {
     },
     /*
      * Get the id 
-     * @function getId
+     * @function getItemId
      * @return {Integer}
      */
-    getId: function () {
+    getItemId: function () {
 	return this._item.getId();
     },
     /*

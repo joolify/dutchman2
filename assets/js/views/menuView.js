@@ -5,14 +5,44 @@
  * Creates a MenuView
  */
 function MenuView(elements) {
-	this._elements = elements;
-	this.menuUpdate = new Event(this);
+	/** @private */ this._elements = elements;
+
+    var _this = this;
+
+    /*
+     * ===========================================================
+     * ==================== EVENT LISTENERS ======================
+     * ===========================================================
+     */
+	//this.menuUpdate = new Event(this);
 	
 	
 }
 
 MenuView.prototype = {
-	createMenu: function(itemList){ 
+	/*
+     * ===========================================================
+     * ======================== PRIVATE  =========================
+     * ===========================================================
+     */
+
+    /*
+     * ===========================================================
+     * ======================== PUBLIC  ==========================
+     * ===========================================================
+     */
+  refresh: function(menuList) {
+    var _this = this;
+    var menu = this._elements.menu;
+    menu.append(menuList);
+  }
+
+
+
+
+
+
+	/*createMenu: function(itemList){ 
 	    var item = itemList[i];
 	    var buttonAdd = "addButton_" + item.getId();
 		var _this = this;
@@ -41,8 +71,5 @@ MenuView.prototype = {
 	    $('#' + buttonAdd).bind('click', function(e) {
 		_this._addToCart($(this).val());
 	    });
-        
-
-
-	}	
+	}	*/
 };
