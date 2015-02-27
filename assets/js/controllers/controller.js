@@ -160,14 +160,14 @@ Controller.prototype = {
      * @function showDrinks
      */
     showDrinks: function() {
-	console.log("Controller.showDrinks()");
-	this.isLoggedIn();
-	var initSearch = "";
-	this.queryDrinks(initSearch);
-	this.refreshTotalPrice();
-	this.refreshCredit();
-      this.updateMenu();
-      this.updateQuick();
+		console.log("Controller.showDrinks()");
+		this.isLoggedIn();
+		var initSearch = "";
+		this.queryDrinks(initSearch);
+		this.refreshTotalPrice();
+		this.refreshCredit();
+		this.updateMenu();
+		this.updateQuick();
     },
 
     /*
