@@ -4,7 +4,7 @@ function IndexController(models, views) {
 
   var _this = this;
 
-  console.log("IndexController()", this._model, this._view);
+  console.log("IndexController()");
   /*
    * ===========================================================
    * ==================== EVENT LISTENERS ======================

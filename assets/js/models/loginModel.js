@@ -157,6 +157,7 @@ LoginModel.prototype = {
      * @return {String}
      */
     getUserName: function() {
+      console.log("LoginModel.getUserName");
 	return this._getCookie("username");
     },
 

@@ -6,6 +6,8 @@ function DrinkController(model, view){
   var _this = this;
 
   this.itemPushed = new Event(this);
+  this.requestUserName = new Event(this);
+  this.requestPassWord = new Event(this);
 
   /*
    * ===========================================================
@@ -36,6 +38,8 @@ DrinkController.prototype = {
    * ===========================================================
    */
   _push: function (itemId) {
+    var item = this._drinkModel.getItem(itemId);
+    this.itemPushed.notify({item: item});
   },
 
   /*
@@ -48,6 +52,22 @@ DrinkController.prototype = {
     this._drinkView.refresh(itemList);
 
   },
+
+  _getUserName: function () {
+    var _userName;
+    this.requestUserName.notify(function (userName) {
+      _userName = userName;
+    });
+    return _userName;
+  },
+
+  _getPassWord: function () {
+    var _passWord;
+    this.requestPassWord.notify(function (passWord) {
+      _passWord = passWord;
+    });
+    return _passWord;
+  },
   /*
    * ===========================================================
    * ======================== PUBLIC  ==========================
@@ -58,13 +78,14 @@ DrinkController.prototype = {
     this.query(this._QUERY_INIT);
   },
 
-  /* Queries the DatabaseModel
+  /* Queries the drink model
    * @function query
    */
   query: function (query) {
     //TODO: Needs username + password
-    var username = "aamsta";//this._loginModel.getUserName();
-    var password = "aamsta";// this._loginModel.getPassWord();
+    var username = this._getUserName();//this._loginModel.getUserName();
+    var password = this._getPassWord();// this._loginModel.getPassWord();
+    console.log("DrinkController.query: ", username, password);
     this._drinkModel.query(query, username, password);
   }
 };

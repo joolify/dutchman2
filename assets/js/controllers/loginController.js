@@ -74,7 +74,7 @@ LoginController.prototype = {
    */
   _login: function (username, password) {
     console.log("LoginController._login: ", username, password);
-    this._model._login(username, password);
+    this._model.login(username, password);
   },
 
   /*
@@ -126,9 +126,10 @@ LoginController.prototype = {
   },
 
   getUserName: function () {
-    return this._loginModel.getUserName();
+    console.log("LoginController.getUserName");
+    return this._model.getUserName();
   },
   getPassWord: function () {
-    return this._loginModel.getPassWord();
+    return this._model.getPassWord();
   }
 };
