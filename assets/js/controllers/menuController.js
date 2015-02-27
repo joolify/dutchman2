@@ -16,7 +16,7 @@ function MenuController(model, view) {
 
   if(this._model) {
     this._model.menuUpdated.attach(function (sender, args) {
-      _this.refreshMenu(args.menuList);
+      _this._refreshMenu(args.menuList);
     });
   }
 }
@@ -27,15 +27,20 @@ MenuController.prototype = {
    * ======================== PRIVATE  =========================
    * ===========================================================
    */
-  updateMenu: function() {
+  _updateMenu: function() {
     this._model.update();
   },
 
-  refreshMenu: function(menuList) {
+  _refreshMenu: function(menuList) {
     this._view.refresh(menuList);
   },
+  /*
+   * ===========================================================
+   * ======================== PUBLIC  ==========================
+   * ===========================================================
+   */
     run: function () {
       console.log("MenuController.run()");
-      this.updateMenu();
+      this._updateMenu();
     }
 };

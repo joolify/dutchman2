@@ -1,6 +1,6 @@
-function IndexController(models, views) {
-  /** @private */ this._loginController = new LoginController(models.login, views.login);
-  /** @private */ this._languageController = new LanguageController(models.language, views.language);
+function IndexController(controllers) {
+  /** @private */ this._loginController = controllers.login;
+  /** @private */ this._languageController = controllers.language;
 
   var _this = this;
 
@@ -25,6 +25,7 @@ IndexController.prototype = {
    */
   run: function () {
     console.log("IndexController.run()");
-    this._languageController.run(); //TODO: needs username + password
+    this._loginController.run();
+    this._languageController.run();
   }
 };

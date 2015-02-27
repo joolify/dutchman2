@@ -4,6 +4,7 @@ function CartController(model, view) {
 
   var _this = this;
 
+  console.log("CartController()", this._model, this._view);
   this.requestUserName = new Event(this);
   this.requestPassWord = new Event(this);
 
@@ -15,15 +16,15 @@ function CartController(model, view) {
 
   if(this._view) {
     this._view.popBtnClicked.attach(function (sender, args) {
-      _this._popCartItem(args.itemId);
+      _this._pop(args.itemId);
     });
 
     this._view.incrementBtnClicked.attach(function (sender, args) {
-      _this._incrementCartItem(args.itemId);
+      _this._increment(args.itemId);
     });
 
     this._view.amountRemoved.attach(function (sender, args) {
-      _this._decrementCartItem(args.itemId);
+      _this._decrement(args.itemId);
     });
 
   }
@@ -41,6 +42,11 @@ CartController.prototype = {
    * ======================== PRIVATE  =========================
    * ===========================================================
    */
+  /*
+    * Callback function to get user name from other controller
+    * @function _getUserName
+    * @return {String}
+    */
   _getUserName: function () {
     var _userName;
     this.requestUserName.notify(function (userName) {
@@ -49,6 +55,11 @@ CartController.prototype = {
     return _userName;
   },
 
+  /*
+    * Callback function to get password from other controller
+    * @function _getPassWord
+    * @return {String}
+    */
   _getPassWord: function () {
     var _passWord;
     this.requestPassWord.notify(function (passWord) {
@@ -58,28 +69,28 @@ CartController.prototype = {
   },
   /*
    * Remove an item from the CartModel
-   * @function _popCartItem
+   * @function _pop
    * @param {Integer} itemId
    */
-  _popCartItem: function (itemId) {
-    console.log("CartController._popCartItem: ", itemId);
+  _pop: function (itemId) {
+    console.log("CartController._pop: ", itemId);
     this._model.pop(itemId);
   },
   /* Increases the amount of an item.
-   * function _incrementCartItem
+   * function _increment
    * @param itemId
    */
-  _incrementCartItem: function (itemId) {
-    console.log("CartController._incrementCartItem: ", itemId);
+  _increment: function (itemId) {
+    console.log("CartController._increment: ", itemId);
     this._model.increment(itemId);
   },
 
   /* Increases the amount of an item.
-   * @function _decrementCartItem
+   * @function _decrement
    * @param itemId
    */
-  _decrementCartItem: function (itemId) {
-    console.log("CartController._decrementCartItem: ", itemId);
+  _decrement: function (itemId) {
+    console.log("CartController._decrement: ", itemId);
     this._model.decrement(itemId);
   },
 
@@ -118,6 +129,10 @@ CartController.prototype = {
    * ===========================================================
    */
 
+  /*
+   * Initiate total price and the user's credit
+   * @function run
+   */
   run: function() {
     console.log("CartController.run()");
     this._refreshTotalPrice();

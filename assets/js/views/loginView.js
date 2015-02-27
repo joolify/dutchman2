@@ -13,7 +13,7 @@ function LoginView(elements) {
 
   console.log("LoginView()", this._elements.loginForm, this._elements.logout);
   var _this = this;
-  
+
   /*
    * ===========================================================
    * ==================== EVENT LISTENERS ======================
@@ -26,6 +26,7 @@ function LoginView(elements) {
   }
   if(this._elements.logout) {
     this._elements.logout.click(function(e) {
+      console.log("LoginView.logout.click()");
       _this._logout();
     });
   }

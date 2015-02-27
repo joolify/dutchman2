@@ -36,7 +36,7 @@ LanguageController.prototype = {
 
   run: function () {
     console.log("LanguageController.run()");
-        this.getLanguage($('#language').val());
+    this.getLanguage($('#language').val());
   }
 
 };

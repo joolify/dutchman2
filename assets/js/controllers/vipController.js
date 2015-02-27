@@ -1,10 +1,9 @@
-function VipController(models, views) {
-  /** @private */ this._cartController = new CartController(models.cart, views.cart);
-  /** @private */ this._drinkController = new DrinkController(models.drink, views.drink);
-  /** @private */ this._loginController = new LoginController(models.login, views.login);
-  /** @private */ this._languageController = new LanguageController(models.language, views.language);
-  /** @private */ this._menuController = new MenuController(models.menu, views.menu);
-  /** @private */ this._quickController = new QuickController(models.quick, views.quick);
+function VipController(controllers) {
+  /** @private */ this._cartController = controllers.cart;
+  /** @private */ this._drinkController = controllers.drink;
+  /** @private */ this._loginController = controllers.login;
+  /** @private */ this._menuController = controllers.menu;
+  /** @private */ this._quickController = controllers.quick;
 
   var _this = this;
 
