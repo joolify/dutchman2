@@ -116,15 +116,18 @@ function Controller(models, views) {
      * == MENU LISTENER ==========================================
      * ===========================================================
      */
-  if(this._menuView) {
-    /*Listen for menu button clicks*/
-  }
+	if(this._menuView) {
+		/*Listen for menu button clicks*/
+		this._menuView.menuBtnPushed.attach(function (sender, args) {
+	    _this.queryMenu(args.itemId);
+		});
+	}
 
-  if(this._menuModel) {
-    this._menuModel.menuUpdated.attach(function (sender, args) {
-      _this.refreshMenu(args.categories);
-    });
-  }
+	if(this._menuModel) {
+		this._menuModel.menuUpdated.attach(function (sender, args) {
+		  _this.refreshMenu(args.categories);
+		});
+	}
 
   
     /*
@@ -366,14 +369,22 @@ Controller.prototype = {
      * == MENU ===================================================
      * ===========================================================
      */
-  updateMenu: function() {
-    this._menuModel.update();
-  },
+	updateMenu: function() {
+	var username = this._loginModel.getUserName();
+	var password = this._loginModel.getPassWord();
+	this._menuModel.update(username, password);
+	},
 
-  refreshMenu: function(categories) {
-    this._menuView.refresh(categories);
-  },
-
+	refreshMenu: function(categories) {
+	this._menuView.refresh(categories);
+	},
+	
+	queryMenu: function (query) {
+		console.log("Controller.queryMenu: "+ query);
+		var username = this._loginModel.getUserName();
+		var password = this._loginModel.getPassWord();
+		this._menuModel.queryMenu(query, username, password);
+    },
       /*
      * ===========================================================
      * == QUICK ==================================================
