@@ -94,7 +94,7 @@ MenuModel.prototype = {
 								var categoriesTrimed = categoriesTrim.split(' ').join('');
 								if(categoriesTrimed == query){
 									itemList.push(new Item(item.namn, item.namn2, item.sbl_price, item.pub_price, item.beer_id, item.count, item.price));
-									console.log("Model.query categories: " + categoriesTrimed + " " + item.namn + " " +  itemList.length);
+									//console.log("Model.query categories: " + categoriesTrimed + " " + item.namn + " " +  itemList.length);
 									_this.drinksUpdated.notify({itemList : itemList});
 								}
 							}

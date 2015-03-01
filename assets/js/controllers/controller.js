@@ -392,7 +392,7 @@ Controller.prototype = {
 	
 	refreshDrinksMenu: function (itemList) {
 	//var itemList = this._databaseModel.getItems();
-	console.log("Controller.refreshDrinksMenu: " + itemList.length);
+	//console.log("Controller.refreshDrinksMenu: " + itemList.length);
 	this._drinkView.refresh(itemList);
     },
       /*
