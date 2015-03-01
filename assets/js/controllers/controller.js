@@ -127,6 +127,10 @@ function Controller(models, views) {
 		this._menuModel.menuUpdated.attach(function (sender, args) {
 		  _this.refreshMenu(args.categories);
 		});
+		
+		this._menuModel.drinksUpdated.attach(function (sender, args) {
+            _this.refreshDrinksMenu(args.itemList);
+		});
 	}
 
   
@@ -384,6 +388,12 @@ Controller.prototype = {
 		var username = this._loginModel.getUserName();
 		var password = this._loginModel.getPassWord();
 		this._menuModel.queryMenu(query, username, password);
+    },
+	
+	refreshDrinksMenu: function (itemList) {
+	//var itemList = this._databaseModel.getItems();
+	console.log("Controller.refreshDrinksMenu: " + itemList.length);
+	this._drinkView.refresh(itemList);
     },
       /*
      * ===========================================================
