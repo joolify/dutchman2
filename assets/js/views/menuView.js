@@ -22,17 +22,30 @@ MenuView.prototype = {
      * ======================== PRIVATE  =========================
      * ===========================================================
      */
-
+	/*
+     * Notifies its listeners that a menu button has been pressed
+     * @private
+     * @function _pushMenu
+     * @param {String} itemId
+     */
+	_pushMenu: function (itemId) {
+		console.log("MenuView._pushMenu", itemId);
+		this.menuBtnPushed.notify({itemId: itemId});
+    },
     /*
      * ===========================================================
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
-	_pushMenu: function (itemId) {
-	console.log("MenuView._pushMenu", itemId);
-	this.menuBtnPushed.notify({itemId: itemId});
-    },
+	
+	
 	menuList : [],
+	
+	/*
+     * Refreshes the menu. 
+     * @function refresh
+     * @param {Category[]} categories
+     */
 	refresh: function(categories) {
 		var _this = this;
 		var menu = this._elements.menu;

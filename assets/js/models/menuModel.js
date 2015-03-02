@@ -22,6 +22,13 @@ MenuModel.prototype = {
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
+	 
+	/*
+     * Search the database to find the categories and under categories 
+     * @function update
+     * @param {String} username
+	 * @param {String} password
+     */
 	update: function(username, password) {
 		var _this = this;
 		
@@ -65,6 +72,13 @@ MenuModel.prototype = {
 		}); 
 	},
   
+	/*
+     * Search the database to find the the items in a category
+     * @function queryMenu
+	 * @param {String} query
+     * @param {String} username
+	 * @param {String} password
+     */
 	queryMenu: function (query, username, password) {
 		console.log("MenuModel.button pushed", query);
 		var urlBeers = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=inventory_get';
