@@ -47,7 +47,10 @@ function Controller(models, views) {
     if(this._databaseModel) {
 	this._databaseModel.drinksUpdated.attach(function () {
             _this.refreshDrinks();
-			//testar om listan har innehåll nu
+	});
+	
+	this._databaseModel.menuStartUp.attach(function () {
+            _this.refreshDrinks();
 			_this.updateMenu();
 	});
     }
@@ -172,7 +175,8 @@ Controller.prototype = {
 		console.log("Controller.showDrinks()");
 		this.isLoggedIn();
 		var initSearch = "";
-		this.queryDrinks(initSearch);
+		//this.queryDrinks(initSearch);
+		this.startUpDrinksAndMenu(initSearch);
 		this.refreshTotalPrice();
 		this.refreshCredit();
 		//this.updateMenu();
@@ -213,7 +217,13 @@ Controller.prototype = {
 	var password = this._loginModel.getPassWord();
 	this._databaseModel.query(query, username, password);
     },
-
+	
+	startUpDrinksAndMenu: function (query) {
+		console.log("Controller.startUpDrinksAndMenu: "+ query);
+		var username = this._loginModel.getUserName();
+		var password = this._loginModel.getPassWord();
+		this._databaseModel.startUp(query, username, password);
+    },
     /*
      * ===========================================================
      * == CART ===================================================
@@ -395,9 +405,7 @@ Controller.prototype = {
     },
 	
 	refreshDrinksMenu: function (itemList) {
-	//var itemList = this._databaseModel.getItems();
-	//console.log("Controller.refreshDrinksMenu: " + itemList.length);
-	this._drinkView.refresh(itemList);
+		this._drinkView.refresh(itemList);
     },
       /*
      * ===========================================================
