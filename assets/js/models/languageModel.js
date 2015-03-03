@@ -5,37 +5,40 @@
  * Creates LanguageModel
  */
 function LanguageModel() {
-    /** @private */ this._dictionary = {
+    this.languageUpdated = new Event(this);
+    /** @private */  
+    this._words = [];
+    this._dictionary = {
         "english":[
             {"position":"#titleIndex","word":"Stormrider Bar","type":"text"},
             {"position":"#subTitleIndex","word":"Welcome to the best bar in Uppsala!","type":"text"},
             {"position":"#username","word":"Username","type":"placeholder"},
             {"position":"#password","word":"Password","type":"placeholder"},
             {"position":"#loginButton","word":"Log in","type":"text"},
-            {"position":"order_left_title","word":"Search available beers","type":"text"},
-            {"position":"order_center_title","word":"Most bought","type":"text"},
-            {"position":"order_right_title","word":"Shopping cart","type":"text"},
-            {"position":"order_search","word":"Search ...","type":"placeholder"}],
+            {"position":"label","word":"Search available drinks","type":"text"},
+            {"position":"#quick_buy h2","word":"Most bought","type":"text"},
+            {"position":"#cart h2","word":"Order","type":"text"},
+            {"position":"#query","word":"Search ...","type":"placeholder"}],
         "spanish":[
             {"position":"#titleIndex","word":"Bar Jinete de Tormenta","type":"text"},
             {"position":"#subTitleIndex","word":"Bienvenido al mejor bar de Uppsala!","type":"text"},
             {"position":"#username","word":"Usuario","type":"placeholder"},
             {"position":"#password","word":"Contrasenha","type":"placeholder"},
             {"position":"#loginButton","word":"Iniciar sesion","type":"text"},
-            {"position":"order_left_title","word":"Buscar cervezas disponibles","type":"text"},
-            {"position":"order_center_title","word":"Cervezas mÃ¡s vendidas","type":"text"},
-            {"position":"order_right_title","word":"Orden","type":"text"},
-            {"position":"order_search","word":"Buscar ...","type":"placeholder"}],
+            {"position":"label","word":"Buscar bebidas disponibles","type":"text"},
+            {"position":"#quick_buy h2","word":"Cervezas mÃ¡s vendidas","type":"text"},
+            {"position":"#cart h2","word":"Orden","type":"text"},
+            {"position":"#query","word":"Buscar ...","type":"placeholder"}],
         "swedish":[
             {"position":"#titleIndex","word":"Stormriderbaren","type":"text"},
             {"position":"#subTitleIndex","word":"Välkommen till Uppsalas bästa bar!","type":"text"},
             {"position":"#username","word":"Användarnamn","type":"placeholder"},
             {"position":"#password","word":"Lösenord","type":"placeholder"},
             {"position":"#loginButton","word":"Logga in","type":"text"},
-            {"position":"order_left_title","word":"","type":"text"},
-            {"position":"order_center_title","word":"","type":"text"},
-            {"position":"order_right_title","word":"","type":"text"},
-            {"position":"order_search","word":"","type":"placeholder"}]}
+            {"position":"label","word":"Sök tillgängliga drycker","type":"text"},
+            {"position":"#quick_buy h2","word":"Mest köpta","type":"text"},
+            {"position":"#cart h2","word":"Order","type":"text"},
+            {"position":"#query","word":"Sök ...","type":"placeholder"}]}
 }
 
 LanguageModel.prototype = {
@@ -44,21 +47,53 @@ LanguageModel.prototype = {
      * ======================== PRIVATE  =========================
      * ===========================================================
      */
+     /*
+     * Sets a local session storage with the language value
+     * @function _setLanguage
+     * @param {String} value
+     */
+    _setLanguage: function(value) {
+        sessionStorage.setItem("language", value);
+    },
      
     /*
      * ===========================================================
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
-    searchLanguage: function(language) {
-        var words = [];
-        $.each(this._dictionary, function(index, element) {
+     /*
+     * Gets the language local session storage
+     * @function _setLanguage
+     * @param {String} key
+     */
+     getLanguage: function() {
+        return sessionStorage.getItem("language");
+     },
+
+     getDictionary: function() {
+        var language = this.getLanguage();
+        this.makeDictionary(language);
+        return [].concat(this._words);
+     },
+
+    setDictionary: function(language) {
+        console.log("setDictionary on LanguageModel");
+        console.log(language);
+        this._setLanguage(language);
+        this.makeDictionary(language);
+        console.log(this._words);
+        this.languageUpdated.notify({words: [].concat(this._words)});
+    },
+
+    makeDictionary: function(language) {
+        var _this=this;
+        $.each(_this._dictionary, function(index, element) {
             if (language==index) {
                 $.each(this, function(index, element) {
-                    words.push([element.position,element.word,element.type]);
+                    _this._words.push([element.position,element.word,element.type]);
                 });
             }
         });
-        return words;
     }
+
 };

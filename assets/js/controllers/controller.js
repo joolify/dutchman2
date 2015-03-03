@@ -107,9 +107,18 @@ function Controller(models, views) {
 
     if(this._languageView) {
         this._languageView.languageSelected.attach(function (sender, args) {
-            _this.getLanguage(args.language);
+            _this.updateLanguage(args.language);
+
         });
     }
+
+    if(this._languageModel) {
+        this._languageModel.languageUpdated.attach(function(sender,args) {
+            console.log("controller languageUpdated event");
+            _this.refreshLanguage(args.words);
+        });
+    }
+    
 
     /*
      * ===========================================================
@@ -175,6 +184,7 @@ Controller.prototype = {
 		this.refreshCredit();
 		this.updateMenu();
 		this.updateQuick();
+        this.refreshDictionary();
     },
 
     /*
@@ -413,8 +423,22 @@ Controller.prototype = {
      * ===========================================================
      */
 
-    getLanguage: function(language) {
-        var dictionary = this._languageModel.searchLanguage(language);
-        this._languageView.translate(dictionary);
+     initLanguage: function(language) {
+        console.log("init language at the controller");
+        this._languageModel.setDictionary(language);
+     },
+
+    updateLanguage: function(language) {
+        this._languageModel.setDictionary(language);
+    },
+
+    refreshLanguage: function(words) {
+        console.log("refreshLanguage", words);
+        this._languageView.translate(words);
+    },
+
+    refreshDictionary: function() {
+        var words = this._languageModel.getDictionary();
+        this.refreshLanguage(words);
     }
 };

@@ -15,9 +15,11 @@ function LanguageView(elements) {
      * ==================== EVENT LISTENERS ======================
      * ===========================================================
      */
-    this._elements.language.change(function(e) {
-        _this._languageUpdated(_this._elements.language.val());
-    });
+    if (this._elements) {
+        this._elements.language.change(function(e) {
+            _this._languageUpdated(_this._elements.language.val());
+        });
+    }
 }
 
 LanguageView.prototype = {

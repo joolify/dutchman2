@@ -39,7 +39,9 @@ Vip.prototype = {
 	    'quickBuy': $('#quick_buy')
 	});
 
-      return {cart: cartView, drink: drinkView, menu: menuView, quick: quickView};
+    var languageView = new LanguageView();
+
+      return {cart: cartView, drink: drinkView, menu: menuView, quick: quickView, language: languageView};
     },
     /*
      * Get the models to be used in the system.
@@ -52,8 +54,9 @@ Vip.prototype = {
 	var loginModel = new LoginModel();
 	var menuModel = new MenuModel();
 	var quickModel = new QuickModel();
+    var languageModel = new LanguageModel();
 
-      return {cart: cartModel, database: databaseModel, login: loginModel, menu: menuModel, quick: quickModel};
+      return {cart: cartModel, database: databaseModel, login: loginModel, menu: menuModel, quick: quickModel, language: languageModel};
     },
 
     /*
@@ -68,7 +71,7 @@ Vip.prototype = {
     run: function() {
 	this._controller = new Controller(this._getModels(), this._getViews());
 	this._controller.showDrinks();
-    }
+}
 };
 
 /*
