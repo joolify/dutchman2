@@ -39,7 +39,6 @@ MenuView.prototype = {
      */
 	
 	
-	//menuList : [],
 	
 	/*
      * Refreshes the menu. 
@@ -49,10 +48,7 @@ MenuView.prototype = {
 	refresh: function(itemList) {
 		var _this = this;
 		var menu = this._elements.menu;
-		//var menuList = this.menuList;
 		
-		//if((menuList.indexOf(itemList[0]) < 0)){
-			//menuList.push(itemList[0]);
 		menu.empty();
 		menu.append($('<table id="menu">'));
 		menu.append($('<tr>'));
@@ -78,6 +74,6 @@ MenuView.prototype = {
 			});
 		}
 		menu.append($('</tr></table>'));
-		//}
+		
 	}
 };
