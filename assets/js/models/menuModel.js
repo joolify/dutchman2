@@ -16,7 +16,15 @@ MenuModel.prototype = {
      * ======================== PRIVATE  =========================
      * ===========================================================
      */
-
+	/*
+     * Drops the database.
+     * @function _drop
+     */
+    _drop: function () {
+	while(this._itemList.length > 0) {
+	    this._itemList.pop();
+	}
+    },    
     /*
      * ===========================================================
      * ======================== PUBLIC  ==========================
@@ -28,48 +36,42 @@ MenuModel.prototype = {
      * @function update
      * @param {String} username
 	 * @param {String} password
+	 * @param {Item[]} itemList
      */
-	update: function(username, password) {
+	update: function(username, password, itemList) {
 		var _this = this;
-		
-		var urlBeers = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=inventory_get';
+		_this._drop();
 		var urlBeerData = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=beer_data_get&beer_id=';
-		console.log("MenuModel.update()");
-			
-		$.ajax({
-			url: urlBeers,
-			type: "POST",
-			contentType: "application/json; charset=utf-8",
-			dataType: 'json',
-			asynch: false,
-			success: function (data) {
-				$.each(data.payload, function (key, item){
-					$.ajax({
-						url: urlBeerData + item.beer_id,
-						type: "POST",
-						contentType: "application/json; charset=utf-8",
-						dataType: 'json',
-						asynch: false,
-						success: function (dataBeer) {
-							if (dataBeer.payload.length > 0 && dataBeer.payload[0].varugrupp){
-								var categories = dataBeer.payload[0].varugrupp.split(",");
-								for (var i = 0; i < categories.length; i++) {
-									categories[i] = categories[i].trim();
-								}
-								_this.menuUpdated.notify({categories: categories});
+		var index = 0;
+		for(var i = 0; i < itemList.length; i++) {
+			var item = itemList[i];
+			var itemId = item._id;
+			$.ajax({
+				url: urlBeerData + itemId,
+				type: "POST",
+				contentType: "application/json; charset=utf-8",
+				dataType: 'json',
+				asynch: false,
+				success: function (dataBeer) {
+					if (dataBeer.payload.length > 0 && dataBeer.payload[0].varugrupp){
+						var categories = dataBeer.payload[0].varugrupp.split(",");
+						for (var j = 0; j < categories.length; j++) {
+							categories[j] = categories[j].trim();
+							if((_this._itemList.indexOf(categories[0]) < 0)){
+								_this._itemList.push(categories[0]);
 							}
-						},
-						error : function(jqXHR, textStatus, errorThrown) {
-							console.log('an error occurred!');
 						}
-					});
-				});		
-				
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				console.log('an error occurred!');
-			}
-		}); 
+					}
+					index++;
+					if(index == itemList.length){
+						_this.menuUpdated.notify({itemList : _this._itemList});
+					}
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					console.log('an error occurred!');
+				}
+			});	
+		}
 	},
   
 	/*
@@ -78,47 +80,47 @@ MenuModel.prototype = {
 	 * @param {String} query
      * @param {String} username
 	 * @param {String} password
+	 * @param {Item[]} itemList
      */
-	queryMenu: function (query, username, password) {
+	queryMenu: function (query, username, password, itemList) {
 		console.log("MenuModel.button pushed", query);
-		var urlBeers = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=inventory_get';
+		
 		var urlBeerData = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=beer_data_get&beer_id=';
 		console.log("Model.query(): " + query);
 		var _this = this;
-		var itemList = _this._itemList;	
-		$.ajax({
-			url: urlBeers,
-			type: "POST",
-			contentType: "application/json; charset=utf-8",
-			dataType: 'json',
-			asynch: false,
-			success: function (data) {
-				itemList = [];
-				$.each(data.payload, function (key, item){
-					$.ajax({
-						url: urlBeerData + item.beer_id,
-						type: "POST",
-						contentType: "application/json; charset=utf-8",
-						dataType: 'json',
-						asynch: false,
-						success: function (dataFilter) {
-							if (dataFilter.payload.length > 0 && dataFilter.payload[0].varugrupp){
-								var categories = dataFilter.payload[0].varugrupp.split(",");
-								var categoriesTrim = categories[0].trim();
-								var categoriesTrimed = categoriesTrim.split(' ').join('');
-								if(categoriesTrimed == query){
-									itemList.push(new Item(item.namn, item.namn2, item.sbl_price, item.pub_price, item.beer_id, item.count, item.price));
-									//console.log("Model.query categories: " + categoriesTrimed + " " + item.namn + " " +  itemList.length);
-									_this.drinksUpdated.notify({itemList : itemList});
+		_this._drop();
+		var index = 0;
+		for(var i = 0; i < itemList.length; i++) {
+			var item = itemList[i];
+			var itemId = item._id;
+			$.ajax({
+				url: urlBeerData + itemId,
+				type: "POST",
+				contentType: "application/json; charset=utf-8",
+				dataType: 'json',
+				asynch: false,
+				success: function (dataFilter) {
+					if (dataFilter.payload.length > 0 && dataFilter.payload[0].varugrupp){
+						var categories = dataFilter.payload[0].varugrupp.split(",");
+						var categoriesTrim = categories[0].trim();
+						var categoriesTrimed = categoriesTrim.split(' ').join('');
+						if(categoriesTrimed == query){
+							var test = dataFilter.payload[0].nr;
+							for(var y = 0; y < itemList.length; y++){
+								if(itemList[y]._id == test){
+									var filteredItem = itemList[y];
+									_this._itemList.push(new Item(filteredItem._name, filteredItem._name2, filteredItem._sbl_price, filteredItem._pub_price, filteredItem._id, filteredItem._count, filteredItem._price));
+									y=itemList.length;
 								}
 							}
-						},	
-					});	
-				});
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				console.log('an error occurred!');
-			}
-		});
+						}
+					}
+					index++;
+					if(index == itemList.length){
+						_this.drinksUpdated.notify({itemList : _this._itemList});
+					}
+				},
+			});	
+		}
 	}
  };

@@ -47,6 +47,8 @@ function Controller(models, views) {
     if(this._databaseModel) {
 	this._databaseModel.drinksUpdated.attach(function () {
             _this.refreshDrinks();
+			//testar om listan har innehåll nu
+			_this.updateMenu();
 	});
     }
     /*
@@ -134,7 +136,7 @@ function Controller(models, views) {
 
 	if(this._menuModel) {
 		this._menuModel.menuUpdated.attach(function (sender, args) {
-		  _this.refreshMenu(args.categories);
+		  _this.refreshMenu(args.itemList);
 		});
 		
 		this._menuModel.drinksUpdated.attach(function (sender, args) {
@@ -182,7 +184,7 @@ Controller.prototype = {
 		this.queryDrinks(initSearch);
 		this.refreshTotalPrice();
 		this.refreshCredit();
-		this.updateMenu();
+		//this.updateMenu();
 		this.updateQuick();
         this.refreshDictionary();
     },
@@ -384,20 +386,22 @@ Controller.prototype = {
      * ===========================================================
      */
 	updateMenu: function() {
-	var username = this._loginModel.getUserName();
-	var password = this._loginModel.getPassWord();
-	this._menuModel.update(username, password);
+		var username = this._loginModel.getUserName();
+		var password = this._loginModel.getPassWord();
+		var itemList = this._databaseModel.getItems();
+		this._menuModel.update(username, password, itemList);
 	},
 
-	refreshMenu: function(categories) {
-	this._menuView.refresh(categories);
+	refreshMenu: function(itemList) {
+	this._menuView.refresh(itemList);
 	},
 	
 	queryMenu: function (query) {
 		console.log("Controller.queryMenu: "+ query);
 		var username = this._loginModel.getUserName();
 		var password = this._loginModel.getPassWord();
-		this._menuModel.queryMenu(query, username, password);
+		var itemList = this._databaseModel.getItems();
+		this._menuModel.queryMenu(query, username, password, itemList);
     },
 	
 	refreshDrinksMenu: function (itemList) {
