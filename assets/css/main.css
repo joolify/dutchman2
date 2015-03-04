@@ -22,7 +22,7 @@ div {
   ====================*/
 div#drinks {
   position: fixed;
-  top: 20%;
+  top: 10%;
   left: ;
   width: 40%;
   height: 80%;
@@ -54,7 +54,7 @@ div#quick_buy {
   ====================*/
 div#cart {
   position: fixed;
-  top: 60%;
+  top: 55%;
   right: 0px;
   width: 40%;
   height: 30%;
