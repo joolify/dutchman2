@@ -373,10 +373,10 @@ Controller.prototype = {
 	    if(0 == user) {
 		page = "vip.html";
 	    }else if(1 == user) {
-		page = "admin.html";
+		page = "vip.html";
 
 		//FIXME
-		this.logout(); // Just to not get caught in admin.html...
+		//this.logout(); // Just to not get caught in admin.html...
 	    }
 	} 	
 	console.log("Controller.isLoggedIn: " + page);
