@@ -46,13 +46,11 @@ function Controller(models, views) {
 
     if(this._databaseModel) {
 	this._databaseModel.drinksUpdated.attach(function () {
-            _this.refreshDrinks();
+			_this.queryMenu();
+            //_this.refreshDrinks();
 	});
 	
-	this._databaseModel.menuStartUp.attach(function () {
-            _this.refreshDrinks();
-			_this.updateMenu();
-	});
+	
     }
     /*
      * ===========================================================
@@ -133,7 +131,7 @@ function Controller(models, views) {
 	if(this._menuView) {
 		/*Listen for menu button clicks*/
 		this._menuView.menuBtnPushed.attach(function (sender, args) {
-	    _this.queryMenu(args.itemId);
+	    _this.queryMenu();
 		});
 	}
 
@@ -145,6 +143,11 @@ function Controller(models, views) {
 		this._menuModel.drinksUpdated.attach(function (sender, args) {
             _this.refreshDrinksMenu(args.itemList);
 		});
+		
+		this._menuModel.menuStartUp.attach(function () {
+            //_this.refreshDrinks();
+			_this.updateMenu();
+	});
 	}
 
   
@@ -184,10 +187,11 @@ Controller.prototype = {
 		console.log("Controller.showDrinks()");
 		this.isLoggedIn();
 		var initSearch = "";
-		//this.queryDrinks(initSearch);
-		this.startUpDrinksAndMenu(initSearch);
+		this.queryDrinks(initSearch);
+		//this.startUpDrinksAndMenu(initSearch);
 		this.refreshTotalPrice();
 		this.refreshCredit();
+		this.startUpMenu();
 		//this.updateMenu();
 		this.updateQuick();
         this.refreshDictionary();
@@ -228,12 +232,7 @@ Controller.prototype = {
 	this._databaseModel.query(query, username, password);
     },
 	
-	startUpDrinksAndMenu: function (query) {
-		console.log("Controller.startUpDrinksAndMenu: "+ query);
-		var username = this._loginModel.getUserName();
-		var password = this._loginModel.getPassWord();
-		this._databaseModel.startUp(query, username, password);
-    },
+	
     /*
      * ===========================================================
      * == CART ===================================================
@@ -398,7 +397,7 @@ Controller.prototype = {
 	updateMenu: function() {
 		var username = this._loginModel.getUserName();
 		var password = this._loginModel.getPassWord();
-		var itemList = this._databaseModel.getItems();
+		var itemList = this._menuModel.getItems();
 		this._menuModel.update(username, password, itemList);
 	},
 
@@ -406,16 +405,24 @@ Controller.prototype = {
 	this._menuView.refresh(itemList);
 	},
 	
-	queryMenu: function (query) {
+	queryMenu: function () {
 		console.log("Controller.queryMenu: "+ query);
 		var username = this._loginModel.getUserName();
 		var password = this._loginModel.getPassWord();
 		var itemList = this._databaseModel.getItems();
+		var query = this._menuView.getMenuClicked();
 		this._menuModel.queryMenu(query, username, password, itemList);
     },
 	
 	refreshDrinksMenu: function (itemList) {
 		this._drinkView.refresh(itemList);
+    },
+	
+	startUpMenu: function () {
+		console.log("Controller.startUpMenu: ");
+		var username = this._loginModel.getUserName();
+		var password = this._loginModel.getPassWord();
+		this._menuModel.startUp(username, password);
     },
       /*
      * ===========================================================

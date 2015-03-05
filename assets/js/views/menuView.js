@@ -8,7 +8,7 @@ function MenuView(elements) {
     /** @private */ this._elements = elements;
 	this.menuBtnPushed = new Event(this);
     var _this = this;
-	
+	this._buttonPushed = "";
     /*
      * ===========================================================
      * ==================== EVENT LISTENERS ======================
@@ -30,7 +30,29 @@ MenuView.prototype = {
      */
 	_pushMenu: function (itemId) {
 		console.log("MenuView._pushMenu", itemId);
-		this.menuBtnPushed.notify({itemId: itemId});
+		//Checks if the button is already is pushed
+		if(this._buttonPushed == itemId){
+			var unClickedItem = "addButton_" + this._buttonPushed;
+			this._buttonPushed = "";
+			document.getElementById(unClickedItem).className = "category";
+			itemId = "";
+			this.menuBtnPushed.notify();
+		}
+		else if(this._buttonPushed == ""){
+			this._buttonPushed = itemId;
+			var clickedItem = "addButton_" + this._buttonPushed;
+			document.getElementById(clickedItem).className ="categoryClicked";
+			this.menuBtnPushed.notify();
+		}
+		else{
+			var lastClickedItem = "addButton_" + this._buttonPushed;
+			document.getElementById(lastClickedItem).className = "category";
+			this._buttonPushed = itemId;
+			var newClickedItem = "addButton_" + this._buttonPushed;
+			document.getElementById(newClickedItem).className = "categoryClicked";
+			this.menuBtnPushed.notify();
+		}
+		
     },
     /*
      * ===========================================================
@@ -38,7 +60,9 @@ MenuView.prototype = {
      * ===========================================================
      */
 	
-	
+	getMenuClicked: function () {
+        return this._buttonPushed;
+    },
 	
 	/*
      * Refreshes the menu. 

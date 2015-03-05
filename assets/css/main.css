@@ -86,6 +86,12 @@ button.category {
   width: 8em;
   height: 2em;
 }
+button.categoryClicked {
+  width: 8em;
+  height: 2em;
+  font-weight: bold;
+  background-color: red;
+}
 th.item, td.item {
   min-width: 4em;
 }

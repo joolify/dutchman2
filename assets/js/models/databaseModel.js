@@ -126,7 +126,7 @@ DatabaseModel.prototype = {
 				console.log('an error occurred!');
 			}
 		});
-    },
+    }/*,
 	
 	startUp: function (query, username, password) {
 		var urlQuery = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=inventory_get';
@@ -155,5 +155,5 @@ DatabaseModel.prototype = {
 				console.log('an error occurred!');
 			}
 		});
-    }
+    }*/
 };
