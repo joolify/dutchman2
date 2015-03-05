@@ -18,7 +18,7 @@ MenuModel.prototype = {
      * ===========================================================
      */
 	/*
-     * Drops the database.
+     * Empties the itemList
      * @function _drop
      */
     _drop: function () {
@@ -40,7 +40,7 @@ MenuModel.prototype = {
         return [].concat(this._itemList);
     },
 	/*
-     * Search the database to find the categories and under categories 
+     * Search the database to find the categories
      * @function update
      * @param {String} username
 	 * @param {String} password
@@ -48,7 +48,6 @@ MenuModel.prototype = {
      */
 	update: function(username, password, itemList) {
 		var _this = this;
-		//var itemList = _this._startUp("", username, password);
 		_this._drop();
 		var urlBeerData = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=beer_data_get&beer_id=';
 		var index = 0;
@@ -84,23 +83,23 @@ MenuModel.prototype = {
 	},
   
 	/*
-     * Search the database to find the the items in a category
+     * Search the database to find the items in the itemList that has the specified category
      * @function queryMenu
-	 * @param {String} query
+	 * @param {String} category
      * @param {String} username
 	 * @param {String} password
 	 * @param {Item[]} itemList
      */
-	queryMenu: function (query, username, password, itemList) {
-		console.log("MenuModel.button pushed", query);
+	queryMenu: function (category, username, password, itemList) {
+		console.log("MenuModel.button pushed", category);
 		var _this = this;
 		_this._drop();
-		if(query == ""){
+		if(category == ""){
 			_this.drinksUpdated.notify({itemList : itemList});
 		}
 		else{
 			var urlBeerData = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=beer_data_get&beer_id=';
-			console.log("Model.query(): " + query);
+			console.log("Model.query(): " + category);
 			
 			_this._drop();
 			var index = 0;
@@ -118,7 +117,7 @@ MenuModel.prototype = {
 							var categories = dataFilter.payload[0].varugrupp.split(",");
 							var categoriesTrim = categories[0].trim();
 							var categoriesTrimed = categoriesTrim.split(' ').join('');
-							if(categoriesTrimed == query){
+							if(categoriesTrimed == category){
 								var test = dataFilter.payload[0].nr;
 								for(var y = 0; y < itemList.length; y++){
 									if(itemList[y]._id == test){
@@ -139,9 +138,14 @@ MenuModel.prototype = {
 		}
 	},
 	
+	/*
+     * Search the database to find all the items
+     * @function startUp
+     * @param {String} username
+	 * @param {String} password
+     */
 	startUp: function (username, password) {
 		var urlQuery = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=inventory_get';
-		//console.log("Model.query(): " + query);
 		var _this = this;
 			
 		$.ajax({
@@ -156,15 +160,8 @@ MenuModel.prototype = {
 					if(item.namn.length > 0){
 						_this._itemList.push(new Item(item.namn, item.namn2, item.sbl_price, item.pub_price, item.beer_id, item.count, item.price));
 					}
-					//var newItem = _this._filterByMatch(query, item, _this);
-					//if(newItem) {
-						//_this._itemList.push(newItem);
-					//}
 				});		
-				
-				//console.log("Model.query().itemList: ", _this._itemList.length);
 				_this.menuStartUp.notify();
-				//return _this._itemList;
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
 				console.log('an error occurred!');

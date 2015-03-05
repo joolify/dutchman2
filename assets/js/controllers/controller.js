@@ -188,7 +188,6 @@ Controller.prototype = {
 		this.isLoggedIn();
 		var initSearch = "";
 		this.queryDrinks(initSearch);
-		//this.startUpDrinksAndMenu(initSearch);
 		this.refreshTotalPrice();
 		this.refreshCredit();
 		this.startUpMenu();

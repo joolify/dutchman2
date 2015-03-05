@@ -24,13 +24,14 @@ MenuView.prototype = {
      */
 	/*
      * Notifies its listeners that a menu button has been pressed
+	 * and changes the pressed buttons color 
      * @private
      * @function _pushMenu
      * @param {String} itemId
      */
 	_pushMenu: function (itemId) {
 		console.log("MenuView._pushMenu", itemId);
-		//Checks if the button is already is pushed
+		
 		if(this._buttonPushed == itemId){
 			var unClickedItem = "addButton_" + this._buttonPushed;
 			this._buttonPushed = "";
@@ -51,23 +52,26 @@ MenuView.prototype = {
 			var newClickedItem = "addButton_" + this._buttonPushed;
 			document.getElementById(newClickedItem).className = "categoryClicked";
 			this.menuBtnPushed.notify();
-		}
-		
+		}	
     },
     /*
      * ===========================================================
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
-	
+	/*
+     * Get the id of the menu button that is clicked
+     * @function getMenuClicked
+	 * return {ButtonId}
+     */
 	getMenuClicked: function () {
         return this._buttonPushed;
     },
 	
 	/*
-     * Refreshes the menu. 
+     * Creates the menu buttons 
      * @function refresh
-     * @param {itemList[]} categories
+     * @param {itemList[]} itemList
      */
 	refresh: function(itemList) {
 		var _this = this;

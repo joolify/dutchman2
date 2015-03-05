@@ -126,34 +126,5 @@ DatabaseModel.prototype = {
 				console.log('an error occurred!');
 			}
 		});
-    }/*,
-	
-	startUp: function (query, username, password) {
-		var urlQuery = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=inventory_get';
-		console.log("Model.query(): " + query);
-		var _this = this;
-			
-		$.ajax({
-			url: urlQuery,
-			type: "POST",
-			contentType: "application/json; charset=utf-8",
-			dataType: 'json',
-			asynch: false,
-			success: function (data) {
-				_this._drop();
-				$.each(data.payload, function (key, item){
-					var newItem = _this._filterByMatch(query, item, _this);
-					if(newItem) {
-						_this._itemList.push(newItem);
-					}
-				});		
-				
-				console.log("Model.query().itemList: ", _this._itemList.length);
-				_this.menuStartUp.notify();
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				console.log('an error occurred!');
-			}
-		});
-    }*/
+    }
 };
