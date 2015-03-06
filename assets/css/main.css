@@ -1,12 +1,12 @@
 /*====================
-  ====  OVERALL  =====
+  ====  GENERAL  =====
   ====================*/
 html {
   font-family: 'Open Sans Condensed';
 }
 
 body {
-  background-image: url("http://th07.deviantart.net/fs71/PRE/f/2011/326/d/c/tintin_and_the_secret_of_the_unicorn_by_o0hayatokun0o-d4gxqk1.jpg");
+  background-image: url('images/pirate_ship.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -16,16 +16,27 @@ div {
   padding: 1%;
   background-color: #FFF;
   border-radius: 15px;
+  opacity: 0.9;
 }
+
+div > h2 {
+  height:10%;
+  margin:0;
+}
+
 /*====================
   =====  DRINKS  =====
   ====================*/
 div#drinks {
   position: fixed;
   top: 10%;
-  left: ;
-  width: 40%;
+  left: 6.66%;
+  width: 50%;
   height: 80%;
+}
+
+div#search {
+  height: 5%;
 }
 
 input#query {
@@ -33,8 +44,13 @@ input#query {
 }
 
 div#drink_table {
-  height: 80%;
+  height: 85%;
   overflow: auto;
+}
+
+table#drink_table {
+  width: 100%;
+  height: 100%;
 }
 
 /*====================
@@ -42,9 +58,9 @@ div#drink_table {
   ====================*/
 div#quick_buy {
   position: fixed;
-  top: 100px;
-  right: 0px;
-  width: 40%;
+  top: 10%;
+  right: 5%;
+  width: 30%;
   height: 40%;
   overflow: auto;
 }
@@ -55,14 +71,25 @@ div#quick_buy {
 div#cart {
   position: fixed;
   top: 55%;
-  right: 0px;
-  width: 40%;
-  height: 30%;
+  right: 5%;
+  width: 30%;
+  height: 35%;
+}
+
+div#cart > h2 {
+  height:10%;
+  margin:0;
 }
 
 div#cart_table {
-  height: 80%;
+  margin-top: 0%;
+  height: 90%;
   overflow: auto;
+}
+
+table#cart_table {
+  width: 100%;
+  height: 100%;
 }
 
 td.remove {
@@ -78,6 +105,10 @@ td.increment, td.decrease {
 /*====================
   ======  MISC  ======
   ====================*/
+button {
+  opacity: 1;
+}
+
 button.item {
   width: 16em;
   height: 4em;
