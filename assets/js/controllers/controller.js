@@ -35,22 +35,20 @@ function Controller(models, views) {
      * ===========================================================
      */
     if(this._drinkView) {
-	this._drinkView.searchFieldModified.attach(function (sender, args) {
-	    _this.queryDrinks(args.query);
-	});
+    this._drinkView.searchFieldModified.attach(function (sender, args) {
+        _this.queryDrinks(args.query);
+    });
 
-	this._drinkView.itemBtnPushed.attach(function (sender, args) {
-	    _this.pushCartItem(args.itemId);
-	});
+    this._drinkView.itemBtnPushed.attach(function (sender, args) {
+        _this.pushCartItem(args.itemId);
+    });
     }
 
     if(this._databaseModel) {
-	this._databaseModel.drinksUpdated.attach(function () {
-			_this.queryMenu();
-            //_this.refreshDrinks();
-	});
-	
-	
+    this._databaseModel.drinksUpdated.attach(function () {
+        console.log("this._databaseModel.drinksUpdated");
+            _this.refreshDrinks();
+    });
     }
     /*
      * ===========================================================
@@ -58,27 +56,27 @@ function Controller(models, views) {
      * ===========================================================
      */
     if(this._cartView) {
-	this._cartView.popBtnClicked.attach(function (sender, args) {
-	    _this.popCartItem(args.itemId);
-	});
+    this._cartView.popBtnClicked.attach(function (sender, args) {
+        _this.popCartItem(args.itemId);
+    });
 
-	this._cartView.incrementBtnClicked.attach(function (sender, args) {
-	    _this.incrementCartItem(args.itemId);
-	});
+    this._cartView.incrementBtnClicked.attach(function (sender, args) {
+        _this.incrementCartItem(args.itemId);
+    });
 
-	this._cartView.amountRemoved.attach(function (sender, args) {
-	    _this.decrementCartItem(args.itemId);
-	});
+    this._cartView.amountRemoved.attach(function (sender, args) {
+        _this.decrementCartItem(args.itemId);
+    });
 
-	this._cartView.logoutBtnClicked.attach(function () {
-	    _this.logout();
-	});
+    this._cartView.logoutBtnClicked.attach(function () {
+        _this.logout();
+    });
     }
     if(this._cartModel) {
-	this._cartModel.cartUpdated.attach(function () {
-	    _this.refreshCart();
-	    _this.refreshTotalPrice();
-	});
+    this._cartModel.cartUpdated.attach(function () {
+        _this.refreshCart();
+        _this.refreshTotalPrice();
+    });
     }
     /*
      * ===========================================================
@@ -87,19 +85,19 @@ function Controller(models, views) {
      */
     /* Login */
     if(this._loginView) {
-	this._loginView.loginBtnClicked.attach(function (sender, args) {
-	    _this.login(args.username, args.password);
-	});
+    this._loginView.loginBtnClicked.attach(function (sender, args) {
+        _this.login(args.username, args.password);
+    });
     }
 
     if(this._loginModel) {
-	this._loginModel.loginDone.attach(function () {
-	    _this.isLoggedIn();
-	});
+    this._loginModel.loginDone.attach(function () {
+        _this.isLoggedIn();
+    });
 
-	this._loginModel.logoutDone.attach(function () {
-	    _this.isLoggedIn();
-	});
+    this._loginModel.logoutDone.attach(function () {
+        _this.isLoggedIn();
+    });
     }
 
     /*
@@ -110,45 +108,24 @@ function Controller(models, views) {
 
     if(this._languageView) {
         this._languageView.languageSelected.attach(function (sender, args) {
-            _this.updateLanguage(args.language);
-
+            _this.getLanguage(args.language);
         });
     }
-
-    if(this._languageModel) {
-        this._languageModel.languageUpdated.attach(function(sender,args) {
-            console.log("controller languageUpdated event");
-            _this.refreshLanguage(args.words);
-        });
-    }
-    
 
     /*
      * ===========================================================
      * == MENU LISTENER ==========================================
      * ===========================================================
      */
-	if(this._menuView) {
-		/*Listen for menu button clicks*/
-		this._menuView.menuBtnPushed.attach(function (sender, args) {
-	    _this.queryMenu();
-		});
-	}
+  if(this._menuView) {
+    /*Listen for menu button clicks*/
+  }
 
-	if(this._menuModel) {
-		this._menuModel.menuUpdated.attach(function (sender, args) {
-		  _this.refreshMenu(args.itemList);
-		});
-		
-		this._menuModel.drinksUpdated.attach(function (sender, args) {
-            _this.refreshDrinksMenu(args.itemList);
-		});
-		
-		this._menuModel.menuStartUp.attach(function () {
-            //_this.refreshDrinks();
-			_this.updateMenu();
-	});
-	}
+  if(this._menuModel) {
+    this._menuModel.menuUpdated.attach(function (sender, args) {
+      _this.refreshMenu(args.menuList);
+    });
+  }
 
   
     /*
@@ -160,9 +137,16 @@ function Controller(models, views) {
     /*Listen for quick buttons clicks*/
   }
 
+//    if(this._quickModel) {
+//    this._quickModel.recommendedUpdated.attach(function () {
+//            _this.refreshRecommended(); //TBI
+//    });
+//    }
+
+
   if(this._quickModel) {
-    this._quickModel.quickUpdated.attach(function (sender, args) {
-      _this.refreshQuick(args.quickList);
+    this._quickModel.quickUpdated.attach(function () {
+      _this.refreshQuick();
     });
   }
 }
@@ -184,25 +168,42 @@ Controller.prototype = {
      * @function showDrinks
      */
     showDrinks: function() {
-		console.log("Controller.showDrinks()");
-		this.isLoggedIn();
-		var initSearch = "";
-		this.queryDrinks(initSearch);
-		this.refreshTotalPrice();
-		this.refreshCredit();
-		this.startUpMenu();
-		//this.updateMenu();
-		this.updateQuick();
-        this.refreshDictionary();
+    console.log("Controller.showDrinks()");
+    this.isLoggedIn();
+    var initSearch = "";
+    this.queryDrinks(initSearch);
+    this.queryRecommended("");
+    this.refreshTotalPrice();
+    this.refreshCredit();
+      this.updateMenu();
+//      this.updateQuick();
     },
+
+    /*
+     * Show the recommended table
+     * @function showRecommended
+     */
+  //  showRecommended: function() {
+  // console.log("Controller.showRecommended()--------------------------------------------------------------------------");
+  //  this.isLoggedIn();
+  //  var initSearch = "";
+  //  this.queryRecommended(initSearch);
+  //  this.refreshTotalPrice();
+  //  this.refreshCredit();
+  //    this.updateMenu();
+  //    this.updateQuick();
+  //  },
+
+
 
     /*
      * Show the login 
      * @function showLogin
      */
     showLogin: function() {
-	console.log("Controller.showLogin()");
-	this.isLoggedIn();
+    console.log("Controller.showLogin()");
+    this.isLoggedIn();
+//    this.queryRecommended("")
     },
 
     /*
@@ -216,22 +217,29 @@ Controller.prototype = {
      * @function refreshDrinks
      */
     refreshDrinks: function () {
-	var itemList = this._databaseModel.getItems();
-	console.log("Controller.refreshDrinks: " + itemList.length);
-	this._drinkView.refresh(itemList);
+    var itemList = this._databaseModel.getItems();
+    console.log("Controller.refreshDrinks: " + itemList.length);
+    this._drinkView.refresh(itemList);
     },
 
     /* Queries the DatabaseModel
      * @function queryDrinks
      */
     queryDrinks: function (query) {
-	console.log("Controller.queryDrinks: "+ query);
-	var username = this._loginModel.getUserName();
-	var password = this._loginModel.getPassWord();
-	this._databaseModel.query(query, username, password);
+    console.log("Controller.queryDrinks: "+ query);
+    var username = this._loginModel.getUserName();
+    var password = this._loginModel.getPassWord();
+    this._databaseModel.query(query, username, password);
     },
-	
-	
+
+    queryRecommended: function (query) {
+    console.log("Controller.queryRecommended: "+ query);
+    var username = this._loginModel.getUserName();
+    var password = this._loginModel.getPassWord();
+    this._quickModel.query(username, password);
+    },
+
+
     /*
      * ===========================================================
      * == CART ===================================================
@@ -243,9 +251,9 @@ Controller.prototype = {
      * @param itemId
      */
     pushCartItem: function (itemId) {
-	var item = this._databaseModel.getItem(itemId);
-	this._cartModel.push(item);
-	console.log("Controller.pushCartItem: ", itemId);
+    var item = this._databaseModel.getItem(itemId);
+    this._cartModel.push(item);
+    console.log("Controller.pushCartItem: ", itemId);
     },
     /*
      * Remove an item from the CartModel
@@ -253,16 +261,16 @@ Controller.prototype = {
      * @param {Integer} itemId
      */
     popCartItem: function (itemId) {
-	console.log("Controller.popCartItem: ", itemId);
-	this._cartModel.pop(itemId);
+    console.log("Controller.popCartItem: ", itemId);
+    this._cartModel.pop(itemId);
     },
     /* Increases the amount of an item.
      * function incrementCartItem
      * @param itemId
      */
     incrementCartItem: function (itemId) {
-	console.log("Controller.incrementCartItem: ", itemId);
-	this._cartModel.increment(itemId);
+    console.log("Controller.incrementCartItem: ", itemId);
+    this._cartModel.increment(itemId);
     },
     
     /* Increases the amount of an item.
@@ -270,8 +278,8 @@ Controller.prototype = {
      * @param itemId
      */
     decrementCartItem: function (itemId) {
-	console.log("Controller.decrementCartItem: ", itemId);
-	this._cartModel.decrement(itemId);
+    console.log("Controller.decrementCartItem: ", itemId);
+    this._cartModel.decrement(itemId);
     },
 
     /*
@@ -279,9 +287,9 @@ Controller.prototype = {
      * @function refreshCart
      */
     refreshCart: function () {
-	var cartItemList = this._cartModel.getCart();
-	console.log("Controller.refreshCart: " + cartItemList.length);
-	this._cartView.refresh(cartItemList);
+    var cartItemList = this._cartModel.getCart();
+    console.log("Controller.refreshCart: " + cartItemList.length);
+    this._cartView.refresh(cartItemList);
     },
 
     /*
@@ -289,8 +297,8 @@ Controller.prototype = {
      * @function refreshTotalPrice
      */
     refreshTotalPrice: function () {
-	var totalPrice = this._cartModel.getTotalPrice();
-	this._cartView.setTotalPrice(totalPrice);
+    var totalPrice = this._cartModel.getTotalPrice();
+    this._cartView.setTotalPrice(totalPrice);
     },
     /*
      * Refreshes the credit
@@ -298,10 +306,10 @@ Controller.prototype = {
      */
 
     refreshCredit: function () {
-	var username = this._loginModel.getUserName();
-	var password = this._loginModel.getPassWord();
-	var credit = this._cartModel.getCredit(username, password);
-	this._cartView.setCredit(credit);
+    var username = this._loginModel.getUserName();
+    var password = this._loginModel.getPassWord();
+    var credit = this._cartModel.getCredit(username, password);
+    this._cartView.setCredit(credit);
     },
 
 
@@ -317,8 +325,8 @@ Controller.prototype = {
      * @param page
      */ 
     _redirect: function (page) {
-	console.log("Controller._redirect: ", page);
-	window.location.href = page;
+    console.log("Controller._redirect: ", page);
+    window.location.href = page;
     },
 
     /*
@@ -327,9 +335,9 @@ Controller.prototype = {
      * @return {String}
      */
     _getCurrentPage: function () {
-	var url = window.location.pathname;
-	var filename = url.substring(url.lastIndexOf('/')+1);
-	return filename;
+    var url = window.location.pathname;
+    var filename = url.substring(url.lastIndexOf('/')+1);
+    return filename;
     },
     
     /* Check if user is on the right page, or should be redirected
@@ -337,7 +345,7 @@ Controller.prototype = {
      * @return {Boolean}
      */
     _isCurrentPage: function (page) {
-    	return (this._getCurrentPage() == page);
+        return (this._getCurrentPage() == page);
     },
     /*
      * Login to the system
@@ -346,8 +354,8 @@ Controller.prototype = {
      * @param password
      */
     login: function (username, password) {
-    	console.log("Controller.login: ", username, password);
-    	this._loginModel.login(username, password);
+        console.log("Controller.login: ", username, password);
+        this._loginModel.login(username, password);
     },
     
     /*
@@ -355,36 +363,36 @@ Controller.prototype = {
      * @function logout
      */
     logout: function () {
-	console.log("Controller.logout");
-	this._loginModel.logout();
+    console.log("Controller.logout");
+    this._loginModel.logout();
     },
 
     /* Checks if the login was successful, if so redirect if needed.
      * @function isLoggedIn
      */
     isLoggedIn: function () {
-	var page = "index.html";
-	var isLoggedIn = +this._loginModel.isLoggedIn();
-	if(isLoggedIn) {
-	    console.log("Controller.isLoggedIn: " + isLoggedIn);
-	    var user = +this._loginModel.getUserType();
-	    if(0 == user) {
-		page = "vip.html";
-	    }else if(1 == user) {
-		page = "vip.html";
+    var page = "index.html";
+    var isLoggedIn = +this._loginModel.isLoggedIn();
+    if(isLoggedIn) {
+        console.log("Controller.isLoggedIn: " + isLoggedIn);
+        var user = +this._loginModel.getUserType();
+        if(0 == user) {
+        page = "vip.html";
+        }else if(1 == user) {
+        page = "vip.html";
 
-		//FIXME
-		//this.logout(); // Just to not get caught in admin.html...
-	    }
-	} 	
-	console.log("Controller.isLoggedIn: " + page);
-	if(!this._isCurrentPage(page)) {
-	    this._redirect(page);
-	}
+        //FIXME
+//      this.logout(); // Just to not get caught in admin.html...
+        }
+    }   
+    console.log("Controller.isLoggedIn: " + page);
+    if(!this._isCurrentPage(page)) {
+        this._redirect(page);
+    }
 
-	if(this._loginModel.hasError() && this._isCurrentPage("index.html")) {
-	    this._loginView.showErrorMsg();
-	}
+    if(this._loginModel.hasError() && this._isCurrentPage("index.html")) {
+        this._loginView.showErrorMsg();
+    }
 
     },
 
@@ -393,70 +401,39 @@ Controller.prototype = {
      * == MENU ===================================================
      * ===========================================================
      */
-	updateMenu: function() {
-		var username = this._loginModel.getUserName();
-		var password = this._loginModel.getPassWord();
-		var itemList = this._menuModel.getItems();
-		this._menuModel.update(username, password, itemList);
-	},
+  updateMenu: function() {
+    this._menuModel.update();
+  },
 
-	refreshMenu: function(itemList) {
-	this._menuView.refresh(itemList);
-	},
-	
-	queryMenu: function () {
-		console.log("Controller.queryMenu: "+ query);
-		var username = this._loginModel.getUserName();
-		var password = this._loginModel.getPassWord();
-		var itemList = this._databaseModel.getItems();
-		var query = this._menuView.getMenuClicked();
-		this._menuModel.queryMenu(query, username, password, itemList);
-    },
-	
-	refreshDrinksMenu: function (itemList) {
-		this._drinkView.refresh(itemList);
-    },
-	
-	startUpMenu: function () {
-		console.log("Controller.startUpMenu: ");
-		var username = this._loginModel.getUserName();
-		var password = this._loginModel.getPassWord();
-		this._menuModel.startUp(username, password);
-    },
+  refreshMenu: function(menuList) {
+    this._menuView.refresh(menuList);
+  },
+
       /*
      * ===========================================================
      * == QUICK ==================================================
      * ===========================================================
      */
   updateQuick: function() {
-    this._quickModel.update();
+    this._quickModel.query(username,password);
   },
 
-  refreshQuick: function(quickList) {
-    this._quickView.refresh(quickList);
+  refreshQuick: function() {
+    var itemList = this._quickModel.getItems();
+    console.log("Controller.refreshQuick: " + itemList.length);
+    console.log("Itemlist from controller: " + itemList);
+    this._quickView.refresh(itemList);
   },
+
+    
     /*
      * ===========================================================
      * == TRANSLATION ============================================
      * ===========================================================
      */
 
-     initLanguage: function(language) {
-        console.log("init language at the controller");
-        this._languageModel.setDictionary(language);
-     },
-
-    updateLanguage: function(language) {
-        this._languageModel.setDictionary(language);
-    },
-
-    refreshLanguage: function(words) {
-        console.log("refreshLanguage", words);
-        this._languageView.translate(words);
-    },
-
-    refreshDictionary: function() {
-        var words = this._languageModel.getDictionary();
-        this.refreshLanguage(words);
+    getLanguage: function(language) {
+        var dictionary = this._languageModel.searchLanguage(language);
+        this._languageView.translate(dictionary);
     }
 };

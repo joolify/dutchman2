@@ -1,7 +1,7 @@
 /*
  * A quick view
  * @class QuickView
- * @constructor
+ * @constructorx
  * Creates a QuickView
  */
 function QuickView(elements) {
@@ -28,9 +28,48 @@ QuickView.prototype = {
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
-  refresh: function(quickList) {
+
+ refresh: function (itemList) {
+    console.log("QuickView.refresh");
     var _this = this;
-    var quick = this._elements.quickBuy;
-    quick.append(quickList);
-  }
+    var list = this._elements.quickBuy;
+    
+   // list.empty();
+    
+        list.append($('<table id="recommended_table"></table>'));
+
+        console.log("View.refresh().itemList", itemList.length);
+
+    for(var i = 0; i < itemList.length; i++) {
+        var item = itemList[i];
+        var buttonAdd = "addButton_" + item.getId();
+            list.append(
+        $(
+            '<tr>' +
+            '<td><button ' +
+            'class="item" ' +
+            'id="' + buttonAdd + '"' +
+            'value="' + item.getId() + '"' +  
+            'draggable="true">' +
+            item.getFullName() + 
+            '</button></td>' +
+            '<td>' + item.getPubPrice() + '</td>' +
+            '<td>' + item.getCount() + '</td>' +
+            '</tr>'
+        )
+        );
+        
+        // Listen to button clicks
+        $('#' + buttonAdd).bind('click', function(e) {
+        _this._pushItem($(this).val());
+        });
+        }
+    },
+
+
+//  refresh: function(quickList) {
+//    var _this = this;
+//    var quick = this._elements.quickBuy;
+//    quick.append(quickList);
+//  }
 };
