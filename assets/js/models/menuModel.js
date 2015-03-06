@@ -71,7 +71,7 @@ MenuModel.prototype = {
 						}
 					}
 					index++;
-					if(index == itemList.length){
+					if(index === itemList.length){
 						_this.menuUpdated.notify({itemList : _this._itemList});
 					}
 				},
@@ -94,7 +94,7 @@ MenuModel.prototype = {
 		console.log("MenuModel.button pushed", category);
 		var _this = this;
 		_this._drop();
-		if(category == ""){
+		if(category === ""){
 			_this.drinksUpdated.notify({itemList : itemList});
 		}
 		else{
@@ -117,10 +117,10 @@ MenuModel.prototype = {
 							var categories = dataFilter.payload[0].varugrupp.split(",");
 							var categoriesTrim = categories[0].trim();
 							var categoriesTrimed = categoriesTrim.split(' ').join('');
-							if(categoriesTrimed == category){
+							if(categoriesTrimed === category){
 								var test = dataFilter.payload[0].nr;
 								for(var y = 0; y < itemList.length; y++){
-									if(itemList[y]._id == test){
+									if(itemList[y]._id === test){
 										var filteredItem = itemList[y];
 										_this._itemList.push(new Item(filteredItem._name, filteredItem._name2, filteredItem._sbl_price, filteredItem._pub_price, filteredItem._id, filteredItem._count, filteredItem._price));
 										y=itemList.length;
@@ -129,7 +129,7 @@ MenuModel.prototype = {
 							}
 						}
 						index++;
-						if(index == itemList.length){
+						if(index === itemList.length){
 							_this.drinksUpdated.notify({itemList : _this._itemList});
 						}
 					},

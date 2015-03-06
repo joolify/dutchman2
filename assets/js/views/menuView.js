@@ -32,14 +32,14 @@ MenuView.prototype = {
 	_pushMenu: function (itemId) {
 		console.log("MenuView._pushMenu", itemId);
 		
-		if(this._buttonPushed == itemId){
+		if(this._buttonPushed === itemId){
 			var unClickedItem = "addButton_" + this._buttonPushed;
 			this._buttonPushed = "";
 			document.getElementById(unClickedItem).className = "category";
 			itemId = "";
 			this.menuBtnPushed.notify();
 		}
-		else if(this._buttonPushed == ""){
+		else if(this._buttonPushed === ""){
 			this._buttonPushed = itemId;
 			var clickedItem = "addButton_" + this._buttonPushed;
 			document.getElementById(clickedItem).className ="categoryClicked";
@@ -80,6 +80,11 @@ MenuView.prototype = {
 		menu.empty();
 		menu.append($('<table id="menu">'));
 		menu.append($('<tr>'));
+		//Ska ha texten tagen från det språket som är!
+		menu.append($('<td><button ' +
+					'class="logout" >' +
+					"Log Out" + 
+					'</button></td>' ));
 		for(var i = 0; i < itemList.length; i++){
 			var item = itemList[i];
 			var itemTrimed = item.split(' ').join('');

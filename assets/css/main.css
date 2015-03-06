@@ -14,18 +14,28 @@ body {
 
 div {
   padding: 1%;
-  background-color: #FFF;
-  border-radius: 15px;
+  border: 3px solid black;
+  background-color: rgba(255, 255, 255, 0.8);
+  /*border-radius: 15px;*/
+}
+h2 {
+	display: block;
+	font-size: large;
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	font-weight: bold;
 }
 /*====================
   =====  DRINKS  =====
   ====================*/
 div#drinks {
-  position: fixed;
-  top: 10%;
-  left: ;
-  width: 40%;
-  height: 80%;
+	position: fixed;
+	left: 0vW;
+	bottom: 0vw;
+	width: 50vw;
+	top: 5vw;
 }
 
 input#query {
@@ -33,8 +43,9 @@ input#query {
 }
 
 div#drink_table {
-  height: 80%;
+  height: 90%;
   overflow: auto;
+ 
 }
 
 /*====================
@@ -42,27 +53,73 @@ div#drink_table {
   ====================*/
 div#quick_buy {
   position: fixed;
-  top: 100px;
-  right: 0px;
-  width: 40%;
-  height: 40%;
-  overflow: auto;
+right: 0vw;
+top: 5vw;
+width: 45vw;
+height: 18vw;
 }
 
 /*====================
   ======  CART  ======
   ====================*/
 div#cart {
+position: fixed;
+right: 0vw;
+bottom: 0vw;
+width: 45vw;
+height: 23vw;
+}
+  /*div#cart {
   position: fixed;
   top: 55%;
   right: 0px;
-  width: 40%;
-  height: 30%;
-}
-
+  width: 45%;
+  height: 41%;
+}*/
 div#cart_table {
-  height: 80%;
+position: absolute;
+top: 10%;
+height: 58%;
+width: 90%;
+/* overflow: auto; */
+}
+/*div#cart_table {
+	top: -20%;
+	height: 50%;
+	/*overflow: auto;*/
+}*/
+div#cart h2{
+	height: 10%;
+}
+div#cost_row {
+	position: absolute;
+	height: 22%;
+	overflow: auto;
+	top: 72%;
+	width: 90%;
+}
+/*div#cost_row {
+  height: 50%;
+  
   overflow: auto;
+}*/
+p#credit {
+-webkit-margin-before: 1px;
+-webkit-margin-after: 1px;
+}
+p#totalPrice {
+-webkit-margin-before: 1px;
+-webkit-margin-after: 1px;
+}
+/*====================
+  ======  Menu  ======
+  ====================*/
+div#menu {
+	position: fixed;
+	top: 0vw;
+	left: 0vw;
+	height: 2vw;
+	width: 98vw;
 }
 
 td.remove {
@@ -84,14 +141,22 @@ button.item {
 }
 button.category {
   width: 8em;
-  height: 2em;
+  height: 3em;
 }
 button.categoryClicked {
   width: 8em;
-  height: 2em;
+  height: 3em;
   font-weight: bold;
   background-color: red;
 }
+button.logout {
+	width: 8em;
+	height: 3em;
+	position: absolute;
+	right: 20px;
+	
+}
 th.item, td.item {
   min-width: 4em;
+  
 }
