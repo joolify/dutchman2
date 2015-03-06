@@ -35,6 +35,15 @@ div#drinks {
   height: 80%;
 }
 
+div.item {
+  width: 20%;
+  height: 160pt;
+  margin: 1%;
+  border: 1pt solid black;
+  float: left;
+  background-color: white;
+}
+
 div#search {
   height: 5%;
 }
