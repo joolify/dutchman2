@@ -69,9 +69,8 @@ DrinkView.prototype = {
 				list.append(
           '<input type="hidden" class="item_input" id="' + item.getId() + '"/>' +
                 '<div class="item" ' +
-                ' id="' + buttonAdd + '")">' +
-                item.getFullName() +
-                '<input id="valueOf_' + item.getId() + '" type="hidden" value="' + item.getId() +'"'+
+                ' id="' + buttonAdd + '">' +
+                item.getFullName() + '<br>' + item.getPubPrice() + ' kr' +
                 '</div>'
 				);
         }
@@ -81,21 +80,3 @@ DrinkView.prototype = {
         });
     }
 };
-
-/*
-
-$(
-  '<tr>' +
-  '<td><button ' +
-  'class="item" ' +
-  'id="' + buttonAdd + '"' +
-  'value="' + item.getId() + '"' +
-  'draggable="true">' +
-  item.getFullName() +
-  '</button></td>' +
-  '<td>' + item.getPubPrice() + '</td>' +
-  '<td>' + item.getCount() + '</td>' +
-  '</tr>'
-)
-
-*/
