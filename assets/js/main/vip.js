@@ -32,7 +32,8 @@ Vip.prototype = {
 	});
 
 	var menuView = new MenuView({
-	    'menu': $('#menu')
+	    'menu': $('#menu'),
+		'theme': $('#theme')
 	});
 
 	var quickView = new QuickView({

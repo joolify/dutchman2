@@ -67,12 +67,12 @@ DrinkView.prototype = {
 			var item = itemList[i];
 			var buttonAdd = item.getId();
 				list.append(
-          '<input type="hidden" class="item_input" id="' + item.getId() + '"/>' +
-                '<div class="item" ' +
-                ' id="' + buttonAdd + '"' +
-                ' draggable="true">' +
-                item.getFullName() + '<br>' + item.getPubPrice() + ' kr' +
-                '</div>'
+					'<input type="hidden" class="item_input" id="' + item.getId() + '"/>' +
+					'<div class="item" ' +
+					' id="' + buttonAdd + '"' +
+					' draggable="true">' +
+					item.getFullName() + '<br>' + item.getPubPrice() + ' kr' +
+					'</div>'
 				);
         }
         // Listen for clicks on items

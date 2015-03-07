@@ -14,6 +14,9 @@ function MenuView(elements) {
      * ==================== EVENT LISTENERS ======================
      * ===========================================================
      */
+	this._elements.theme.change(function(e) {
+	_this._theme();
+    });
 }
 
 MenuView.prototype = {
@@ -22,6 +25,17 @@ MenuView.prototype = {
      * ======================== PRIVATE  =========================
      * ===========================================================
      */
+	 _theme: function () {
+		var option = $("#theme").val();
+		if(option === "Theme 2"){
+			$("#Theme2").prop('disabled', false);
+			$("#Theme1").prop('disabled', true);
+		}
+		else{
+			$("#Theme2").prop('disabled', true);
+			$("#Theme1").prop('disabled', false);
+		}
+    },
 	/*
      * Notifies its listeners that a menu button has been pressed
 	 * and changes the pressed buttons color 
@@ -59,6 +73,9 @@ MenuView.prototype = {
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
+	theme: function() {
+		alert("Func them");
+	},
 	/*
      * Get the id of the menu button that is clicked
      * @function getMenuClicked
@@ -81,10 +98,10 @@ MenuView.prototype = {
 		menu.append($('<table id="menu">'));
 		menu.append($('<tr>'));
 		//Ska ha texten tagen från det språket som är!
-		menu.append($('<td><button ' +
+		/*menu.append($('<td><button ' +
 					'class="logout" >' +
 					"Log Out" + 
-					'</button></td>' ));
+					'</button></td>' ));*/
 		for(var i = 0; i < itemList.length; i++){
 			var item = itemList[i];
 			var itemTrimed = item.split(' ').join('');

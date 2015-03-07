@@ -119,9 +119,19 @@ div#menu {
 	top: 0vw;
 	left: 0vw;
 	height: 2vw;
-	width: 98vw;
+	width: 88vw;
 }
 
+div#top{
+	position: fixed;
+	top: 0vw;
+	right: 0vw;
+	height: 2vw;
+}
+div.item{
+	position: relative;
+	width: 14vw;
+}
 td.remove {
 }
 

@@ -133,6 +133,8 @@ function Controller(models, views) {
 		this._menuView.menuBtnPushed.attach(function (sender, args) {
 	    _this.queryMenu();
 		});
+		
+		
 	}
 
 	if(this._menuModel) {
