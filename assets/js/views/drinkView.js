@@ -69,12 +69,13 @@ DrinkView.prototype = {
 				list.append(
           '<input type="hidden" class="item_input" id="' + item.getId() + '"/>' +
                 '<div class="item" ' +
-                ' id="' + buttonAdd + '">' +
+                ' id="' + buttonAdd + '"' +
+                ' draggable="true">' +
                 item.getFullName() + '<br>' + item.getPubPrice() + ' kr' +
                 '</div>'
 				);
         }
-
+        // Listen for clicks on items
         $('.item').click(function(){
           _this._pushItem($(this).attr('id'));
         });

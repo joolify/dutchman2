@@ -114,8 +114,7 @@ CartView.prototype = {
 	    var buttonPlus = "cartPlus_" + item.getId();
 	    var buttonMinus = "cartMinus_" + item.getId();
             cart.append(
-		$(
-		    '<tr>' +
+		  '<tr>' +
 			'<td>' +
 			'<button id="' + buttonRemove + '"' +
 			'value="' + item.getId() + '"' +
@@ -138,7 +137,6 @@ CartView.prototype = {
 			'>-</button>' +
 			'</td>' +
 			'</tr>'
-		)
 	    );
 	    // Listens to x button
 	    $('#' + buttonRemove).bind('click', function(e) {

@@ -15,13 +15,27 @@ body {
 div {
   padding: 1%;
   background-color: #FFF;
-  border-radius: 15px;
+  -webkit-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
   opacity: 0.9;
 }
 
 div > h2 {
   height:10%;
   margin:0;
+}
+
+/* Prevent text of draggable elements to be selectable */
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
 }
 
 /*====================
@@ -41,7 +55,11 @@ div.item {
   margin: 1%;
   border: 1pt solid black;
   float: left;
-  background-color: white;
+  -webkit-box-shadow: inset 0 0 3px #000;
+  -ms-box-shadow: inset 0 0 3px #000;
+  box-shadow: inset 0 0 3px #000;
+  text-align: center;
+  cursor: pointer;
 }
 
 div#search {
@@ -54,7 +72,8 @@ input#query {
 
 div#drink_table {
   height: 85%;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 table#drink_table {
@@ -94,6 +113,14 @@ div#cart_table {
   margin-top: 0%;
   height: 90%;
   overflow: auto;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+div#cart_table td {
+  height: 40px;
 }
 
 table#cart_table {
@@ -116,11 +143,6 @@ td.increment, td.decrease {
   ====================*/
 button {
   opacity: 1;
-}
-
-button.item {
-  width: 16em;
-  height: 4em;
 }
 button.category {
   width: 8em;
