@@ -1,12 +1,12 @@
 /*====================
-  ====  OVERALL  =====
+  ====  GENERAL  =====
   ====================*/
 html {
   font-family: 'Open Sans Condensed';
 }
 
 body {
-  background-image: url("http://th07.deviantart.net/fs71/PRE/f/2011/326/d/c/tintin_and_the_secret_of_the_unicorn_by_o0hayatokun0o-d4gxqk1.jpg");
+  background-image: url('images/pirate_ship.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -14,28 +14,56 @@ body {
 
 div {
   padding: 1%;
-  border: 3px solid black;
-  background-color: rgba(255, 255, 255, 0.8);
-  /*border-radius: 15px;*/
+  background-color: #FFF;
+  -webkit-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  opacity: 0.9;
 }
-h2 {
-	display: block;
-	font-size: large;
-	-webkit-margin-before: 0;
-	-webkit-margin-after: 0;
-	-webkit-margin-start: 0px;
-	-webkit-margin-end: 0px;
-	font-weight: bold;
+
+div > h2 {
+  height:10%;
+  margin:0;
 }
+
+/* Prevent text of draggable elements to be selectable */
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+
 /*====================
   =====  DRINKS  =====
   ====================*/
 div#drinks {
-	position: fixed;
-	left: 0vW;
-	bottom: 0vw;
-	width: 50vw;
-	top: 5vw;
+  position: fixed;
+  top: 10%;
+  left: 6.66%;
+  width: 50%;
+  height: 80%;
+}
+
+div.item {
+  width: 20%;
+  height: 160pt;
+  margin: 1%;
+  border: 1pt solid black;
+  float: left;
+  -webkit-box-shadow: inset 0 0 3px #000;
+  -ms-box-shadow: inset 0 0 3px #000;
+  box-shadow: inset 0 0 3px #000;
+  text-align: center;
+  cursor: pointer;
+}
+
+div#search {
+  height: 5%;
 }
 
 input#query {
@@ -43,9 +71,14 @@ input#query {
 }
 
 div#drink_table {
-  height: 90%;
-  overflow: auto;
- 
+  height: 85%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+table#drink_table {
+  width: 100%;
+  height: 100%;
 }
 
 /*====================
@@ -53,73 +86,46 @@ div#drink_table {
   ====================*/
 div#quick_buy {
   position: fixed;
-right: 0vw;
-top: 5vw;
-width: 45vw;
-height: 18vw;
+  top: 10%;
+  right: 5%;
+  width: 30%;
+  height: 40%;
+  overflow: auto;
 }
 
 /*====================
   ======  CART  ======
   ====================*/
 div#cart {
-position: fixed;
-right: 0vw;
-bottom: 0vw;
-width: 45vw;
-height: 23vw;
-}
-  /*div#cart {
   position: fixed;
   top: 55%;
-  right: 0px;
-  width: 45%;
-  height: 41%;
-}*/
+  right: 5%;
+  width: 30%;
+  height: 35%;
+}
+
+div#cart > h2 {
+  height:10%;
+  margin:0;
+}
+
 div#cart_table {
-position: absolute;
-top: 10%;
-height: 58%;
-width: 90%;
-/* overflow: auto; */
-}
-/*div#cart_table {
-	top: -20%;
-	height: 50%;
-	/*overflow: auto;*/
-}*/
-div#cart h2{
-	height: 10%;
-}
-div#cost_row {
-	position: absolute;
-	height: 22%;
-	overflow: auto;
-	top: 72%;
-	width: 90%;
-}
-/*div#cost_row {
-  height: 50%;
-  
+  margin-top: 0%;
+  height: 90%;
   overflow: auto;
-}*/
-p#credit {
--webkit-margin-before: 1px;
--webkit-margin-after: 1px;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
-p#totalPrice {
--webkit-margin-before: 1px;
--webkit-margin-after: 1px;
+
+div#cart_table td {
+  height: 40px;
 }
-/*====================
-  ======  Menu  ======
-  ====================*/
-div#menu {
-	position: fixed;
-	top: 0vw;
-	left: 0vw;
-	height: 2vw;
-	width: 98vw;
+
+table#cart_table {
+  width: 100%;
+  height: 100%;
 }
 
 td.remove {
@@ -135,28 +141,19 @@ td.increment, td.decrease {
 /*====================
   ======  MISC  ======
   ====================*/
-button.item {
-  width: 16em;
-  height: 4em;
+button {
+  opacity: 1;
 }
 button.category {
   width: 8em;
-  height: 3em;
+  height: 2em;
 }
 button.categoryClicked {
   width: 8em;
-  height: 3em;
+  height: 2em;
   font-weight: bold;
   background-color: red;
 }
-button.logout {
-	width: 8em;
-	height: 3em;
-	position: absolute;
-	right: 20px;
-	
-}
 th.item, td.item {
   min-width: 4em;
-  
 }
