@@ -1,5 +1,5 @@
 /*
- * Stores the items added by the user. 
+ * Stores the items added by the user.
  * @class CartModel
  * @constructor
  * Creates a cart model
@@ -57,7 +57,7 @@ CartModel.prototype = {
     },
 
     /*
-     * Compare two cart items' names 
+     * Compare two cart items' names
      * @function _sortByName
      * @param {CartItem} cartItemA
      * @param {CartItem} cartItemB
@@ -81,7 +81,9 @@ CartModel.prototype = {
 	    this._cartList.push(cartItem);
 	    this._cartList.sort(this._sortByName);
 	    this.cartUpdated.notify();
-	}
+	} else if (item && this._hasCartItem(item)) {
+    this.increment(item.getId());
+  }
     },
     /*
      * Increases the amount of an item.
@@ -123,7 +125,7 @@ CartModel.prototype = {
 	    this.cartUpdated.notify();
 	}
     },
-    
+
     /*
      * Checks if user has enough credit to buy items for
      * @function hasEnoughCredit
@@ -154,7 +156,7 @@ CartModel.prototype = {
 	return sum;
     },
 
-    /* 
+    /*
      * Get the user's credit
      * @function getCredit
      * @return {Float}
@@ -164,14 +166,14 @@ CartModel.prototype = {
 	var _this = this;
 	var credit = null;
 	var iou = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=iou_get';
-	
+
 	$.ajax({
 	    url: iou,
 	    async: false,
 	    dataType: 'json',
 	    success: function (data) {
 		$.each(data.payload, function (key, value){
-			credit = value.assets; 
+			credit = value.assets;
 		});
 	    }
 	});
