@@ -48,7 +48,9 @@ div#drinks {
   width: 50%;
   height: 80%;
 }
-
+span.price {
+display: block;
+}
 div.item {
   width: 20%;
   height: 160pt;
@@ -61,7 +63,9 @@ div.item {
   text-align: center;
   cursor: pointer;
 }
-
+span.name2 {
+display: block;
+}
 div#search {
   height: 5%;
 }
@@ -136,8 +140,21 @@ td.subsum {
 
 td.increment, td.decrease {
 }
-
-
+/*====================
+  ======  Menu  ======
+  ====================*/
+.menu{
+	position: fixed;
+	left: 0vw;
+	height: 2vw;
+	width: 82vw;
+}
+.top{
+	position: fixed;
+	right: 0vw;
+	width: 13vw;
+	height: 2vw;
+}
 /*====================
   ======  MISC  ======
   ====================*/

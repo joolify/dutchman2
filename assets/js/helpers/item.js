@@ -50,8 +50,8 @@ Item.prototype = {
      * @return {String}
      */
     getFullName: function () {
-	return ((this._name2.length == 0) ? this._name :
-		this._name + '<br>(' + this._name2 + ')');
+	return ((this._name2.length == 0) ? '<span class="name">' + this._name + '</span>' :
+		'<span class="name">' + this._name + '</span>' + '<span class="name2">' + '(' + this._name2 + ')' + '</span>');
     },
 
     /*

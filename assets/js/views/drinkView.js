@@ -71,7 +71,8 @@ DrinkView.prototype = {
 					'<div class="item" ' +
 					' id="' + buttonAdd + '"' +
 					' draggable="true">' +
-					item.getFullName() + '<br>' + item.getPubPrice() + ' kr' +
+					item.getFullName() + '<span class="price">' + item.getPubPrice() + ' kr' +'</span>'+
+					'<div class="addButton"></div>'+
 					'</div>'
 				);
         }

@@ -6,7 +6,7 @@ html {
 }
 
 body {
-  background-image: url("http://th07.deviantart.net/fs71/PRE/f/2011/326/d/c/tintin_and_the_secret_of_the_unicorn_by_o0hayatokun0o-d4gxqk1.jpg");
+  background-image: url('images/unicorn.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -16,7 +16,6 @@ div {
   padding: 1%;
   border: 3px solid black;
   background-color: rgba(255, 255, 255, 0.8);
-  /*border-radius: 15px;*/
 }
 h2 {
 	display: block;
@@ -47,16 +46,45 @@ div#drink_table {
   overflow: auto;
  
 }
-
+span.name {
+	font-size: 137%;
+	font-weight: bold;
+}
+span.name2 {
+	position: absolute;
+	top: 0vw;
+	left: 16vw;
+	font-size: 137%;
+	font-weight: bold;
+}
+span.price {
+	position: absolute;
+	top: 0vw;
+	left: 30vw;
+	font-size: 137%;
+	font-weight: bold;
+}
+.addbutton {
+	background-image: url('images/256.png');
+	background-repeat: no-repeat;
+	background-size: 38%;
+	background-position: 50%;
+	position: absolute;
+	right: 0vw;
+	top: 0vw;
+	bottom: 0vw;
+	width: 3vw;
+	border: 1px solid rgb(92, 92, 92);
+}
 /*====================
   ===  QUICK-BUY  ====
   ====================*/
 div#quick_buy {
   position: fixed;
-right: 0vw;
-top: 5vw;
-width: 45vw;
-height: 18vw;
+	right: 0vw;
+	top: 5vw;
+	width: 45vw;
+	height: 18vw;
 }
 
 /*====================
@@ -69,25 +97,15 @@ bottom: 0vw;
 width: 45vw;
 height: 23vw;
 }
-  /*div#cart {
-  position: fixed;
-  top: 55%;
-  right: 0px;
-  width: 45%;
-  height: 41%;
-}*/
+  
 div#cart_table {
 position: absolute;
 top: 10%;
 height: 58%;
 width: 90%;
-/* overflow: auto; */
+overflow: auto;
 }
-/*div#cart_table {
-	top: -20%;
-	height: 50%;
-	/*overflow: auto;*/
-}*/
+
 div#cart h2{
 	height: 10%;
 }
@@ -98,11 +116,7 @@ div#cost_row {
 	top: 72%;
 	width: 90%;
 }
-/*div#cost_row {
-  height: 50%;
-  
-  overflow: auto;
-}*/
+
 p#credit {
 -webkit-margin-before: 1px;
 -webkit-margin-after: 1px;
@@ -114,24 +128,27 @@ p#totalPrice {
 /*====================
   ======  Menu  ======
   ====================*/
-div#menu {
+.menu {
 	position: fixed;
 	top: 0vw;
 	left: 0vw;
 	height: 2vw;
-	width: 88vw;
+	width: 85vw;
 }
 
-div#top{
+.top{
 	position: fixed;
 	top: 0vw;
 	right: 0vw;
 	height: 2vw;
+	width: 10vw;
 }
 div.item{
 	position: relative;
-	width: 14vw;
+	width: 46vw;
+	border: 1px solid rgb(92, 92, 92);
 }
+
 td.remove {
 }
 
@@ -145,26 +162,36 @@ td.increment, td.decrease {
 /*====================
   ======  MISC  ======
   ====================*/
-button.item {
-  width: 16em;
-  height: 4em;
-}
+
 button.category {
-  width: 8em;
-  height: 3em;
+	width: 7vw;
+	height: 2vw;
+	font-size: 100%;
+	font-weight: bold;
 }
 button.categoryClicked {
-  width: 8em;
-  height: 3em;
-  font-weight: bold;
-  background-color: red;
+	width: 7vw;
+	height: 2vw;
+	font-weight: bold;
+	font-size: 100%;
+	background-color: red;
 }
-button.logout {
-	width: 8em;
-	height: 3em;
+button#logout {
 	position: absolute;
-	right: 20px;
-	
+	right: 1vw;
+	height: 2vw;
+	width: 4vw;
+	font-size: 95%;
+	font-weight: bold;
+}
+select#theme {
+	position: absolute;
+	font-size: 100%;
+	height: 2vw;
+}
+div#search {
+	font-size: 100%;
+	font-weight: bold;
 }
 th.item, td.item {
   min-width: 4em;
