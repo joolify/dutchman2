@@ -65,16 +65,19 @@ DrinkView.prototype = {
 
 		for(var i = 0; i < itemList.length; i++) {
 			var item = itemList[i];
-			var buttonAdd = item.getId();
+			var imageURL = 'url("http://www.systembolaget.se/ImageVaultFiles/id_14684/cf_4500/';
+      imageURL += item.getId() + '.JPG")';
 				list.append(
-					'<input type="hidden" class="item_input" id="' + item.getId() + '"/>' +
 					'<div class="item" ' +
-					' id="' + buttonAdd + '"' +
+					' id="' + item.getId() + '"' +
 					' draggable="true">' +
-					item.getFullName() + '<span class="price">' + item.getPubPrice() + ' kr' +'</span>'+
+					item.getFullName() +
+          '<span class="price">' + item.getPubPrice() + ' kr' +'</span>'+
 					'<div class="addButton"></div>'+
 					'</div>'
 				);
+        console.log(imageURL);
+        document.getElementById(item.getId()).style.backgroundImage = imageURL;
         }
         // Listen for clicks on items
         $('.item').click(function(){
