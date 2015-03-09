@@ -76,7 +76,11 @@ DrinkView.prototype = {
 					'<div class="addButton"></div>'+
 					'</div>'
 				);
-        document.getElementById(item.getId()).style.backgroundImage = imageURL;
+        var thisElement = document.getElementById(item.getId());
+        if (item.getCount() < 1) { //Checks availability
+          thisElement.className = thisElement.className + " outOfStock;";
+        }
+        thisElement.style.backgroundImage = imageURL;
         }
         // Listen for clicks on items
         $('.item').click(function(){
