@@ -65,7 +65,8 @@ DrinkView.prototype = {
 
 		for(var i = 0; i < itemList.length; i++) {
 			var item = itemList[i];
-			var imageURL = 'url("http://www.systembolaget.se/ImageVaultFiles/id_14684/cf_4500/';
+      console.log(item.getName() + " har id " + item.getId());
+			var imageURL = 'url("itemImages/';
       imageURL += item.getId() + '.JPG")';
 				list.append(
 					'<div class="item" ' +
