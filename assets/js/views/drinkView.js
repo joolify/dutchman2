@@ -76,7 +76,6 @@ DrinkView.prototype = {
 					'<div class="addButton"></div>'+
 					'</div>'
 				);
-        console.log(imageURL);
         document.getElementById(item.getId()).style.backgroundImage = imageURL;
         }
         // Listen for clicks on items
