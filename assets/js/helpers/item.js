@@ -1,5 +1,5 @@
 /*
- * An item in a pub. 
+ * An item in a pub.
  * @class Item
  * @param {String} name
  * @param {String} name2
@@ -88,6 +88,23 @@ Item.prototype = {
      */
     getCount: function () {
 	return this._count;
+    },
+
+    /*
+     * Set the order count of the Item
+     * @function setCount
+     * @param newCount
+     */
+    setCount: function (newCount) {
+      this._count = newCount;
+    },
+
+    /*
+     * Decrease order count of the Item by 1
+     * @function decCount
+     */
+    decCount: function () {
+      this.setCount(this._count - 1);
     },
 
     /*
