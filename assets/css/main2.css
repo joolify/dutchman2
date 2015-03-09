@@ -44,7 +44,7 @@ input#query {
 div#drink_table {
   height: 90%;
   overflow: auto;
- 
+
 }
 span.name {
 	font-size: 137%;
@@ -98,7 +98,7 @@ bottom: 0vw;
 width: 45vw;
 height: 23vw;
 }
-  
+
 div#cart_table {
 position: absolute;
 top: 10%;
@@ -148,6 +148,7 @@ div.item{
 	position: relative;
 	width: 46vw;
 	border: 1px solid rgb(92, 92, 92);
+  background-image: none !important;
 }
 
 td.remove {
@@ -196,5 +197,5 @@ div#search {
 }
 th.item, td.item {
   min-width: 4em;
-  
+
 }
