@@ -20,7 +20,8 @@ function Controller(models, views) {
     /** @private */ this._quickModel = models.quick;
     /** @private */ this._quickView = views.quick;
     /** @private */ this._currentLanguage = null;
-
+    /** @private */ this._payView = views.pay;
+    /** @private */ this._payModel = models.pay;
     var _this = this;
 
     /*
@@ -50,7 +51,6 @@ function Controller(models, views) {
             //_this.refreshDrinks();
 	});
 	
-	
     }
     /*
      * ===========================================================
@@ -78,6 +78,10 @@ function Controller(models, views) {
 	this._cartModel.cartUpdated.attach(function () {
 	    _this.refreshCart();
 	    _this.refreshTotalPrice();
+	});
+	this._cartView.clearBtnClicked.attach(function () {
+	    
+	    _this.clearCart();
 	});
     }
     /*
@@ -112,8 +116,10 @@ function Controller(models, views) {
         this._languageView.languageSelected.attach(function (sender, args) {
             _this.updateLanguage(args.language);
 
+
         });
     }
+    
 
     if(this._languageModel) {
         this._languageModel.languageUpdated.attach(function(sender,args) {
@@ -131,10 +137,11 @@ function Controller(models, views) {
 	if(this._menuView) {
 		/*Listen for menu button clicks*/
 		this._menuView.menuBtnPushed.attach(function (sender, args) {
+
 	    _this.queryMenu();
 		});
 		
-		
+
 	}
 
 	if(this._menuModel) {
@@ -150,6 +157,7 @@ function Controller(models, views) {
             //_this.refreshDrinks();
 			_this.updateMenu();
 	});
+
 	}
 
   
@@ -167,6 +175,23 @@ function Controller(models, views) {
       _this.refreshQuick(args.quickList);
     });
   }
+
+/*
+ * ===========================================================
+ * == Pay Listener =========================================
+ * ===========================================================
+ */
+  if (this._payView) {
+      this._payView.paybuttonClicked.attach(function () {
+          _this.buy();
+      });
+
+      this._payModel.emptyCart.attach(function () {
+          _this.cartEmpty();
+      });
+
+  }
+
 }
 
 
@@ -176,6 +201,42 @@ Controller.prototype = {
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
+
+
+   /*
+   * ===========================================================
+   * ======================== Pay functions  ==========================
+   * ===========================================================
+   */
+
+
+    /*
+     * calls the emptyCart function in payView
+     */
+    cartEmpty: function () {
+        this._payView.emptyCart();
+    },
+
+    /*
+     * Gets the cart username and password and sends the information to Paymodel so that the purchase can be processed.
+     * After the purchase is completed it clears the cart and refreshes the view
+     */
+    buy: function () {
+        var cart = this._cartModel.getCart();
+
+        var totalSum = this._cartModel.getTotalPrice();
+        var userName = this._loginModel.getUserName();
+        var userPass = this._loginModel.getPassWord();
+
+        this._payModel.test(cart, totalSum, userName, userPass);
+
+        this._cartModel._drop();
+        this.refreshCart();
+        this.refreshTotalPrice();
+        this.refreshDrinks();
+        this.refreshCredit();
+        this.showDrinks();
+    },
     /*
      * ===========================================================
      * == SHOW ===================================================
@@ -189,6 +250,7 @@ Controller.prototype = {
 		console.log("Controller.showDrinks()");
 		this.isLoggedIn();
 		var initSearch = "";
+
 		this.queryDrinks(initSearch);
 		this.refreshTotalPrice();
 		this.refreshCredit();
@@ -233,12 +295,20 @@ Controller.prototype = {
 	this._databaseModel.query(query, username, password);
     },
 	
-	
+
     /*
      * ===========================================================
      * == CART ===================================================
      * ===========================================================
      */
+
+    /*
+     * Clears the cart and refreshes the view
+     */
+	clearCart: function () {
+	    this._cartModel._drop();
+	    this.refreshCart();
+	},
 
     /* Add an item to the CartModel
      * @function pushCartItem
@@ -406,7 +476,9 @@ Controller.prototype = {
 	this._menuView.refresh(itemList);
 	},
 	
+
 	queryMenu: function () {
+
 		console.log("Controller.queryMenu: "+ query);
 		var username = this._loginModel.getUserName();
 		var password = this._loginModel.getPassWord();
@@ -417,14 +489,15 @@ Controller.prototype = {
 	
 	refreshDrinksMenu: function (itemList) {
 		this._drinkView.refresh(itemList);
-    },
-	
+	},
+
 	startUpMenu: function () {
 		console.log("Controller.startUpMenu: ");
 		var username = this._loginModel.getUserName();
 		var password = this._loginModel.getPassWord();
 		this._menuModel.startUp(username, password);
     },
+
       /*
      * ===========================================================
      * == QUICK ==================================================

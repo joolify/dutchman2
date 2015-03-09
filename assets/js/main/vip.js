@@ -23,7 +23,8 @@ Vip.prototype = {
 	    'cart': $('#cart_table'),
 	    'credit': $('#credit'),
 	    'totalPrice': $('#totalPrice'),
-	    'logout': $('#logout')
+	    'logout': $('#logout'),
+        'clear' : $('#clear')
 	});
 
 	var drinkView = new DrinkView({
@@ -42,7 +43,12 @@ Vip.prototype = {
 
     var languageView = new LanguageView();
 
-      return {cart: cartView, drink: drinkView, menu: menuView, quick: quickView, language: languageView};
+
+    var payView = new PayView({
+        'purchase': $('#purchase')
+    });
+
+      return {cart: cartView, drink: drinkView, menu: menuView, quick: quickView, language: languageView, pay: payView};
     },
     /*
      * Get the models to be used in the system.
@@ -57,7 +63,9 @@ Vip.prototype = {
 	var quickModel = new QuickModel();
     var languageModel = new LanguageModel();
 
-      return {cart: cartModel, database: databaseModel, login: loginModel, menu: menuModel, quick: quickModel, language: languageModel};
+    var payModel = new PayModel();
+      return {cart: cartModel, database: databaseModel, login: loginModel, menu: menuModel, quick: quickModel, language: languageModel, pay: payModel};
+
     },
 
     /*

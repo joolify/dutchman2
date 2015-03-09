@@ -8,7 +8,9 @@ function MenuView(elements) {
     /** @private */ this._elements = elements;
 	this.menuBtnPushed = new Event(this);
     var _this = this;
+
 	this._buttonPushed = "";
+
     /*
      * ===========================================================
      * ==================== EVENT LISTENERS ======================
@@ -25,6 +27,7 @@ MenuView.prototype = {
      * ======================== PRIVATE  =========================
      * ===========================================================
      */
+
 	 _theme: function () {
 		var option = $("#theme").val();
 		if(option === "Theme 2"){
@@ -39,12 +42,14 @@ MenuView.prototype = {
 	/*
      * Notifies its listeners that a menu button has been pressed
 	 * and changes the pressed buttons color 
+
      * @private
      * @function _pushMenu
      * @param {String} itemId
      */
 	_pushMenu: function (itemId) {
 		console.log("MenuView._pushMenu", itemId);
+
 		
 		if(this._buttonPushed === itemId){
 			var unClickedItem = "addButton_" + this._buttonPushed;
@@ -67,12 +72,14 @@ MenuView.prototype = {
 			document.getElementById(newClickedItem).className = "categoryClicked";
 			this.menuBtnPushed.notify();
 		}	
+
     },
     /*
      * ===========================================================
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
+
 	theme: function() {
 		alert("Func them");
 	},
@@ -97,11 +104,14 @@ MenuView.prototype = {
 		menu.empty();
 		menu.append($('<table id="menu">'));
 		menu.append($('<tr>'));
+
+
 		//Ska ha texten tagen från det språket som är!
 		/*menu.append($('<td><button ' +
 					'class="logout" >' +
 					"Log Out" + 
 					'</button></td>' ));*/
+
 		for(var i = 0; i < itemList.length; i++){
 			var item = itemList[i];
 			var itemTrimed = item.split(' ').join('');

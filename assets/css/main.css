@@ -167,7 +167,7 @@ button.category {
   -moz-border-radius: 15;
   border-radius: 15px;
   text-shadow: 1px 1px 3px #FFF;
-  border 1px solid black;
+  border: 1px solid black;
   width: 7vw;
   height: 2vw;
 }
@@ -182,10 +182,11 @@ button.categoryClicked {
   -moz-border-radius: 15;
   border-radius: 15px;
   text-shadow: 1px 1px 3px #FFF;
-  border 1px solid black;
+  border: 1px solid black;
   width: 7vw;
   height: 2vw;
 }
+
 th.item, td.item {
   min-width: 4em;
 }

@@ -65,8 +65,9 @@ DatabaseModel.prototype = {
 	
 		if (name.length > 0 && (searchString.length == 0 || count >= lowerBound)) {
 			return new Item(item.namn, item.namn2, item.sbl_price, item.pub_price, item.beer_id, item.count, item.price);
+		}
 
-		}else{
+		else {
 			return null;
 		}
     },
@@ -125,5 +126,6 @@ DatabaseModel.prototype = {
 				console.log('an error occurred!');
 			}
 		});
+
     }
 };

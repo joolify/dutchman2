@@ -9,6 +9,7 @@ function MenuModel() {
     this.menuUpdated = new Event(this);
 	this.drinksUpdated = new Event(this); 
 	this.menuStartUp = new Event(this);
+
 }
 
 MenuModel.prototype = {
@@ -31,6 +32,7 @@ MenuModel.prototype = {
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
+
 	/*
      * Get an Item list
      * @function getItems
@@ -41,6 +43,7 @@ MenuModel.prototype = {
     },
 	/*
      * Search the database to find the categories
+
      * @function update
      * @param {String} username
 	 * @param {String} password
@@ -71,6 +74,7 @@ MenuModel.prototype = {
 						}
 					}
 					index++;
+
 					if(index === itemList.length){
 						_this.menuUpdated.notify({itemList : _this._itemList});
 					}
@@ -83,6 +87,7 @@ MenuModel.prototype = {
 	},
   
 	/*
+
      * Search the database to find the items in the itemList that has the specified category
      * @function queryMenu
 	 * @param {String} category
@@ -90,6 +95,7 @@ MenuModel.prototype = {
 	 * @param {String} password
 	 * @param {Item[]} itemList
      */
+
 	queryMenu: function (category, username, password, itemList) {
 		console.log("MenuModel.button pushed", category);
 		var _this = this;
