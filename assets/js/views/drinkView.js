@@ -68,7 +68,7 @@ DrinkView.prototype = {
 			var imageURL = 'url("itemImages/';
       imageURL += item.getId() + '.JPG")';
 				list.append(
-					'<div class="item" ' +
+					'<div class="item " ' +
 					' id="' + item.getId() + '"' +
 					' draggable="true">' +
 					item.getFullName() +
@@ -78,7 +78,7 @@ DrinkView.prototype = {
 				);
         var thisElement = document.getElementById(item.getId());
         if (item.getCount() < 1) { //Checks availability
-          thisElement.className = thisElement.className + " outOfStock;";
+          thisElement.className = thisElement.className + " outOfStock";
         }
         thisElement.style.backgroundImage = imageURL;
         }
