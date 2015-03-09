@@ -82,6 +82,7 @@ DrinkView.prototype = {
         } else {
           thisElement.className = thisElement.className + " inStock";
         }
+        
         thisElement.style.backgroundImage = imageURL;
         }
         // Listen for clicks on items

@@ -85,6 +85,9 @@ CartModel.prototype = {
     this.increment(item.getId());
   }
     },
+
+
+
     /*
      * Increases the amount of an item.
      * @function increment

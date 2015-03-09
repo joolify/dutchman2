@@ -228,14 +228,20 @@ Controller.prototype = {
         var userName = this._loginModel.getUserName();
         var userPass = this._loginModel.getPassWord();
 
-        this._payModel.test(cart, totalSum, userName, userPass);
+        var object = this._payModel.test(cart, totalSum, userName, userPass);
+        if (object === "success") {
+            this._cartModel._drop();
+            this.refreshCart();
+            this.refreshTotalPrice();
+            this.refreshDrinks();
+            this.refreshCredit();
+            this.showDrinks();
+        }
+        else {
+            console.log(object);
+            this._payView.tooManyItems(object);
+        }
 
-        this._cartModel._drop();
-        this.refreshCart();
-        this.refreshTotalPrice();
-        this.refreshDrinks();
-        this.refreshCredit();
-        this.showDrinks();
     },
     /*
      * ===========================================================
