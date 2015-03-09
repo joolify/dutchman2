@@ -23,7 +23,8 @@ Vip.prototype = {
 	    'cart': $('#cart_table'),
 	    'credit': $('#credit'),
 	    'totalPrice': $('#totalPrice'),
-	    'logout': $('#logout')
+	    'logout': $('#logout'),
+        'clear' : $('#clear')
 	});
 
 	var drinkView = new DrinkView({
@@ -35,10 +36,17 @@ Vip.prototype = {
 	    'menu': $('#menu')
 	});
 
-	var payView = new payView({
+	var quickView = new QuickView({
+	    'quickBuy': $('#quick_buy')
 	});
 
-      return {cart: cartView, drink: drinkView, menu: menuView, payV: payView};
+    var languageView = new LanguageView();
+
+    var payView = new PayView({
+        'purchase': $('#purchase')
+    });
+
+      return {cart: cartView, drink: drinkView, menu: menuView, quick: quickView, language: languageView, pay: payView};
     },
     /*
      * Get the models to be used in the system.
@@ -49,9 +57,11 @@ Vip.prototype = {
 	var databaseModel = new DatabaseModel();
 	var cartModel = new CartModel();
 	var loginModel = new LoginModel();
-	var payModel = new PayModel();
-	return {cart: cartModel, database: databaseModel, login: loginModel, pay: payModel};
-
+	var menuModel = new MenuModel();
+	var quickModel = new QuickModel();
+    var languageModel = new LanguageModel();
+    var payModel = new PayModel();
+      return {cart: cartModel, database: databaseModel, login: loginModel, menu: menuModel, quick: quickModel, language: languageModel, pay: payModel};
     },
 
     /*
@@ -66,7 +76,7 @@ Vip.prototype = {
     run: function() {
 	this._controller = new Controller(this._getModels(), this._getViews());
 	this._controller.showDrinks();
-    }
+}
 };
 
 /*

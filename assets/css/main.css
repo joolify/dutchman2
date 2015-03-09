@@ -54,7 +54,7 @@ div#quick_buy {
   ====================*/
 div#cart {
   position: fixed;
-  top: 60%;
+  top: 55%;
   right: 0px;
   width: 40%;
   height: 30%;
@@ -82,7 +82,10 @@ button.item {
   width: 16em;
   height: 4em;
 }
-
+button.category {
+  width: 8em;
+  height: 2em;
+}
 th.item, td.item {
   min-width: 4em;
 }

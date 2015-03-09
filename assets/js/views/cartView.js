@@ -12,7 +12,7 @@ function CartView(elements) {
     this.incrementBtnClicked = new Event(this);
     this.amountRemoved = new Event(this);
     this.logoutBtnClicked = new Event(this);
-
+    this.clearBtnClicked = new Event(this);
     var _this = this;
 
     /*
@@ -23,6 +23,11 @@ function CartView(elements) {
     this._elements.logout.click(function(e) {
 	_this._logout();
     });
+
+    this._elements.clear.off('click').click(function (e) {
+        
+        _this.clearCart();
+    });
 }
 
 CartView.prototype = {
@@ -31,7 +36,10 @@ CartView.prototype = {
      * ======================== PRIVATE  =========================
      * ===========================================================
      */
+    clearCart: function () {
 
+        this.clearBtnClicked.notify();
+    },
     /*
      * Notifies its listeners that the user has pressed the logout button
      * @function _logout

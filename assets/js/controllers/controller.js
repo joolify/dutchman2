@@ -18,10 +18,10 @@ function Controller(models, views) {
     /** @private */ this._menuModel = models.menu;
     /** @private */ this._menuView = views.menu;
     /** @private */ this._quickModel = models.quick;
-    /** @private */ this._payView = views.payV;
+    /** @private */ this._quickView = views.quick;
     /** @private */ this._currentLanguage = null;
-    this._payModel = models.pay;
-
+    /** @private */ this._payView = views.pay;
+    /** @private */ this._payModel = models.pay;
     var _this = this;
 
     /*
@@ -48,6 +48,11 @@ function Controller(models, views) {
     if(this._databaseModel) {
 	this._databaseModel.drinksUpdated.attach(function () {
             _this.refreshDrinks();
+	});
+	
+	this._databaseModel.menuStartUp.attach(function () {
+            _this.refreshDrinks();
+			_this.updateMenu();
 	});
     }
     /*
@@ -77,8 +82,11 @@ function Controller(models, views) {
 	    _this.refreshCart();
 	    _this.refreshTotalPrice();
 	});
+	this._cartView.clearBtnClicked.attach(function () {
+	    
+	    _this.clearCart();
+	});
     }
-
     /*
      * ===========================================================
      * == LOGIN LISTENER =========================================
@@ -86,63 +94,141 @@ function Controller(models, views) {
      */
     /* Login */
     if(this._loginView) {
-	    this._loginView.loginBtnClicked.attach(function (sender, args) {
-	        _this.login(args.username, args.password);
-	    });
+	this._loginView.loginBtnClicked.attach(function (sender, args) {
+	    _this.login(args.username, args.password);
+	});
     }
 
     if(this._loginModel) {
-	    this._loginModel.loginDone.attach(function () {
-	        _this.isLoggedIn();
-	    });
+	this._loginModel.loginDone.attach(function () {
+	    _this.isLoggedIn();
+	});
 
+	this._loginModel.logoutDone.attach(function () {
+	    _this.isLoggedIn();
+	});
     }
 
-    this._loginModel.logoutDone.attach(function () {
-        _this.checkLogin();
+    /*
+     * ===========================================================
+     * == LANGUAGE LISTENER ======================================
+     * ===========================================================
+     */
+
+    if(this._languageView) {
+        this._languageView.languageSelected.attach(function (sender, args) {
+            _this.updateLanguage(args.language);
+
+        });
+    }
+
+    if(this._languageModel) {
+        this._languageModel.languageUpdated.attach(function(sender,args) {
+            console.log("controller languageUpdated event");
+            _this.refreshLanguage(args.words);
+        });
+    }
+    
+
+    /*
+     * ===========================================================
+     * == MENU LISTENER ==========================================
+     * ===========================================================
+     */
+	if(this._menuView) {
+		/*Listen for menu button clicks*/
+		this._menuView.menuBtnPushed.attach(function (sender, args) {
+	    _this.queryMenu(args.itemId);
+		});
+	}
+
+	if(this._menuModel) {
+		this._menuModel.menuUpdated.attach(function (sender, args) {
+		  _this.refreshMenu(args.itemList);
+		});
+		
+		this._menuModel.drinksUpdated.attach(function (sender, args) {
+            _this.refreshDrinksMenu(args.itemList);
+		});
+	}
+
+  
+    /*
+     * ===========================================================
+     * == QUICK LISTENER =========================================
+     * ===========================================================
+     */
+  if(this._quickView) {
+    /*Listen for quick buttons clicks*/
+  }
+
+  if(this._quickModel) {
+    this._quickModel.quickUpdated.attach(function (sender, args) {
+      _this.refreshQuick(args.quickList);
     });
+  }
 
+/*
+ * ===========================================================
+ * == Pay Listener =========================================
+ * ===========================================================
+ */
+  if (this._payView) {
+      this._payView.paybuttonClicked.attach(function () {
+          _this.buy();
+      });
 
+      this._payModel.emptyCart.attach(function () {
+          _this.cartEmpty();
+      });
 
-    if (this._payModel) {
-        //document.getElementById('button').onclick = function () {
-           // _this.test();
-       // }
-    }
+  }
 
-   // _this._payView.button.attach(function () {
-     //  _this.test();
-    //})
 }
 
 
-	
-
 Controller.prototype = {
-    test: function () {
-        var cart = this._cartModel.getCart();
-        var totalSum = this._cartModel.getTotalPrice();
-        var user = "0" //this._loginModel.getUser()
-        var userName = this._loginModel.getUserName();
-        var userPass = this._loginModel.getPassWord();
-        console.log("pengar", totalSum);
-        console.log("antal", cart.length);
-        console.log("user", userName, userPass);
-        this._payModel.test(cart, totalSum, userName, userPass);
-        this._cartModel._drop();
-
-        this.refreshCartView();
-        this.refreshTotalPrice();
-        this.refreshDrinkView();
-        this.refreshCredit();
-        this.showDrinks();
-    },
-    
     /*
      * ===========================================================
      * ======================== PUBLIC  ==========================
      * ===========================================================
      */
+
+
+   /*
+   * ===========================================================
+   * ======================== Pay functions  ==========================
+   * ===========================================================
+   */
+
+
+    /*
+     * calls the emptyCart function in payView
+     */
+    cartEmpty: function () {
+        this._payView.emptyCart();
+    },
+
+    /*
+     * Gets the cart username and password and sends the information to Paymodel so that the purchase can be processed.
+     * After the purchase is completed it clears the cart and refreshes the view
+     */
+    buy: function () {
+        var cart = this._cartModel.getCart();
+
+        var totalSum = this._cartModel.getTotalPrice();
+        var userName = this._loginModel.getUserName();
+        var userPass = this._loginModel.getPassWord();
+
+        this._payModel.test(cart, totalSum, userName, userPass);
+
+        this._cartModel._drop();
+        this.refreshCart();
+        this.refreshTotalPrice();
+        this.refreshDrinks();
+        this.refreshCredit();
+        this.showDrinks();
+    },
     /*
      * ===========================================================
      * == SHOW ===================================================
@@ -153,14 +239,16 @@ Controller.prototype = {
      * @function showDrinks
      */
     showDrinks: function() {
-	console.log("Controller.showDrinks()");
-	this.isLoggedIn();
-	var initSearch = "";
-	this.queryDrinks(initSearch);
-	this.refreshTotalPrice();
-	this.refreshCredit();
-      this.updateMenu();
-      this.updateQuick();
+		console.log("Controller.showDrinks()");
+		this.isLoggedIn();
+		var initSearch = "";
+		//this.queryDrinks(initSearch);
+		this.startUpDrinksAndMenu(initSearch);
+		this.refreshTotalPrice();
+		this.refreshCredit();
+		//this.updateMenu();
+		this.updateQuick();
+        this.refreshDictionary();
     },
 
     /*
@@ -197,12 +285,26 @@ Controller.prototype = {
 	var password = this._loginModel.getPassWord();
 	this._databaseModel.query(query, username, password);
     },
-
+	
+	startUpDrinksAndMenu: function (query) {
+		console.log("Controller.startUpDrinksAndMenu: "+ query);
+		var username = this._loginModel.getUserName();
+		var password = this._loginModel.getPassWord();
+		this._databaseModel.startUp(query, username, password);
+    },
     /*
      * ===========================================================
      * == CART ===================================================
      * ===========================================================
      */
+
+    /*
+     * Clears the cart and refreshes the view
+     */
+	clearCart: function () {
+	    this._cartModel._drop();
+	    this.refreshCart();
+	},
 
     /* Add an item to the CartModel
      * @function pushCartItem
@@ -257,7 +359,6 @@ Controller.prototype = {
     refreshTotalPrice: function () {
 	var totalPrice = this._cartModel.getTotalPrice();
 	this._cartView.setTotalPrice(totalPrice);
-
     },
     /*
      * Refreshes the credit
@@ -338,10 +439,10 @@ Controller.prototype = {
 	    if(0 == user) {
 		page = "vip.html";
 	    }else if(1 == user) {
-		page = "admin.html";
+		page = "vip.html";
 
 		//FIXME
-		this.logout(); // Just to not get caught in admin.html...
+		//this.logout(); // Just to not get caught in admin.html...
 	    }
 	} 	
 	console.log("Controller.isLoggedIn: " + page);
@@ -360,14 +461,28 @@ Controller.prototype = {
      * == MENU ===================================================
      * ===========================================================
      */
-  updateMenu: function() {
-    this._menuModel.update();
-  },
+	updateMenu: function() {
+		var username = this._loginModel.getUserName();
+		var password = this._loginModel.getPassWord();
+		var itemList = this._databaseModel.getItems();
+		this._menuModel.update(username, password, itemList);
+	},
 
-  refreshMenu: function(menuList) {
-    this._menuView.refresh(menuList);
-  },
-
+	refreshMenu: function(itemList) {
+	this._menuView.refresh(itemList);
+	},
+	
+	queryMenu: function (query) {
+		console.log("Controller.queryMenu: "+ query);
+		var username = this._loginModel.getUserName();
+		var password = this._loginModel.getPassWord();
+		var itemList = this._databaseModel.getItems();
+		this._menuModel.queryMenu(query, username, password, itemList);
+    },
+	
+	refreshDrinksMenu: function (itemList) {
+		this._drinkView.refresh(itemList);
+    },
       /*
      * ===========================================================
      * == QUICK ==================================================
@@ -386,8 +501,22 @@ Controller.prototype = {
      * ===========================================================
      */
 
-    getLanguage: function(language) {
-        var dictionary = this._languageModel.searchLanguage(language);
-        this._languageView.translate(dictionary);
+     initLanguage: function(language) {
+        console.log("init language at the controller");
+        this._languageModel.setDictionary(language);
+     },
+
+    updateLanguage: function(language) {
+        this._languageModel.setDictionary(language);
+    },
+
+    refreshLanguage: function(words) {
+        console.log("refreshLanguage", words);
+        this._languageView.translate(words);
+    },
+
+    refreshDictionary: function() {
+        var words = this._languageModel.getDictionary();
+        this.refreshLanguage(words);
     }
 };
