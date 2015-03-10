@@ -82,12 +82,59 @@ DrinkView.prototype = {
         } else {
           thisElement.className = thisElement.className + " inStock";
         }
-        
+
         thisElement.style.backgroundImage = imageURL;
         }
         // Listen for clicks on items
         $('.inStock').click(function(){
           _this._pushItem($(this).attr('id'));
         });
+
+        var cart = document.getElementById('cart_table');
+        var items = document.querySelectorAll('#drink_table .inStock');
+
+        /*
+         * Handle drag/drop events
+         */
+        function handleDragStart(e) {
+          this.style.opacity = '0.4';
+          itemId = this.getAttribute('id');
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('itemId', itemId);
+          cart.style.boxShadow = 'inset 0 0 3px #0000FF'; // Highlights the cart
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function handleDrop(e) {
+          itemId = e.dataTransfer.getData('itemId');
+          e.stopPropagation(); // Stops the browser from redirecting
+          e.preventDefault();
+          _this._pushItem(itemId);
+          return false;
+        }
+
+        function handleDragEnd(e) {
+          this.style.opacity = ''; // Removes the 'opacity' attr.
+          cart.style.boxShadow = '';
+        }
+
+        /* Now we need to add listeners.
+         * Each item needs to listen for drag-(start/end)
+         * The cart needs to listen for dragover and drop
+         */
+        [].forEach.call(items, function(item) {
+          item.addEventListener('dragstart', handleDragStart, false);
+          item.addEventListener('dragend', handleDragEnd, false);
+        });
+
+        cart.addEventListener('dragover', handleDragOver, false);
+        cart.addEventListener('drop', handleDrop, false);
+
+
     }
 };
