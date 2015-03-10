@@ -198,6 +198,58 @@ button.categoryClicked {
   height: 2vw;
 }
 
+button.pay {
+    position: fixed;
+    left: 75%;
+    bottom: +5px;
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    background: #ffffff;
+    padding: 12.5px 25px;
+    color: #000000;
+    font-size: 18px;
+    font-family: Georgia, Serif;
+    vertical-align: middle;
+}
+button.pay:hover {
+  -webkit-box-shadow: inset 0 0 3px #0F0;
+  -ms-box-shadow: inset 0 0 3px #0F0;
+  box-shadow: inset 0 0 3px #0F0;
+}
+button.pay:active {
+  background: #AAFAAA;
+  text-shadow: 1px 1px 3px #FFF;
+  border: 1px solid black;
+  width: 7vw;
+  height: 2vw;
+}
+
+button.pay2 {
+    position: fixed;
+    left: 84%;
+    bottom: +5px;
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    background: #ffffff;
+    padding: 12.5px 25px;
+    color: #000000;
+    font-size: 18px;
+    font-family: Georgia, Serif;
+    vertical-align: middle;
+}
+button.pay:hover {
+  -webkit-box-shadow: inset 0 0 3px #0F0;
+  -ms-box-shadow: inset 0 0 3px #0F0;
+  box-shadow: inset 0 0 3px #0F0;
+}
+button.pay:active {
+  background: #AAFAAA;
+  text-shadow: 1px 1px 3px #FFF;
+  border: 1px solid black;
+  width: 7vw;
+  height: 2vw;
+}
+
 th.item, td.item {
   min-width: 4em;
 }
