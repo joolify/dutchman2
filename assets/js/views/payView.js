@@ -16,6 +16,11 @@ function PayView(elements) {
 
 PayView.prototype = {
 
+
+    /*
+     * Recieves a list with beers how many there is in stock and how many was ordered and prints that list in a popup.
+     * is called if the paymodel discovers that there are too few beers in stock to satisfy the order.
+     */
     tooManyItems: function (list)
     {
         var message = "";

@@ -233,6 +233,7 @@ Controller.prototype = {
         var userPass = this._loginModel.getPassWord();
 
         var object = this._payModel.test(cart, totalSum, userName, userPass);
+        console.log("object=", object);
         if (object === "success") {
             this._cartModel._drop();
             this.refreshCart();
