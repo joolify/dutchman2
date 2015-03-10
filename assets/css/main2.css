@@ -64,6 +64,9 @@ span.price {
 	font-size: 137%;
 	font-weight: bold;
 }
+.outOfStock{
+	color: rgb(173,173,173);
+}
 .addbutton {
 	background-image: url('images/256.png');
 	background-repeat: no-repeat;
@@ -76,6 +79,18 @@ span.price {
 	width: 3vw;
 	border: 1px solid rgb(92, 92, 92);
 	cursor: pointer;
+}
+.outOfStockButton {
+  background-image: url('images/Redcross.png');
+  background-repeat: no-repeat;
+  background-size: 38%;
+  background-position: 50%;
+  position: absolute;
+  right: 0vw;
+  top: 0vw;
+  bottom: 0vw;
+  width: 3vw;
+  border: 1px solid rgb(92, 92, 92);
 }
 /*====================
   ===  QUICK-BUY  ====
@@ -117,7 +132,24 @@ div#cost_row {
 	top: 72%;
 	width: 90%;
 }
-
+button#purchase {
+ position: absolute;
+  right: 4vw;
+  bottom: 4vw;
+  width: 7vw;
+  height: 2vw;
+  font-size: 100%;
+  font-weight: bold;
+}
+button#clear {
+  position: absolute;
+  right: 4vw;
+  bottom: 20vw;
+  width: 7vw;
+  height: 2vw;
+  font-size: 100%;
+  font-weight: bold;
+}
 p#credit {
 -webkit-margin-before: 1px;
 -webkit-margin-after: 1px;

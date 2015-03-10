@@ -66,19 +66,22 @@ DrinkView.prototype = {
 		for(var i = 0; i < itemList.length; i++) {
 			var item = itemList[i];
 			var imageURL = 'url("itemImages/';
-      imageURL += item.getId() + '.JPG")';
-				list.append(
-					'<div class="item " ' +
-					' id="' + item.getId() + '"' +
-					' draggable="true">' +
-					item.getFullName() +
-          '<span class="price">' + item.getPubPrice() + ' kr' +'</span>'+
-					'<div class="addButton"></div>'+
-					'</div>'
-				);
+			imageURL += item.getId() + '.JPG")';
+			list.append(
+				'<div class="item " ' +
+				' id="' + item.getId() + '"' +
+				' draggable="true">' +
+				item.getFullName() +
+				'<span class="price">' + item.getPubPrice() + ' kr' +'</span>'+
+				'<div class="addButton"></div>'+
+				'</div>'
+			);
         var thisElement = document.getElementById(item.getId());
+		var test = document.getElementById(item.getId()).lastElementChild;
         if (item.getCount() < 1) { //Checks availability
           thisElement.className = thisElement.className + " outOfStock";
+		  test.className = "outOfStockButton";
+		  
         } else {
           thisElement.className = thisElement.className + " inStock";
         }
