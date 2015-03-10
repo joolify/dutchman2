@@ -76,6 +76,9 @@ PayModel.prototype = {
                 
                 return "success";
             }
+            if (ok === false) {
+                return "cancel";
+            }
         }    
     },
 

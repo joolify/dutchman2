@@ -242,6 +242,8 @@ Controller.prototype = {
             this.refreshCredit();
             this.showDrinks();
         }
+        if (object === "cancel") {
+        }
         else {
             console.log(object);
             this._payView.tooManyItems(object);
