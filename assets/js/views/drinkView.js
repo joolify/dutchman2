@@ -79,11 +79,14 @@ DrinkView.prototype = {
         var thisElement = document.getElementById(item.getId());
 		var test = document.getElementById(item.getId()).lastElementChild;
         if (item.getCount() < 1) { //Checks availability
-          thisElement.className = thisElement.className + " outOfStock";
+
 		  test.className = "outOfStockButton";
 		  
+
+          thisElement.classList.add('outOfStock');
+
         } else {
-          thisElement.className = thisElement.className + " inStock";
+          thisElement.classList.add('inStock');
         }
 
         thisElement.style.backgroundImage = imageURL;
@@ -117,13 +120,13 @@ DrinkView.prototype = {
           itemId = e.dataTransfer.getData('itemId');
           e.stopPropagation(); // Stops the browser from redirecting
           e.preventDefault();
-          _this._pushItem(itemId);
+          _this._pushItem(itemId); // Adding to cart
           return false;
         }
 
         function handleDragEnd(e) {
           this.style.opacity = ''; // Removes the 'opacity' attr.
-          cart.style.boxShadow = '';
+          cart.style.boxShadow = ''; // Removes the 'boxShadow' attr
         }
 
         /* Now we need to add listeners.
@@ -137,7 +140,5 @@ DrinkView.prototype = {
 
         cart.addEventListener('dragover', handleDragOver, false);
         cart.addEventListener('drop', handleDrop, false);
-
-
     }
 };
