@@ -22,6 +22,8 @@ function Controller(models, views) {
     /** @private */ this._currentLanguage = null;
     /** @private */ this._payView = views.pay;
     /** @private */ this._payModel = models.pay;
+    /** @private */ if (typeof Wheel == 'function')
+                        { this._wheel = new Wheel('wheel', 50); }
     var _this = this;
 
     /*
@@ -43,14 +45,17 @@ function Controller(models, views) {
 	this._drinkView.itemBtnPushed.attach(function (sender, args) {
 	    _this.pushCartItem(args.itemId);
 	});
+
+  this._drinkView.refreshDone.attach(function (sender, args) {
+      _this._wheel.hide();
+  });
     }
 
     if(this._databaseModel) {
 	this._databaseModel.drinksUpdated.attach(function () {
 			_this.queryMenu();
-            //_this.refreshDrinks();
 	});
-	
+
     }
     /*
      * ===========================================================
@@ -80,7 +85,7 @@ function Controller(models, views) {
 	    _this.refreshTotalPrice();
 	});
 	this._cartView.clearBtnClicked.attach(function () {
-	    
+
 	    _this.clearCart();
 	});
     }
@@ -119,7 +124,7 @@ function Controller(models, views) {
 
         });
     }
-    
+
 
     if(this._languageModel) {
         this._languageModel.languageUpdated.attach(function(sender,args) {
@@ -127,7 +132,7 @@ function Controller(models, views) {
             _this.refreshLanguage(args.words);
         });
     }
-    
+
 
     /*
      * ===========================================================
@@ -137,22 +142,21 @@ function Controller(models, views) {
 	if(this._menuView) {
 		/*Listen for menu button clicks*/
 		this._menuView.menuBtnPushed.attach(function (sender, args) {
-
+      console.log("Showing wheel, filter button pressed."); //TODO
+      _this._wheel.show();
 	    _this.queryMenu();
 		});
-		
-
 	}
 
 	if(this._menuModel) {
 		this._menuModel.menuUpdated.attach(function (sender, args) {
 		  _this.refreshMenu(args.itemList);
 		});
-		
+
 		this._menuModel.drinksUpdated.attach(function (sender, args) {
             _this.refreshDrinksMenu(args.itemList);
 		});
-		
+
 		this._menuModel.menuStartUp.attach(function () {
             //_this.refreshDrinks();
 			_this.updateMenu();
@@ -160,7 +164,7 @@ function Controller(models, views) {
 
 	}
 
-  
+
     /*
      * ===========================================================
      * == QUICK LISTENER =========================================
@@ -267,7 +271,7 @@ Controller.prototype = {
     },
 
     /*
-     * Show the login 
+     * Show the login
      * @function showLogin
      */
     showLogin: function() {
@@ -300,7 +304,7 @@ Controller.prototype = {
 	var password = this._loginModel.getPassWord();
 	this._databaseModel.query(query, username, password);
     },
-	
+
 
     /*
      * ===========================================================
@@ -342,7 +346,7 @@ Controller.prototype = {
 	console.log("Controller.incrementCartItem: ", itemId);
 	this._cartModel.increment(itemId);
     },
-    
+
     /* Increases the amount of an item.
      * @function decrementCartItem
      * @param itemId
@@ -393,7 +397,7 @@ Controller.prototype = {
      * Redirects to a new page
      * @function _redirect
      * @param page
-     */ 
+     */
     _redirect: function (page) {
 	console.log("Controller._redirect: ", page);
 	window.location.href = page;
@@ -409,7 +413,7 @@ Controller.prototype = {
 	var filename = url.substring(url.lastIndexOf('/')+1);
 	return filename;
     },
-    
+
     /* Check if user is on the right page, or should be redirected
      * @function _isCurrentPage
      * @return {Boolean}
@@ -427,7 +431,7 @@ Controller.prototype = {
     	console.log("Controller.login: ", username, password);
     	this._loginModel.login(username, password);
     },
-    
+
     /*
      * Log out and redirects to index.html
      * @function logout
@@ -454,7 +458,7 @@ Controller.prototype = {
 		//FIXME
 		//this.logout(); // Just to not get caught in admin.html...
 	    }
-	} 	
+	}
 	console.log("Controller.isLoggedIn: " + page);
 	if(!this._isCurrentPage(page)) {
 	    this._redirect(page);
@@ -481,7 +485,7 @@ Controller.prototype = {
 	refreshMenu: function(itemList) {
 	this._menuView.refresh(itemList);
 	},
-	
+
 
 	queryMenu: function () {
 
@@ -492,13 +496,14 @@ Controller.prototype = {
 		var query = this._menuView.getMenuClicked();
 		this._menuModel.queryMenu(query, username, password, itemList);
     },
-	
+
 	refreshDrinksMenu: function (itemList) {
+    console.log("Showing wheel");//TODO
+    this._wheel.show();
 		this._drinkView.refresh(itemList);
 	},
 
 	startUpMenu: function () {
-		console.log("Controller.startUpMenu: ");
 		var username = this._loginModel.getUserName();
 		var password = this._loginModel.getPassWord();
 		this._menuModel.startUp(username, password);
@@ -523,7 +528,6 @@ Controller.prototype = {
      */
 
      initLanguage: function(language) {
-        console.log("init language at the controller");
         this._languageModel.setDictionary(language);
      },
 

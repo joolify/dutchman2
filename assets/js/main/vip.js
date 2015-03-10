@@ -88,6 +88,8 @@ Vip.prototype = {
  * @function ready
  */
 $(function () {
+    var wheel = new Wheel('wheel');
+    wheel.init();
     var vip = new Vip();
     vip.run();
 });

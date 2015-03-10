@@ -7,7 +7,7 @@
 function MenuModel() {
 	/** @private */ this._itemList = [];
     this.menuUpdated = new Event(this);
-	this.drinksUpdated = new Event(this); 
+	this.drinksUpdated = new Event(this);
 	this.menuStartUp = new Event(this);
 
 }
@@ -26,7 +26,7 @@ MenuModel.prototype = {
 	while(this._itemList.length > 0) {
 	    this._itemList.pop();
 	}
-    },    
+    },
     /*
      * ===========================================================
      * ======================== PUBLIC  ==========================
@@ -82,10 +82,10 @@ MenuModel.prototype = {
 				error : function(jqXHR, textStatus, errorThrown) {
 					console.log('an error occurred!');
 				}
-			});	
+			});
 		}
 	},
-  
+
 	/*
 
      * Search the database to find the items in the itemList that has the specified category
@@ -106,7 +106,7 @@ MenuModel.prototype = {
 		else{
 			var urlBeerData = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=beer_data_get&beer_id=';
 			console.log("Model.query(): " + category);
-			
+
 			_this._drop();
 			var index = 0;
 			for(var i = 0; i < itemList.length; i++) {
@@ -139,11 +139,11 @@ MenuModel.prototype = {
 							_this.drinksUpdated.notify({itemList : _this._itemList});
 						}
 					},
-				});	
+				});
 			}
 		}
 	},
-	
+
 	/*
      * Search the database to find all the items
      * @function startUp
@@ -153,7 +153,7 @@ MenuModel.prototype = {
 	startUp: function (username, password) {
 		var urlQuery = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=inventory_get';
 		var _this = this;
-			
+
 		$.ajax({
 			url: urlQuery,
 			type: "POST",
@@ -166,7 +166,7 @@ MenuModel.prototype = {
 					if(item.namn.length > 0){
 						_this._itemList.push(new Item(item.namn, item.namn2, item.sbl_price, item.pub_price, item.beer_id, item.count, item.price));
 					}
-				});		
+				});
 				_this.menuStartUp.notify();
 			},
 			error : function(jqXHR, textStatus, errorThrown) {

@@ -10,6 +10,7 @@ function DrinkView(elements) {
 
     this.searchFieldModified = new Event(this);
     this.itemBtnPushed = new Event(this);
+    this.refreshDone = new Event(this);
 
     var _this = this;
 
@@ -34,6 +35,16 @@ DrinkView.prototype = {
      */
     _searchFieldModified: function (newQuery) {
 	this.searchFieldModified.notify({query: newQuery});
+    },
+
+    /*
+     * Notifies its listeners that the refresh has been finished
+     * @private
+     * @function _refreshDone
+     */
+    _refreshDone: function () {
+      console.log("Hiding wheel");//TODO
+      this.refreshDone.notify();
     },
 
     /*
@@ -136,5 +147,7 @@ DrinkView.prototype = {
 
         cart.addEventListener('dragover', handleDragOver, false);
         cart.addEventListener('drop', handleDrop, false);
+
+        _this._refreshDone();
     }
 };
