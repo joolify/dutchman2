@@ -76,20 +76,16 @@ DrinkView.prototype = {
 				'<div class="addButton"></div>'+
 				'</div>'
 			);
-        var thisElement = document.getElementById(item.getId());
-		var test = document.getElementById(item.getId()).lastElementChild;
-        if (item.getCount() < 1) { //Checks availability
+			var thisElement = document.getElementById(item.getId());
+			var addButtom = document.getElementById(item.getId()).lastElementChild;
+			if (item.getCount() < 1) { //Checks availability
+			  addButtom.className = "outOfStockButton";
+			  thisElement.classList.add('outOfStock');
+			} else {
+			  thisElement.classList.add('inStock');
+			}
 
-		  test.className = "outOfStockButton";
-		  
-
-          thisElement.classList.add('outOfStock');
-
-        } else {
-          thisElement.classList.add('inStock');
-        }
-
-        thisElement.style.backgroundImage = imageURL;
+			thisElement.style.backgroundImage = imageURL;
         }
         // Listen for clicks on items
         $('.inStock').click(function(){
