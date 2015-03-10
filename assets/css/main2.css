@@ -132,24 +132,7 @@ div#cost_row {
 	top: 72%;
 	width: 90%;
 }
-button#purchase {
- position: absolute;
-  right: 4vw;
-  bottom: 4vw;
-  width: 7vw;
-  height: 2vw;
-  font-size: 100%;
-  font-weight: bold;
-}
-button#clear {
-  position: absolute;
-  right: 4vw;
-  bottom: 20vw;
-  width: 7vw;
-  height: 2vw;
-  font-size: 100%;
-  font-weight: bold;
-}
+
 p#credit {
 -webkit-margin-before: 1px;
 -webkit-margin-after: 1px;
@@ -231,3 +214,50 @@ th.item, td.item {
   min-width: 4em;
 
 }
+
+button.pay {
+    position: fixed;
+    left: 75%;
+    bottom: +5px;
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    background: #ffffff;
+    padding: 12.5px 25px;
+    color: #000000;
+    font-size: 18px;
+    font-family: Georgia, Serif;
+}
+
+button.pay:active {
+	width: 7vw;
+	height: 2vw;
+	font-weight: bold;
+	font-size: 100%;
+	background-color: red; 
+}
+
+button.pay2 {
+    position: fixed;
+    left: 84%;
+    bottom: +5px;
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    background: #ffffff;
+    padding: 12.5px 25px;
+    color: #000000;
+    font-size: 18px;
+    font-family: Georgia, Serif;
+}
+button.pay2:hover {
+  -webkit-box-shadow: inset 0 0 3px #0F0;
+  -ms-box-shadow: inset 0 0 3px #0F0;
+  box-shadow: inset 0 0 3px #0F0;
+}
+button.pay2:active {
+  background: #AAFAAA;
+  text-shadow: 1px 1px 3px #FFF;
+  border: 1px solid black;
+  width: 7vw;
+  height: 2vw;
+}
+

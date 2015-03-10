@@ -237,12 +237,12 @@ button.pay2 {
     font-family: Georgia, Serif;
     vertical-align: middle;
 }
-button.pay:hover {
+button.pay2:hover {
   -webkit-box-shadow: inset 0 0 3px #0F0;
   -ms-box-shadow: inset 0 0 3px #0F0;
   box-shadow: inset 0 0 3px #0F0;
 }
-button.pay:active {
+button.pay2:active {
   background: #AAFAAA;
   text-shadow: 1px 1px 3px #FFF;
   border: 1px solid black;
