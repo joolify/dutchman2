@@ -132,7 +132,7 @@ div#cart > h2 {
 
 div#cart_table {
   margin-top: 0%;
-  height: 90%;
+  height: 70%;
   overflow: auto;
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -147,6 +147,16 @@ div#cart_table td {
 table#cart_table {
   width: 100%;
   height: 100%;
+}
+
+div#cost_row {
+  position: absolute;
+  bottom: 4%;
+  height: 10%;
+}
+div#cost_row>p {
+  height: 50%;
+  margin: 1%;
 }
 
 /*====================
