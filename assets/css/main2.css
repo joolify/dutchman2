@@ -38,13 +38,17 @@ div#drinks {
 }
 
 input#query {
-  width: 100%;
+	position: absolute;
+	bottom: 1vw;
+	width: 97%;
 }
 
 div#drink_table {
-  height: 90%;
+  bottom: 1vw;
   overflow: auto;
-
+  position: absolute;
+  top: 5vw;
+  width: 48vw;
 }
 span.name {
 	font-size: 137%;
@@ -96,11 +100,11 @@ span.price {
   ===  QUICK-BUY  ====
   ====================*/
 div#quick_buy {
-  position: fixed;
+	position: fixed;
 	right: 0vw;
 	top: 5vw;
 	width: 45vw;
-	height: 18vw;
+	bottom: 26vw;
 }
 
 /*====================
@@ -205,8 +209,12 @@ select#theme {
 	position: absolute;
 	font-size: 100%;
 	height: 2vw;
+	right: 6vw;
 }
 div#search {
+	position: absolute;
+	width: 48vw;
+	height: 2vw;
 	font-size: 100%;
 	font-weight: bold;
 }
