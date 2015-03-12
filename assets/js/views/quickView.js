@@ -7,14 +7,6 @@
 function QuickView(elements) {
     /** @private */ this._elements = elements;
     this.itemBtnPushed = new Event(this);
-
-    var _this = this;
-
-    /*
-     * ===========================================================
-     * ==================== EVENT LISTENERS ======================
-     * ===========================================================
-     */
 }
 
 QuickView.prototype = {
@@ -23,9 +15,8 @@ QuickView.prototype = {
      * ======================== PRIVATE  =========================
      * ===========================================================
      */
-   _pushItem: function (itemId) {
-    console.log("quickView._pushItem", itemId);
-    this.itemBtnPushed.notify({itemId: itemId});
+    _pushItem: function (itemId) {
+        this.itemBtnPushed.notify({itemId: itemId});
     },
     /*
      * ===========================================================
@@ -99,7 +90,5 @@ QuickView.prototype = {
             item.addEventListener('dragstart', handleDragStart, false);
             item.addEventListener('dragend', handleDragEnd, false);
         });
-
-        _this._refreshDone();
     }
 };
