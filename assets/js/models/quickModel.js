@@ -36,16 +36,17 @@ QuickModel.prototype = {
     _getMostBought: function(buyCountTable) {
       var mostBoughtBeers = [];
       var nmbrOfBeersInList = 0;
+      var maxNumBeers = 8;
       leastMostBought = 0;
       beersInList = 0;
       for(var beer_id in buyCountTable) {
-        if (buyCountTable[beer_id] > leastMostBought || nmbrOfBeersInList < 4) {
+        if (buyCountTable[beer_id] > leastMostBought || nmbrOfBeersInList < maxNumBeers) {
           nmbrOfBeersInList++;
 
 
           mostBoughtBeers.sort();
           mostBoughtBeers.reverse();
-          if(nmbrOfBeersInList > 4) {
+          if(nmbrOfBeersInList > maxNumBeers) {
             mostBoughtBeers.pop(); 
           };
           mostBoughtBeers.push(beer_id);
