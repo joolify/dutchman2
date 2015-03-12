@@ -60,7 +60,7 @@ QuickView.prototype = {
         }
         // Listen for clicks on items
         $('.inStock').click(function() {
-            _this._pushItem($(this).attr('id'));
+            _this._pushItem(($(this).attr('id')).slice(6));
         });
 
         var cart = document.getElementById('cart');
