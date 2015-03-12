@@ -31,12 +31,12 @@ MenuView.prototype = {
 	 _theme: function () {
 		var option = $("#theme").val();
 		if(option === "Theme 2"){
-			$("#Theme2").prop('disabled', false);
-			$("#Theme1").prop('disabled', true);
+			var oldlink = document.getElementsByTagName("link").item(0);
+			oldlink.href = "assets/css/main2.css";
 		}
 		else{
-			$("#Theme2").prop('disabled', true);
-			$("#Theme1").prop('disabled', false);
+			var oldlink = document.getElementsByTagName("link").item(0);
+			oldlink.href = "assets/css/main.css";
 		}
     },
 	/*
