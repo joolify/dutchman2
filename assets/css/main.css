@@ -54,29 +54,33 @@ div.item {
   margin: 1%;
   border: 1pt solid black;
   float: left;
-  -webkit-box-shadow: inset 0 0 3px #000;
-  -ms-box-shadow: inset 0 0 3px #000;
-  box-shadow: inset 0 0 3px #000;
+  -webkit-box-shadow: inset 0 0 10px #000;
+  -ms-box-shadow: inset 0 0 10px #000;
+  box-shadow: inset 0 0 10px #000;
   text-align: center;
   cursor: pointer;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
+div.quick {
+  height: 45%;
+  width: 20%;
+}
 div.item:hover {
-  -webkit-box-shadow: inset 0 0 3px #00F000;
-  -ms-box-shadow: inset 0 0 3px #00F000;
-  box-shadow: inset 0 0 3px #00F000;
+  -webkit-box-shadow: inset 0 0 10px #00F000;
+  -ms-box-shadow: inset 0 0 10px #00F000;
+  box-shadow: inset 0 0 10px #00F000;
 }
 div.outOfStock {
-  -webkit-box-shadow: inset 0 0 3px #FF0000;
-  -ms-box-shadow: inset 0 0 3px #FF0000;
-  box-shadow: inset 0 0 3px #FF0000;
+  -webkit-box-shadow: inset 0 0 10px #FF0000;
+  -ms-box-shadow: inset 0 0 10px #FF0000;
+  box-shadow: inset 0 0 10px #FF0000;
 }
 div.outOfStock:hover {
-  -webkit-box-shadow: inset 0 0 3px #FF0000;
-  -ms-box-shadow: inset 0 0 3px #FF0000;
-  box-shadow: inset 0 0 3px #FF0000;
+  -webkit-box-shadow: inset 0 0 10px #FF0000;
+  -ms-box-shadow: inset 0 0 10px #FF0000;
+  box-shadow: inset 0 0 10px #FF0000;
   cursor: default;
 }
 span.name, span.name2, span.price {
@@ -132,7 +136,7 @@ div#cart > h2 {
 
 div#cart_table {
   margin-top: 0%;
-  height: 90%;
+  height: 70%;
   overflow: auto;
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -147,6 +151,16 @@ div#cart_table td {
 table#cart_table {
   width: 100%;
   height: 100%;
+}
+
+div#cost_row {
+  position: absolute;
+  bottom: 4%;
+  height: 10%;
+}
+div#cost_row>p {
+  height: 50%;
+  margin: 1%;
 }
 
 /*====================
@@ -192,6 +206,58 @@ button.categoryClicked {
   -webkit-border-radius: 15;
   -moz-border-radius: 15;
   border-radius: 15px;
+  text-shadow: 1px 1px 3px #FFF;
+  border: 1px solid black;
+  width: 7vw;
+  height: 2vw;
+}
+
+button.pay {
+    position: fixed;
+    left: 75%;
+    bottom: +5px;
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    background: #ffffff;
+    padding: 12.5px 25px;
+    color: #000000;
+    font-size: 18px;
+    font-family: Georgia, Serif;
+    vertical-align: middle;
+}
+button.pay:hover {
+  -webkit-box-shadow: inset 0 0 3px #0F0;
+  -ms-box-shadow: inset 0 0 3px #0F0;
+  box-shadow: inset 0 0 3px #0F0;
+}
+button.pay:active {
+  background: #AAFAAA;
+  text-shadow: 1px 1px 3px #FFF;
+  border: 1px solid black;
+  width: 7vw;
+  height: 2vw;
+}
+
+button.pay2 {
+    position: fixed;
+    left: 84%;
+    bottom: +5px;
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    background: #ffffff;
+    padding: 12.5px 25px;
+    color: #000000;
+    font-size: 18px;
+    font-family: Georgia, Serif;
+    vertical-align: middle;
+}
+button.pay2:hover {
+  -webkit-box-shadow: inset 0 0 3px #0F0;
+  -ms-box-shadow: inset 0 0 3px #0F0;
+  box-shadow: inset 0 0 3px #0F0;
+}
+button.pay2:active {
+  background: #AAFAAA;
   text-shadow: 1px 1px 3px #FFF;
   border: 1px solid black;
   width: 7vw;

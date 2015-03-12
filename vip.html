@@ -7,6 +7,7 @@
     <script src="lib/jquery/jquery-latest.min.js"></script>
 
     <script src="assets/js/main/vip.js"></script>
+    <script src="assets/js/helpers/Wheel/Wheel.js"></script>
 
     <script src="assets/js/controllers/controller.js"></script>
 
@@ -16,7 +17,7 @@
     <script src="assets/js/models/loginModel.js"></script>
     <script src="assets/js/models/menuModel.js"></script>
     <script src="assets/js/models/quickModel.js"></script>
-      <script src="assets/js/models/payModel.js"></script>
+    <script src="assets/js/models/payModel.js"></script>
 
     <script src="assets/js/helpers/cartItem.js"></script>
     <script src="assets/js/helpers/event.js"></script>
@@ -33,6 +34,7 @@
 
     <!-- MENU -->
 	<div class="top">
+    <canvas id="wheel" width="50", height="50"></canvas>
 		<select id="theme">
 			<option>Theme 1</option>
 			<option>Theme 2</option>
@@ -65,8 +67,8 @@
       </div>
     </div>
 
-    <button id="purchase">Purchase</button>
-    <button id="clear">Clear cart</button>
+    <button class="pay" id="purchase">Purchase</button>
+    <button class="pay2" id="clear">Clear cart</button>
 
   </body>
 </html>

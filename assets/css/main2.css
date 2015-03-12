@@ -38,13 +38,17 @@ div#drinks {
 }
 
 input#query {
-  width: 100%;
+	position: absolute;
+	bottom: 1vw;
+	width: 97%;
 }
 
 div#drink_table {
-  height: 90%;
+  bottom: 1vw;
   overflow: auto;
-
+  position: absolute;
+  top: 5vw;
+  width: 48vw;
 }
 span.name {
 	font-size: 137%;
@@ -96,11 +100,11 @@ span.price {
   ===  QUICK-BUY  ====
   ====================*/
 div#quick_buy {
-  position: fixed;
+	position: fixed;
 	right: 0vw;
 	top: 5vw;
 	width: 45vw;
-	height: 18vw;
+	bottom: 26vw;
 }
 
 /*====================
@@ -132,24 +136,7 @@ div#cost_row {
 	top: 72%;
 	width: 90%;
 }
-button#purchase {
- position: absolute;
-  right: 4vw;
-  bottom: 4vw;
-  width: 7vw;
-  height: 2vw;
-  font-size: 100%;
-  font-weight: bold;
-}
-button#clear {
-  position: absolute;
-  right: 4vw;
-  bottom: 20vw;
-  width: 7vw;
-  height: 2vw;
-  font-size: 100%;
-  font-weight: bold;
-}
+
 p#credit {
 -webkit-margin-before: 1px;
 -webkit-margin-after: 1px;
@@ -222,8 +209,12 @@ select#theme {
 	position: absolute;
 	font-size: 100%;
 	height: 2vw;
+	right: 6vw;
 }
 div#search {
+	position: absolute;
+	width: 48vw;
+	height: 2vw;
 	font-size: 100%;
 	font-weight: bold;
 }
@@ -231,3 +222,50 @@ th.item, td.item {
   min-width: 4em;
 
 }
+
+button.pay {
+    position: fixed;
+    left: 75%;
+    bottom: +5px;
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    background: #ffffff;
+    padding: 12.5px 25px;
+    color: #000000;
+    font-size: 18px;
+    font-family: Georgia, Serif;
+}
+
+button.pay:active {
+	width: 7vw;
+	height: 2vw;
+	font-weight: bold;
+	font-size: 100%;
+	background-color: red;
+}
+
+button.pay2 {
+    position: fixed;
+    left: 84%;
+    bottom: +5px;
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    background: #ffffff;
+    padding: 12.5px 25px;
+    color: #000000;
+    font-size: 18px;
+    font-family: Georgia, Serif;
+}
+button.pay2:hover {
+  -webkit-box-shadow: inset 0 0 3px #0F0;
+  -ms-box-shadow: inset 0 0 3px #0F0;
+  box-shadow: inset 0 0 3px #0F0;
+}
+button.pay2:active {
+  background: #AAFAAA;
+  text-shadow: 1px 1px 3px #FFF;
+  border: 1px solid black;
+  width: 7vw;
+  height: 2vw;
+}
+

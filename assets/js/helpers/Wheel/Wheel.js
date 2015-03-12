@@ -3,17 +3,18 @@
  *          mabl8223@student.uu.se
  *
  *  Public methods:
- *  Wheel/1         (constructor)
+ *  Wheel         (constructor)
  *  init/0          (initialising)
  *  show/0, hide/0  (showing/hiding)
  */
-function Wheel(canvasId) {
-    this.id = canvasId;
+function Wheel(canvasId, diameter, numSpokes) {
+    this.id = canvasId || 'wheel';
+    this.diameter = diameter || 50;
     this.canvas = document.getElementById(canvasId);
-    this.numSpokes = 6;
-    this.outerRimRadius = 40;
-    this.innerRimRadius = 35;
-    this.spokeRadius = 60;
+    this.numSpokes = numSpokes || 8;
+    this.outerRimRadius = this.diameter/3.75;
+    this.innerRimRadius = this.diameter/4.5;
+    this.spokeRadius = this.diameter/2.3;
     this.centerX = this.canvas.width / 2;
     this.centerY = this.canvas.height / 2;
     this.ctx = this.canvas.getContext('2d');
@@ -31,17 +32,17 @@ function Wheel(canvasId) {
 
     Wheel.prototype.drawRim = function() {
         // Drawing mid circle
-        this.drawCircle(this.centerX, this.centerY, 10);
+        this.drawCircle(this.centerX, this.centerY, this.diameter/12);
         this.ctx.fill();
 
         // Outer ring
         this.drawCircle(this.centerX, this.centerY, this.outerRimRadius);
-        this.ctx.lineWidth = 5;
+        this.ctx.lineWidth = this.diameter/40;
         this.ctx.stroke();
 
         // Inner ring
         this.drawCircle(this.centerX, this.centerY, this.innerRimRadius);
-        this.ctx.lineWidth = 3;
+        this.ctx.lineWidth = this.diameter/24;
         this.ctx.stroke();
     }
 
@@ -58,12 +59,12 @@ function Wheel(canvasId) {
         this.ctx.beginPath();
         this.ctx.moveTo(this.centerX, this.centerY);
         this.ctx.lineTo(targetX, targetY);
-        this.ctx.lineWidth = 5;
+        this.ctx.lineWidth = this.diameter/24;
         this.ctx.stroke();
 
-        this.drawCircle(targetX, targetY, 5);
+        this.drawCircle(targetX, targetY, this.diameter/24);
         this.ctx.fill();
-        this.drawCircle(targetX - 17 * Math.cos(angle), targetY - 17 * Math.sin(angle), 3);
+        this.drawCircle(targetX - this.diameter*0.72 * Math.cos(angle), targetY - this.diameter*0.72 * Math.sin(angle), this.diameter/40);
         this.ctx.stroke();
     }
 
