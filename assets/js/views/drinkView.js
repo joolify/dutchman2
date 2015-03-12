@@ -90,9 +90,9 @@ DrinkView.prototype = {
                 '</div>'
             );
             var thisElement = document.getElementById(item.getId());
-            var addButtom = document.getElementById(item.getId()).lastElementChild;
+            var addButton = document.getElementById(item.getId()).lastElementChild;
             if (item.getCount() < 1) { //Checks availability
-                addButtom.className = "outOfStockButton";
+                addButton.className = "outOfStockButton";
                 thisElement.classList.add('outOfStock');
             } else {
                 thisElement.classList.add('inStock');

@@ -39,7 +39,7 @@ div#drinks {
 
 input#query {
 	position: absolute;
-	bottom: 1vw;
+	bottom: 0.2vw;
 	width: 97%;
 }
 
@@ -49,6 +49,13 @@ div#drink_table {
   position: absolute;
   top: 5vw;
   width: 48vw;
+}
+div#search {
+	position: absolute;
+	width: 48vw;
+	height: 2vw;
+	font-size: 100%;
+	font-weight: bold;
 }
 span.name {
 	font-size: 137%;
@@ -105,8 +112,11 @@ div#quick_buy {
 	top: 5vw;
 	width: 45vw;
 	bottom: 26vw;
+	overflow: auto;
 }
-
+div.quick {
+  width: 43vw;
+}
 /*====================
   ======  CART  ======
   ====================*/
@@ -144,83 +154,6 @@ p#credit {
 p#totalPrice {
 -webkit-margin-before: 1px;
 -webkit-margin-after: 1px;
-}
-/*====================
-  ======  Menu  ======
-  ====================*/
-.menu {
-	position: fixed;
-	top: 0vw;
-	left: 0vw;
-	height: 2vw;
-	width: 85vw;
-}
-
-.top{
-	position: fixed;
-	top: 0vw;
-	right: 0vw;
-	height: 2vw;
-	width: 10vw;
-}
-div.item{
-	position: relative;
-	width: 46vw;
-	border: 1px solid rgb(92, 92, 92);
-  background-image: none !important;
-}
-
-td.remove {
-}
-
-td.subsum {
-}
-
-td.increment, td.decrease {
-}
-
-
-/*====================
-  ======  MISC  ======
-  ====================*/
-
-button.category {
-	width: 7vw;
-	height: 2vw;
-	font-size: 100%;
-	font-weight: bold;
-}
-button.categoryClicked {
-	width: 7vw;
-	height: 2vw;
-	font-weight: bold;
-	font-size: 100%;
-	background-color: red;
-}
-button#logout {
-	position: absolute;
-	right: 1vw;
-	height: 2vw;
-	width: 4vw;
-	font-size: 95%;
-	font-weight: bold;
-}
-select#theme {
-	position: absolute;
-	font-size: 100%;
-	height: 2vw;
-	right: 6vw;
-}
-div#search {
-	position: absolute;
-	width: 48vw;
-	height: 2vw;
-	font-size: 100%;
-	font-weight: bold;
-}
-th.item, td.item {
-  min-width: 4em;
-
 }
 
 button.pay {
@@ -268,4 +201,80 @@ button.pay2:active {
   width: 7vw;
   height: 2vw;
 }
+/*============================
+  ======  Menu, filter  ======
+  ============================*/
+.menu {
+	position: fixed;
+	top: 0vw;
+	left: 0vw;
+	height: 2vw;
+	width: 85vw;
+}
+button.category {
+	width: 7vw;
+	height: 2vw;
+	font-size: 100%;
+	font-weight: bold;
+}
+button.categoryClicked {
+	width: 7vw;
+	height: 2vw;
+	font-weight: bold;
+	font-size: 100%;
+	background-color: red;
+}
+
+/*==========================
+  ======  Menu, right ======
+  ==========================*/
+.top{
+	position: fixed;
+	top: 0vw;
+	right: 0vw;
+	height: 2vw;
+	width: 10vw;
+}
+div.item{
+	position: relative;
+	width: 46vw;
+	border: 1px solid rgb(92, 92, 92);
+	background-image: none !important;
+}
+button#logout {
+	position: absolute;
+	right: 1vw;
+	height: 2vw;
+	width: 4vw;
+	font-size: 95%;
+	font-weight: bold;
+}
+select#theme {
+	position: absolute;
+	font-size: 100%;
+	height: 2vw;
+	right: 6vw;
+}
+
+
+
+/*====================
+  ======  MISC  ======
+  ====================*/
+td.remove {
+}
+
+td.subsum {
+}
+
+td.increment, td.decrease {
+}
+
+
+th.item, td.item {
+  min-width: 4em;
+
+}
+
+
 
