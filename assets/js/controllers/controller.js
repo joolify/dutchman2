@@ -185,11 +185,22 @@ function Controller(models, views) {
         /*Listen for quick buttons clicks*/
     }
 
-    if (this._quickModel) {
-        this._quickModel.quickUpdated.attach(function(sender, args) {
-            _this.refreshQuick(args.quickList);
-        });
-    }
+  if(this._quickModel) {
+    this._quickModel.quickUpdated.attach(function () {
+      _this.refreshQuick();
+    });
+  }
+
+  this._quickView.itemBtnPushed.attach(function(sender, args) {
+    _this.pushCartItem(args.itemId);
+    });
+
+
+    //if (this._quickModel) {
+    //    this._quickModel.quickUpdated.attach(function(sender, args) {
+    //        _this.refreshQuick(args.quickList);
+    //    });
+    //}
 
     /*
      * ===========================================================
@@ -269,12 +280,20 @@ Controller.prototype = {
         var initSearch = "";
 
         this.queryDrinks(initSearch);
+        this.queryRecommended();
         this.refreshTotalPrice();
         this.refreshCredit();
         this.startUpMenu();
         //this.updateMenu();
-        this.updateQuick();
+//        this.updateQuick();
         this.refreshDictionary();
+    },
+
+    queryRecommended: function () {
+    console.log("Controller.queryRecommended");
+    var username = this._loginModel.getUserName();
+    var password = this._loginModel.getPassWord();
+    this._quickModel.query(username, password);
     },
 
     /*
@@ -520,13 +539,16 @@ Controller.prototype = {
      * == QUICK ==================================================
      * ===========================================================
      */
-    updateQuick: function() {
-        this._quickModel.update();
-    },
+//    updateQuick: function() {
+//        this._quickModel.update();
+//    },
 
-    refreshQuick: function(quickList) {
-        this._quickView.refresh(quickList);
-    },
+  refreshQuick: function() {
+    var itemList = this._quickModel.getItems();
+//    console.log("Controller.refreshQuick: " + itemList.length);
+//    console.log("Itemlist from controller: " + itemList);
+    this._quickView.refresh(itemList);
+  },
     /*
      * ===========================================================
      * == TRANSLATION ============================================
