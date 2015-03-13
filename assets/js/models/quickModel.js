@@ -47,8 +47,6 @@ QuickModel.prototype = {
                 }
             }
         };
-        for (var i = mostBoughtBeers.length - 1; i >= 0; i--) {
-        };
         return mostBoughtBeers;
     },
 
