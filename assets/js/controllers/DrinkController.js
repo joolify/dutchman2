@@ -1,6 +1,6 @@
 function DrinkController(model, view){
-  /** @private */ this._drinkModel = model;
-  /** @private */ this._drinkView = view;
+  /** @private */ this._model = model;
+  /** @private */ this._view = view;
   /** @private */ this._QUERY_INIT = "";
 
   var _this = this;
@@ -16,18 +16,18 @@ function DrinkController(model, view){
    * ==================== EVENT LISTENERS ======================
    * ===========================================================
    */
-  if(this._drinkView) {
-    this._drinkView.searchFieldModified.attach(function (sender, args) {
+  if(this._view) {
+    this._view.searchFieldModified.attach(function (sender, args) {
       _this._query(args.query);
     });
 
-    this._drinkView.itemBtnPushed.attach(function (sender, args) {
+    this._view.itemBtnPushed.attach(function (sender, args) {
       _this._push(args.itemId);
     });
   }
 
-  if(this._drinkModel) {
-    this._drinkModel.drinksUpdated.attach(function () {
+  if(this._model) {
+    this._model.drinksUpdated.attach(function () {
       _this._refresh();
     });
   }
@@ -69,7 +69,7 @@ DrinkController.prototype = {
    * @function _push
    */
   _push: function (itemId) {
-    var item = this._drinkModel.getItem(itemId);
+    var item = this._model.getItem(itemId);
     this.itemPushed.notify({item: item});
   },
 
@@ -79,8 +79,8 @@ DrinkController.prototype = {
    */
   _refresh: function () {
     console.log("DrinkController._refresh()");
-    var itemList = this._drinkModel.getItems();
-    this._drinkView.refresh(itemList);
+    var itemList = this._model.getItems();
+    this._view.refresh(itemList);
 
   },
 
@@ -91,7 +91,7 @@ DrinkController.prototype = {
     var username = this._getUserName();
     var password = this._getPassWord();
     console.log("DrinkController._query: ", username, password);
-    this._drinkModel.query(queryString, username, password);
+    this._model.query(queryString, username, password);
   },
   /*
    * ===========================================================
@@ -106,5 +106,15 @@ DrinkController.prototype = {
     console.log("DrinkController.run()");
     this._query(this._QUERY_INIT);
   },
+
+  getItems: function() {
+    console.log("DrinkController.getItems()");
+    return this._model.getItems();
+  },
+
+  refresh: function(itemList) {
+    console.log("DrinkController.refresh()", itemList);
+    this._view.refresh(itemList);
+  }
 
 };

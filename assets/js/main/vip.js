@@ -56,7 +56,8 @@ Vip.prototype = {
       });
     case "menu":
       return new MenuView({
-	'menu': $('#menu')
+	'menu': $('#menu'),
+	'theme': $('#theme')
       });
     case "quick":
       return new QuickView({
