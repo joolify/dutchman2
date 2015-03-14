@@ -183,6 +183,9 @@ function Controller(models, views) {
      */
     if (this._quickView) {
         /*Listen for quick buttons clicks*/
+        this._quickView.itemBtnPushed.attach(function(sender, args) {
+            _this.pushCartItem(args.itemId);
+        });
     }
 
   if(this._quickModel) {
@@ -190,10 +193,6 @@ function Controller(models, views) {
       _this.refreshQuick();
     });
   }
-
-  this._quickView.itemBtnPushed.attach(function(sender, args) {
-    _this.pushCartItem(args.itemId);
-    });
 
 
     //if (this._quickModel) {
@@ -523,7 +522,6 @@ Controller.prototype = {
     },
 
     refreshDrinksMenu: function(itemList) {
-        console.log("Showing wheel"); //TODO
         this._wheel.show();
         this._drinkView.refresh(itemList);
     },
