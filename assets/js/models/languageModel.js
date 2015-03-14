@@ -12,7 +12,9 @@ function LanguageModel() {
         "english":[
             {"position":"#titleIndex","word":"Stormrider Bar","type":"text"},
             {"position":"#subTitleIndex","word":"Welcome to the best bar in Uppsala!","type":"text"},
+            {"position":"#usernameLabel","word":"Username: ","type":"text"},
             {"position":"#username","word":"Username","type":"placeholder"},
+            {"position":"#passwordLabel","word":"Password: ","type":"text"},
             {"position":"#password","word":"Password","type":"placeholder"},
             {"position":"#loginButton","word":"Log in","type":"text"},
             {"position":"label","word":"Search available drinks","type":"text"},
@@ -22,7 +24,9 @@ function LanguageModel() {
         "spanish":[
             {"position":"#titleIndex","word":"Bar Jinete de Tormenta","type":"text"},
             {"position":"#subTitleIndex","word":"Bienvenido al mejor bar de Uppsala!","type":"text"},
+            {"position":"#usernameLabel","word":"Usuario:  ","type":"text"},
             {"position":"#username","word":"Usuario","type":"placeholder"},
+            {"position":"#passwordLabel","word":"Contrasenha: ","type":"text"},
             {"position":"#password","word":"Contrasenha","type":"placeholder"},
             {"position":"#loginButton","word":"Iniciar sesion","type":"text"},
             {"position":"label","word":"Buscar bebidas disponibles","type":"text"},
@@ -32,7 +36,9 @@ function LanguageModel() {
         "swedish":[
             {"position":"#titleIndex","word":"Stormriderbaren","type":"text"},
             {"position":"#subTitleIndex","word":"Välkommen till Uppsalas bästa bar!","type":"text"},
+            {"position":"#usernameLabel","word":"Användarnamn: ","type":"text"},
             {"position":"#username","word":"Användarnamn","type":"placeholder"},
+            {"position":"#passwordLabel","word":"Lösenord: ","type":"text"},
             {"position":"#password","word":"Lösenord","type":"placeholder"},
             {"position":"#loginButton","word":"Logga in","type":"text"},
             {"position":"label","word":"Sök tillgängliga drycker","type":"text"},
