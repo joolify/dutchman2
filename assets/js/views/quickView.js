@@ -48,7 +48,7 @@ QuickView.prototype = {
                 '</div>'
             );
             var thisElement = document.getElementById('quick_' + item.getId());
-            var addButton = document.getElementById(item.getId()).lastElementChild;
+            var addButton = document.getElementById('quick_' +item.getId()).lastElementChild;
             if (item.getCount() < 1) { //Checks availability
                 addButton.className = "outOfStockButton";
                 thisElement.classList.add('outOfStock');
