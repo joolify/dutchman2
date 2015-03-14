@@ -20,6 +20,25 @@ function DrinkView(elements) {
         _this._searchFieldModified($(this).val());
     });
 
+    var cart = document.getElementById('cart');
+
+    function handleDragOver(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        return false;
+    }
+
+    function handleDrop(e) {
+        itemId = e.dataTransfer.getData('itemId');
+        e.stopPropagation(); // Stops the browser from redirecting
+        e.preventDefault();
+        _this._pushItem(itemId); // Adding to cart
+        return false;
+    }
+
+    cart.addEventListener('dragover', handleDragOver, false);
+    cart.addEventListener('drop', handleDrop, false);
+
 }
 
 DrinkView.prototype = {
@@ -119,19 +138,6 @@ DrinkView.prototype = {
             cart.style.boxShadow = 'inset 0 0 20px #0000FF'; // Highlights the cart
         }
 
-        function handleDragOver(e) {
-            e.preventDefault();
-            e.dataTransfer.dropEffect = 'move';
-            return false;
-        }
-
-        function handleDrop(e) {
-            itemId = e.dataTransfer.getData('itemId');
-            e.stopPropagation(); // Stops the browser from redirecting
-            e.preventDefault();
-            _this._pushItem(itemId); // Adding to cart
-            return false;
-        }
 
         function handleDragEnd(e) {
             this.style.opacity = ''; // Removes the 'opacity' attr.
@@ -146,9 +152,6 @@ DrinkView.prototype = {
             item.addEventListener('dragstart', handleDragStart, false);
             item.addEventListener('dragend', handleDragEnd, false);
         });
-
-        cart.addEventListener('dragover', handleDragOver, false);
-        cart.addEventListener('drop', handleDrop, false);
 
         _this._refreshDone();
     }
