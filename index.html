@@ -1,7 +1,10 @@
 <html>
   <head>
     <title>Login</title>
-    <meta http-equiv="Content-type" value="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-type" value="text/html" />
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
@@ -20,19 +23,55 @@
     <script src="assets/js/models/languageModel.js" charset="utf-8"></script>
   </head>
   <body>
-    <select id="language">
-      <option value="english" selected="selected">English</option>
-      <option value="swedish">Svenska</option>
-      <option value="spanish">Español</option>
-    </select> 
+  <div id="login">
+
+
+
     <h1 id="titleIndex"></h1>
     <h2 id="subTitleIndex"></h2>
     <!-- LOGIN FORM -->
     <form id="loginForm" action="#">
-      <input id="username" value="ervtod">
-      <input id="password" value="ervtod">
-      <button id="loginButton" type="submit">login</button>
-      <p><h2 id="errorMsg"></p>
+      <table>
+        <tr><td><label id="languageLabel"></label></td><td><select id="language">
+                                          <option value="english" selected="selected">English</option>
+                                          <option value="swedish">Svenska</option>
+                                          <option value="spanish">Español</option>
+                                        </select></td></tr>
+        <tr><td><label id="usernameLabel"></label></td><td><input id="username" value="ervtod"></td></tr>
+        <tr><td><label id="passwordLabel"></label></td><td><input id="password" value="ervtod"></td></tr>
+        <tr><td colspan="2"><button id="loginButton" type="submit">login</button></td></tr>
+      </table>
+      <p><h3 id="errorMsg"></h3></p>
     </form>
+  </div>
   </body>
 </html>
+
+<style>
+  div#login {
+    position: fixed;
+    width: 34%;
+    height: 34%;
+    left: 50%;
+    margin-left: -17%;
+    top: 50%;
+    margin-top: -10%;
+  }
+
+  table {
+    position: relative;
+    height: 50%;
+    width: 50%;
+    left: 50%;
+    margin-left: -25%;
+  }
+
+  h1, h2, h3 {
+    text-align: center;
+  }
+
+  form, label, input, select{
+    margin: 6px;
+  }
+
+</style>
