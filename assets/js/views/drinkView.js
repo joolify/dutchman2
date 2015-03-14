@@ -135,7 +135,7 @@ DrinkView.prototype = {
             itemId = this.getAttribute('id');
             e.dataTransfer.effectAllowed = 'move';
             e.dataTransfer.setData('itemId', itemId);
-            cart.style.boxShadow = 'inset 0 0 20px #0000FF'; // Highlights the cart
+            cart.style.boxShadow = 'inset 0 0 15px #0000FF'; // Highlights the cart
         }
 
 

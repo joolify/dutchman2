@@ -17,10 +17,10 @@ function LanguageModel() {
             {"position":"#passwordLabel","word":"Password: ","type":"text"},
             {"position":"#password","word":"Password","type":"placeholder"},
             {"position":"#loginButton","word":"Log in","type":"text"},
-            {"position":"#queryLabel","word":"Search ...","type":"text"},
-            {"position":"#quick_buy h2","word":"Most bought","type":"text"},
+            {"position":"#queryLabel","word":"Search","type":"text"},
+            {"position":"#quick_buy h2","word":"Your favourites","type":"text"},
             {"position":"#cart h2","word":"Order","type":"text"},
-            {"position":"#query","word":"Search ...","type":"placeholder"}],
+            {"position":"#query","word":"Search","type":"placeholder"}],
         "spanish":[
             {"position":"#titleIndex","word":"Bar Jinete de Tormenta","type":"text"},
             {"position":"#subTitleIndex","word":"Bienvenido al mejor bar de Uppsala!","type":"text"},
@@ -29,22 +29,22 @@ function LanguageModel() {
             {"position":"#passwordLabel","word":"Contrasenha: ","type":"text"},
             {"position":"#password","word":"Contrasenha","type":"placeholder"},
             {"position":"#loginButton","word":"Iniciar sesion","type":"text"},
-            {"position":"#queryLabel","word":"Buscar ...","type":"text"},
+            {"position":"#queryLabel","word":"Buscar","type":"text"},
             {"position":"#quick_buy h2","word":"Cervezas mÃ¡s vendidas","type":"text"},
             {"position":"#cart h2","word":"Orden","type":"text"},
-            {"position":"#query","word":"Buscar ...","type":"placeholder"}],
+            {"position":"#query","word":"Buscar","type":"placeholder"}],
         "swedish":[
-            {"position":"#titleIndex","word":"Stormriderbaren","type":"text"},
+            {"position":"#titleIndex","word":"Stormrider","type":"text"},
             {"position":"#subTitleIndex","word":"Välkommen till Uppsalas bästa bar!","type":"text"},
             {"position":"#usernameLabel","word":"Användarnamn: ","type":"text"},
             {"position":"#username","word":"Användarnamn","type":"placeholder"},
             {"position":"#passwordLabel","word":"Lösenord: ","type":"text"},
             {"position":"#password","word":"Lösenord","type":"placeholder"},
             {"position":"#loginButton","word":"Logga in","type":"text"},
-            {"position":"#queryLabel","word":"Sök ...","type":"text"},
+            {"position":"#queryLabel","word":"Sök","type":"text"},
             {"position":"#quick_buy h2","word":"Mest köpta","type":"text"},
-            {"position":"#cart h2","word":"Order","type":"text"},
-            {"position":"#query","word":"Sök ...","type":"placeholder"}]}
+            {"position":"#cart h2","word":"Beställning","type":"text"},
+            {"position":"#query","word":"Sök","type":"placeholder"}]}
 }
 
 LanguageModel.prototype = {
