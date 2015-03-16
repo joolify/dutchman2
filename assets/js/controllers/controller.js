@@ -38,6 +38,10 @@ function Controller(models, views) {
     /** @private */
     this._payModel = models.pay;
     /** @private */
+    this._commandView = views.command;
+    /** @private */
+    this._commandModel = models.command;
+    /** @private */
     if (typeof Wheel == 'function') {
         this._wheel = new Wheel('wheel', 50);
     }
@@ -215,6 +219,21 @@ function Controller(models, views) {
             _this.cartEmpty();
         });
     }
+
+    /*
+     * ===========================================================
+     * == COMMAND LISTENER =======================================
+     * ===========================================================
+     */
+     if(this._commandView) {
+        this._commandView.undoPressed.attach(function(sender, args) {
+            _this.undo();       
+        });
+        this._commandView.redoPressed.attach(function(sender, args) {
+            _this.redo();
+        });
+     }
+
 }
 
 
@@ -352,6 +371,9 @@ Controller.prototype = {
         var item = this._databaseModel.getItem(itemId);
         this._cartModel.push(item);
         console.log("Controller.pushCartItem: ", itemId);
+        if (itemId.length>0) {
+            sessionStorage['commands']+=JSON.stringify(["push",itemId])+",";
+        }
     },
     /*
      * Remove an item from the CartModel
@@ -361,6 +383,9 @@ Controller.prototype = {
     popCartItem: function(itemId) {
         console.log("Controller.popCartItem: ", itemId);
         this._cartModel.pop(itemId);
+        if (itemId.length>0) {
+            sessionStorage['commands']+=JSON.stringify(["pop",itemId])+",";
+        }
     },
     /* Increases the amount of an item.
      * function incrementCartItem
@@ -569,5 +594,59 @@ Controller.prototype = {
     refreshDictionary: function() {
         var words = this._languageModel.getDictionary();
         this.refreshLanguage(words);
+    },
+    /*
+     * ===========================================================
+     * == COMMANDS ===============================================
+     * ===========================================================
+     */
+
+     undo: function() {
+        var _this = this;
+        var inverse = "";
+        var itemId = "";
+        if (sessionStorage["commands"].length>0){
+            var last = this._commandModel.getLastElement("commands");
+            $.each(last, function(index, element) {
+                if(index==0) {
+                    inverse=_this._commandModel.getInverse(element);
+                }
+                if(index==1) {
+                    itemId=element;
+                }
+            });
+        }
+        this.execute(inverse,itemId);
+    },
+
+    redo: function() {
+        var _this = this;
+        var inverse = "";
+        var itemId = "";
+        if (sessionStorage["redo"].length>0){
+            var last = this._commandModel.getLastElement("redo");
+            $.each(last, function(index, element) {
+                if(index==0) {
+                    inverse=element;
+                }
+                if(index==1) {
+                    itemId=element;
+                }
+            });
+        }
+        this.execute(inverse,itemId);
+    },
+
+    execute: function(inverse,itemId) {
+        switch (inverse) {
+            case "push":
+                var item = this._databaseModel.getItem(itemId);
+                this._cartModel.push(item);
+                break;
+            case "pop":
+                this._cartModel.pop(itemId);
+                break;
+        }
     }
+
 };

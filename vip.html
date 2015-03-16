@@ -4,7 +4,6 @@
     <meta http-equiv="Content-type" value="text/html" />
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="assets/css/main.css" id="Theme1">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <script src="lib/jquery/jquery-latest.min.js"></script>
 
     <script src="assets/js/main/vip.js"></script>
@@ -19,17 +18,19 @@
     <script src="assets/js/models/menuModel.js"></script>
     <script src="assets/js/models/quickModel.js"></script>
     <script src="assets/js/models/payModel.js"></script>
+    <script src="assets/js/models/commandModel.js"></script>
 
     <script src="assets/js/helpers/cartItem.js"></script>
     <script src="assets/js/helpers/event.js"></script>
     <script src="assets/js/helpers/item.js"></script>
-
+    
     <script src="assets/js/views/cartView.js"></script>
     <script src="assets/js/views/drinkView.js"></script>
     <script src="assets/js/views/languageView.js"></script>
     <script src="assets/js/views/menuView.js"></script>
     <script src="assets/js/views/quickView.js"></script>
-      <script src="assets/js/views/payView.js"></script>
+    <script src="assets/js/views/payView.js"></script>
+    <script src="assets/js/views/commandView.js"></script>
   </head>
   <body>
 
@@ -65,6 +66,10 @@
       </div>
       <div id="cost_row">
         <p id="credit">Credit:</p><p id="totalPrice">Total price:</p>
+      </div>
+      <div id="command">
+        <button id="undo" type="button">Undo</button>
+        <button id="redo" type="button">Redo</button>
       </div>
     </div>
 

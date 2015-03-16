@@ -48,7 +48,12 @@ Vip.prototype = {
         'purchase': $('#purchase')
     });
 
-      return {cart: cartView, drink: drinkView, menu: menuView, quick: quickView, language: languageView, pay: payView};
+    var commandView = new CommandView({
+        'undo': $('#undo'),
+        'redo': $('#redo')
+    });
+
+      return {cart: cartView, drink: drinkView, menu: menuView, quick: quickView, language: languageView, pay: payView, command: commandView};
     },
     /*
      * Get the models to be used in the system.
@@ -62,9 +67,10 @@ Vip.prototype = {
 	var menuModel = new MenuModel();
 	var quickModel = new QuickModel();
     var languageModel = new LanguageModel();
+    var commandModel = new CommandModel();
 
     var payModel = new PayModel();
-      return {cart: cartModel, database: databaseModel, login: loginModel, menu: menuModel, quick: quickModel, language: languageModel, pay: payModel};
+      return {cart: cartModel, database: databaseModel, login: loginModel, menu: menuModel, quick: quickModel, language: languageModel, pay: payModel, command: commandModel};
 
     },
 
@@ -80,6 +86,8 @@ Vip.prototype = {
     run: function() {
 	this._controller = new Controller(this._getModels(), this._getViews());
 	this._controller.showDrinks();
+    sessionStorage['commands']="";
+    sessionStorage['redo']="";
 }
 };
 

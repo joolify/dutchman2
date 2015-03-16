@@ -163,6 +163,11 @@ div#cost_row>p {
   margin: 1%;
 }
 
+#command {
+  text-align: right;
+  background-color: transparent;
+}  
+
 /*====================
   ======  Menu  ======
   ====================*/
