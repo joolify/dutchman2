@@ -605,7 +605,15 @@ Controller.prototype = {
         var _this = this;
         var inverse = "";
         var itemId = "";
+        // Securing integrity of
+        // "at least 1 item in stack"
+        // <=>
+        // "sessionStorage["undo"].length > 0"
+        if (sessionStorage["commands"] == ",") {
+             sessionStorage["commands"] = "";
+        }
         if (sessionStorage["commands"].length>0){
+            console.log("commands: " + sessionStorage["commands"])
             var last = this._commandModel.getLastElement("commands");
             $.each(last, function(index, element) {
                 if(index==0) {
@@ -615,15 +623,15 @@ Controller.prototype = {
                     itemId=element;
                 }
             });
+            this.execute(inverse,itemId);
         }
-        this.execute(inverse,itemId);
     },
 
     redo: function() {
-        var _this = this;
         var inverse = "";
         var itemId = "";
         if (sessionStorage["redo"].length>0){
+            console.log("redo=" + sessionStorage["redo"] + " length: "+ sessionStorage["redo"].length);
             var last = this._commandModel.getLastElement("redo");
             $.each(last, function(index, element) {
                 if(index==0) {
@@ -633,8 +641,16 @@ Controller.prototype = {
                     itemId=element;
                 }
             });
+            this.execute(inverse,itemId);
+
+            // Securing integrity of
+            // "at least 1 item in stack"
+            // <=>
+            // "sessionStorage["redo"].length > 0"
+            if (sessionStorage["redo"] == ",") {
+                sessionStorage["redo"] = "";
+            }
         }
-        this.execute(inverse,itemId);
     },
 
     execute: function(inverse,itemId) {
