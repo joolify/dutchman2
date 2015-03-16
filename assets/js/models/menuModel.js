@@ -43,7 +43,6 @@ MenuModel.prototype = {
     },
 	/*
      * Search the database to find the categories
-
      * @function update
      * @param {String} username
 	 * @param {String} password
