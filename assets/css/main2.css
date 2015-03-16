@@ -130,10 +130,12 @@ height: 23vw;
 
 div#cart_table {
 position: absolute;
-top: 10%;
-height: 58%;
-width: 90%;
+top: 15%;
+height: 52%;
+
 overflow: auto;
+left: 1vw;
+  right: 1vw;
 }
 
 div#cart h2{
@@ -144,7 +146,8 @@ div#cost_row {
 	height: 22%;
 	overflow: auto;
 	top: 72%;
-	width: 90%;
+	left: 1vw;
+  right: 1vw;
 }
 
 p#credit {
@@ -201,6 +204,14 @@ button.pay2:active {
   width: 7vw;
   height: 2vw;
 }
+
+div#command {
+  position: absolute;
+  top: 1vw;
+ 
+  right: 1vw;
+  left: 33vw;
+}
 /*============================
   ======  Menu, filter  ======
   ============================*/
@@ -209,7 +220,7 @@ button.pay2:active {
 	top: 0vw;
 	left: 0vw;
 	height: 2vw;
-	width: 85vw;
+	width: 80vw;
 }
 button.category {
 	width: 7vw;
@@ -233,7 +244,7 @@ button.categoryClicked {
 	top: 0vw;
 	right: 0vw;
 	height: 2vw;
-	width: 10vw;
+	width: 15vw;
 }
 div.item{
 	position: relative;
