@@ -59,21 +59,21 @@ function Controller(models, views) {
      * ===========================================================
      */
     if (this._drinkView) {
-        this._drinkView.searchFieldModified.attach(function(sender, args) {
+        this._drinkView.searchFieldModified.attach(function (sender, args) {
             _this.queryDrinks(args.query);
         });
 
-        this._drinkView.itemBtnPushed.attach(function(sender, args) {
+        this._drinkView.itemBtnPushed.attach(function (sender, args) {
             _this.pushCartItem(args.itemId);
         });
 
-        this._drinkView.refreshDone.attach(function(sender, args) {
+        this._drinkView.refreshDone.attach(function (sender, args) {
             _this._wheel.hide();
         });
     }
 
     if (this._databaseModel) {
-        this._databaseModel.drinksUpdated.attach(function() {
+        this._databaseModel.drinksUpdated.attach(function () {
             _this.queryMenu();
         });
 
@@ -84,28 +84,28 @@ function Controller(models, views) {
      * ===========================================================
      */
     if (this._cartView) {
-        this._cartView.popBtnClicked.attach(function(sender, args) {
+        this._cartView.popBtnClicked.attach(function (sender, args) {
             _this.popCartItem(args.itemId);
         });
 
-        this._cartView.incrementBtnClicked.attach(function(sender, args) {
+        this._cartView.incrementBtnClicked.attach(function (sender, args) {
             _this.incrementCartItem(args.itemId);
         });
 
-        this._cartView.amountRemoved.attach(function(sender, args) {
+        this._cartView.amountRemoved.attach(function (sender, args) {
             _this.decrementCartItem(args.itemId);
         });
 
-        this._cartView.logoutBtnClicked.attach(function() {
+        this._cartView.logoutBtnClicked.attach(function () {
             _this.logout();
         });
     }
     if (this._cartModel) {
-        this._cartModel.cartUpdated.attach(function() {
+        this._cartModel.cartUpdated.attach(function () {
             _this.refreshCart();
             _this.refreshTotalPrice();
         });
-        this._cartView.clearBtnClicked.attach(function() {
+        this._cartView.clearBtnClicked.attach(function () {
 
             _this.clearCart();
         });
@@ -117,17 +117,17 @@ function Controller(models, views) {
      */
     /* Login */
     if (this._loginView) {
-        this._loginView.loginBtnClicked.attach(function(sender, args) {
+        this._loginView.loginBtnClicked.attach(function (sender, args) {
             _this.login(args.username, args.password);
         });
     }
 
     if (this._loginModel) {
-        this._loginModel.loginDone.attach(function() {
+        this._loginModel.loginDone.attach(function () {
             _this.isLoggedIn();
         });
 
-        this._loginModel.logoutDone.attach(function() {
+        this._loginModel.logoutDone.attach(function () {
             _this.isLoggedIn();
         });
     }
@@ -139,14 +139,14 @@ function Controller(models, views) {
      */
 
     if (this._languageView) {
-        this._languageView.languageSelected.attach(function(sender, args) {
+        this._languageView.languageSelected.attach(function (sender, args) {
             _this.updateLanguage(args.language);
         });
     }
 
 
     if (this._languageModel) {
-        this._languageModel.languageUpdated.attach(function(sender, args) {
+        this._languageModel.languageUpdated.attach(function (sender, args) {
             _this.refreshLanguage(args.words);
         });
     }
@@ -158,22 +158,22 @@ function Controller(models, views) {
      */
     if (this._menuView) {
         /*Listen for menu button clicks*/
-        this._menuView.menuBtnPushed.attach(function(sender, args) {
+        this._menuView.menuBtnPushed.attach(function (sender, args) {
             _this._wheel.show();
             _this.queryMenu();
         });
     }
 
     if (this._menuModel) {
-        this._menuModel.menuUpdated.attach(function(sender, args) {
+        this._menuModel.menuUpdated.attach(function (sender, args) {
             _this.refreshMenu(args.itemList);
         });
 
-        this._menuModel.drinksUpdated.attach(function(sender, args) {
+        this._menuModel.drinksUpdated.attach(function (sender, args) {
             _this.refreshDrinksMenu(args.itemList);
         });
 
-        this._menuModel.menuStartUp.attach(function() {
+        this._menuModel.menuStartUp.attach(function () {
             //_this.refreshDrinks();
             _this.updateMenu();
         });
@@ -187,23 +187,16 @@ function Controller(models, views) {
      */
     if (this._quickView) {
         /*Listen for quick buttons clicks*/
-        this._quickView.itemBtnPushed.attach(function(sender, args) {
+        this._quickView.itemBtnPushed.attach(function (sender, args) {
             _this.pushCartItem(args.itemId);
         });
     }
 
-  if(this._quickModel) {
-    this._quickModel.quickUpdated.attach(function () {
-      _this.refreshQuick();
-    });
-  }
-
-
-    //if (this._quickModel) {
-    //    this._quickModel.quickUpdated.attach(function(sender, args) {
-    //        _this.refreshQuick(args.quickList);
-    //    });
-    //}
+    if (this._quickModel) {
+        this._quickModel.quickUpdated.attach(function () {
+            _this.refreshQuick();
+        });
+    }
 
     /*
      * ===========================================================
@@ -211,11 +204,11 @@ function Controller(models, views) {
      * ===========================================================
      */
     if (this._payView) {
-        this._payView.paybuttonClicked.attach(function() {
+        this._payView.paybuttonClicked.attach(function () {
             _this.buy();
         });
 
-        this._payModel.emptyCart.attach(function() {
+        this._payModel.emptyCart.attach(function () {
             _this.cartEmpty();
         });
     }
@@ -225,14 +218,14 @@ function Controller(models, views) {
      * == COMMAND LISTENER =======================================
      * ===========================================================
      */
-     if(this._commandView) {
-        this._commandView.undoPressed.attach(function(sender, args) {
-            _this.undo();       
+    if (this._commandView) {
+        this._commandView.undoPressed.attach(function (sender, args) {
+            _this.undo();
         });
-        this._commandView.redoPressed.attach(function(sender, args) {
+        this._commandView.redoPressed.attach(function (sender, args) {
             _this.redo();
         });
-     }
+    }
 
 }
 
@@ -255,7 +248,7 @@ Controller.prototype = {
     /*
      * calls the emptyCart function in payView
      */
-    cartEmpty: function() {
+    cartEmpty: function () {
         this._payView.emptyCart();
     },
 
@@ -263,13 +256,13 @@ Controller.prototype = {
      * Gets the cart username and password and sends the information to Paymodel so that the purchase can be processed.
      * After the purchase is completed it clears the cart and refreshes the view
      */
-    buy: function() {
+    buy: function () {
         var cart = this._cartModel.getCart(),
             totalSum = this._cartModel.getTotalPrice(),
             userName = this._loginModel.getUserName(),
             userPass = this._loginModel.getPassWord(),
             object = this._payModel.test(cart, totalSum, userName, userPass);
-            
+
         if (object === "success") {
             this._cartModel._drop();
             this.refreshCart();
@@ -277,12 +270,11 @@ Controller.prototype = {
             this.refreshDrinks();
             this.refreshCredit();
             this.showDrinks();
-        } else if (object === "cancel") {} else {
+        } else if (object === "cancel") {
+        } else {
             console.log(object);
             this._payView.tooManyItems(object);
         }
-
-
     },
     /*
      * ===========================================================
@@ -293,32 +285,40 @@ Controller.prototype = {
      * Show the drink table
      * @function showDrinks
      */
-    showDrinks: function() {
+    showDrinks: function () {
         this.isLoggedIn();
         var initSearch = "";
 
+        var test_time = Date.now();
         this.queryDrinks(initSearch);
+        console.log("initSearch took " + (Date.now()-test_time) + "ms");
+        test_time = Date.now();
         this.queryRecommended();
+        console.log("queryRecommended took " + (Date.now()-test_time) + "ms");
+        test_time = Date.now();
         this.refreshTotalPrice();
+        console.log("refreshTotalPrice took " + (Date.now()-test_time) + "ms");
+        test_time = Date.now();
         this.refreshCredit();
+        console.log("refreshCredit took " + (Date.now()-test_time) + "ms");
+        test_time = Date.now();
         this.startUpMenu();
-        //this.updateMenu();
-//        this.updateQuick();
+        console.log("startUpMenu took " + (Date.now()-test_time) + "ms");
         this.refreshDictionary();
     },
 
     queryRecommended: function () {
-    console.log("Controller.queryRecommended");
-    var username = this._loginModel.getUserName();
-    var password = this._loginModel.getPassWord();
-    this._quickModel.query(username, password);
+        console.log("Controller.queryRecommended");
+        var username = this._loginModel.getUserName();
+        var password = this._loginModel.getPassWord();
+        this._quickModel.query(username, password);
     },
 
     /*
      * Show the login
      * @function showLogin
      */
-    showLogin: function() {
+    showLogin: function () {
         this.isLoggedIn();
     },
 
@@ -332,7 +332,7 @@ Controller.prototype = {
      * Refreshes the DrinkView
      * @function refreshDrinks
      */
-    refreshDrinks: function() {
+    refreshDrinks: function () {
         this._wheel.show();
         var itemList = this._databaseModel.getItems();
         this._drinkView.refresh(itemList);
@@ -341,7 +341,7 @@ Controller.prototype = {
     /* Queries the DatabaseModel
      * @function queryDrinks
      */
-    queryDrinks: function(query) {
+    queryDrinks: function (query) {
         this._wheel.show();
         var username = this._loginModel.getUserName();
         var password = this._loginModel.getPassWord();
@@ -358,7 +358,7 @@ Controller.prototype = {
     /*
      * Clears the cart and refreshes the view
      */
-    clearCart: function() {
+    clearCart: function () {
         this._cartModel._drop();
         this.refreshCart();
     },
@@ -367,12 +367,12 @@ Controller.prototype = {
      * @function pushCartItem
      * @param itemId
      */
-    pushCartItem: function(itemId) {
+    pushCartItem: function (itemId) {
         var item = this._databaseModel.getItem(itemId);
         this._cartModel.push(item);
         console.log("Controller.pushCartItem: ", itemId);
-        if (itemId.length>0) {
-            sessionStorage['commands']+=JSON.stringify(["push",itemId])+",";
+        if (itemId.length > 0) {
+            sessionStorage['commands'] += JSON.stringify(["push", itemId]) + ",";
         }
     },
     /*
@@ -380,18 +380,18 @@ Controller.prototype = {
      * @function popCartItem
      * @param {Integer} itemId
      */
-    popCartItem: function(itemId) {
+    popCartItem: function (itemId) {
         console.log("Controller.popCartItem: ", itemId);
         this._cartModel.pop(itemId);
-        if (itemId.length>0) {
-            sessionStorage['commands']+=JSON.stringify(["pop",itemId])+",";
+        if (itemId.length > 0) {
+            sessionStorage['commands'] += JSON.stringify(["pop", itemId]) + ",";
         }
     },
     /* Increases the amount of an item.
      * function incrementCartItem
      * @param itemId
      */
-    incrementCartItem: function(itemId) {
+    incrementCartItem: function (itemId) {
         console.log("Controller.incrementCartItem: ", itemId);
         this._cartModel.increment(itemId);
     },
@@ -400,7 +400,7 @@ Controller.prototype = {
      * @function decrementCartItem
      * @param itemId
      */
-    decrementCartItem: function(itemId) {
+    decrementCartItem: function (itemId) {
         console.log("Controller.decrementCartItem: ", itemId);
         this._cartModel.decrement(itemId);
     },
@@ -409,7 +409,7 @@ Controller.prototype = {
      * Refreshes the CartView
      * @function refreshCart
      */
-    refreshCart: function() {
+    refreshCart: function () {
         var cartItemList = this._cartModel.getCart();
         console.log("Controller.refreshCart: " + cartItemList.length);
         this._cartView.refresh(cartItemList);
@@ -419,7 +419,7 @@ Controller.prototype = {
      * Refreshes the total price
      * @function refreshTotalPrice
      */
-    refreshTotalPrice: function() {
+    refreshTotalPrice: function () {
         var totalPrice = this._cartModel.getTotalPrice();
         this._cartView.setTotalPrice(totalPrice);
     },
@@ -428,10 +428,10 @@ Controller.prototype = {
      * @function refreshCredit
      */
 
-    refreshCredit: function() {
+    refreshCredit: function () {
         var username = this._loginModel.getUserName();
         var password = this._loginModel.getPassWord();
-        var credit = this._cartModel.getCredit(username, password);
+        var credit = 0;//this._cartModel.getCredit(username, password); //TODO As of now, this takes ~10s
         this._cartView.setCredit(credit);
     },
 
@@ -447,7 +447,7 @@ Controller.prototype = {
      * @function _redirect
      * @param page
      */
-    _redirect: function(page) {
+    _redirect: function (page) {
         console.log("Controller._redirect: ", page);
         window.location.href = page;
     },
@@ -457,7 +457,7 @@ Controller.prototype = {
      * @function _getCurrentPage
      * @return {String}
      */
-    _getCurrentPage: function() {
+    _getCurrentPage: function () {
         var url = window.location.pathname;
         var filename = url.substring(url.lastIndexOf('/') + 1);
         return filename;
@@ -467,7 +467,7 @@ Controller.prototype = {
      * @function _isCurrentPage
      * @return {Boolean}
      */
-    _isCurrentPage: function(page) {
+    _isCurrentPage: function (page) {
         return (this._getCurrentPage() == page);
     },
     /*
@@ -476,7 +476,7 @@ Controller.prototype = {
      * @param username
      * @param password
      */
-    login: function(username, password) {
+    login: function (username, password) {
         console.log("Controller.login: ", username, password);
         this._loginModel.login(username, password);
     },
@@ -485,7 +485,7 @@ Controller.prototype = {
      * Log out and redirects to index.html
      * @function logout
      */
-    logout: function() {
+    logout: function () {
         console.log("Controller.logout");
         this._loginModel.logout();
     },
@@ -493,7 +493,7 @@ Controller.prototype = {
     /* Checks if the login was successful, if so redirect if needed.
      * @function isLoggedIn
      */
-    isLoggedIn: function() {
+    isLoggedIn: function () {
         var page = "index.html";
         var isLoggedIn = +this._loginModel.isLoggedIn();
         if (isLoggedIn) {
@@ -524,19 +524,19 @@ Controller.prototype = {
      * == MENU ===================================================
      * ===========================================================
      */
-    updateMenu: function() {
+    updateMenu: function () {
         var username = this._loginModel.getUserName();
         var password = this._loginModel.getPassWord();
         var itemList = this._menuModel.getItems();
         this._menuModel.update(username, password, itemList);
     },
 
-    refreshMenu: function(itemList) {
+    refreshMenu: function (itemList) {
         this._menuView.refresh(itemList);
     },
 
 
-    queryMenu: function() {
+    queryMenu: function () {
 
         console.log("Controller.queryMenu: " + query);
         var username = this._loginModel.getUserName();
@@ -546,12 +546,12 @@ Controller.prototype = {
         this._menuModel.queryMenu(query, username, password, itemList);
     },
 
-    refreshDrinksMenu: function(itemList) {
+    refreshDrinksMenu: function (itemList) {
         this._wheel.show();
         this._drinkView.refresh(itemList);
     },
 
-    startUpMenu: function() {
+    startUpMenu: function () {
         var username = this._loginModel.getUserName();
         var password = this._loginModel.getPassWord();
         this._menuModel.startUp(username, password);
@@ -566,32 +566,30 @@ Controller.prototype = {
 //        this._quickModel.update();
 //    },
 
-  refreshQuick: function() {
-    var itemList = this._quickModel.getItems();
-//    console.log("Controller.refreshQuick: " + itemList.length);
-//    console.log("Itemlist from controller: " + itemList);
-    this._quickView.refresh(itemList);
-  },
+    refreshQuick: function () {
+        var itemList = this._quickModel.getItems();
+        this._quickView.refresh(itemList);
+    },
     /*
      * ===========================================================
      * == TRANSLATION ============================================
      * ===========================================================
      */
 
-    initLanguage: function(language) {
+    initLanguage: function (language) {
         this._languageModel.setDictionary(language);
     },
 
-    updateLanguage: function(language) {
+    updateLanguage: function (language) {
         this._languageModel.setDictionary(language);
     },
 
-    refreshLanguage: function(words) {
+    refreshLanguage: function (words) {
         console.log("refreshLanguage", words);
         this._languageView.translate(words);
     },
 
-    refreshDictionary: function() {
+    refreshDictionary: function () {
         var words = this._languageModel.getDictionary();
         this.refreshLanguage(words);
     },
@@ -601,7 +599,7 @@ Controller.prototype = {
      * ===========================================================
      */
 
-     undo: function() {
+    undo: function () {
         var _this = this;
         var inverse = "";
         var itemId = "";
@@ -610,50 +608,49 @@ Controller.prototype = {
         // <=>
         // "sessionStorage["undo"].length > 0"
         if (sessionStorage["commands"] == ",") {
-             sessionStorage["commands"] = "";
+            sessionStorage["commands"] = "";
         }
-        if (sessionStorage["commands"].length>0){
+        if (sessionStorage["commands"].length > 0) {
             console.log("commands: " + sessionStorage["commands"])
             var last = this._commandModel.getLastElement("commands");
-            $.each(last, function(index, element) {
-                if(index==0) {
-                    inverse=_this._commandModel.getInverse(element);
+            $.each(last, function (index, element) {
+                if (index == 0) {
+                    inverse = _this._commandModel.getInverse(element);
                 }
-                if(index==1) {
-                    itemId=element;
+                if (index == 1) {
+                    itemId = element;
                 }
             });
-            this.execute(inverse,itemId);
+            this.execute(inverse, itemId);
         }
     },
 
-    redo: function() {
+    redo: function () {
         var inverse = "";
         var itemId = "";
-        if (sessionStorage["redo"].length>0){
-            console.log("redo=" + sessionStorage["redo"] + " length: "+ sessionStorage["redo"].length);
+        // Securing integrity of
+        // "at least 1 item in stack"
+        // <=>
+        // "sessionStorage["redo"].length > 0"
+        if (sessionStorage["redo"] == ",") {
+            sessionStorage["redo"] = "";
+        }
+        if (sessionStorage["redo"].length > 0) {
+            console.log("redo=" + sessionStorage["redo"] + " length: " + sessionStorage["redo"].length);
             var last = this._commandModel.getLastElement("redo");
-            $.each(last, function(index, element) {
-                if(index==0) {
-                    inverse=element;
+            $.each(last, function (index, element) {
+                if (index == 0) {
+                    inverse = element;
                 }
-                if(index==1) {
-                    itemId=element;
+                if (index == 1) {
+                    itemId = element;
                 }
             });
-            this.execute(inverse,itemId);
-
-            // Securing integrity of
-            // "at least 1 item in stack"
-            // <=>
-            // "sessionStorage["redo"].length > 0"
-            if (sessionStorage["redo"] == ",") {
-                sessionStorage["redo"] = "";
-            }
+            this.execute(inverse, itemId);
         }
     },
 
-    execute: function(inverse,itemId) {
+    execute: function (inverse, itemId) {
         switch (inverse) {
             case "push":
                 var item = this._databaseModel.getItem(itemId);
