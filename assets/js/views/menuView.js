@@ -80,9 +80,6 @@ MenuView.prototype = {
      * ===========================================================
      */
 
-	theme: function() {
-		alert("Func them");
-	},
 	/*
      * Get the id of the menu button that is clicked
      * @function getMenuClicked
@@ -104,13 +101,6 @@ MenuView.prototype = {
 		menu.empty();
 		menu.append($('<table id="menu">'));
 		menu.append($('<tr>'));
-
-
-		//Ska ha texten tagen från det språket som är!
-		/*menu.append($('<td><button ' +
-					'class="logout" >' +
-					"Log Out" + 
-					'</button></td>' ));*/
 
 		for(var i = 0; i < itemList.length; i++){
 			var item = itemList[i];
