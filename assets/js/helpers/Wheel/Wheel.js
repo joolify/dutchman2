@@ -64,7 +64,7 @@ function Wheel(canvasId, diameter, numSpokes) {
 
         this.drawCircle(targetX, targetY, this.diameter/24);
         this.ctx.fill();
-        this.drawCircle(targetX - this.diameter*0.72 * Math.cos(angle), targetY - this.diameter*0.72 * Math.sin(angle), this.diameter/40);
+        this.drawCircle(targetX - radius*0.3 * Math.cos(angle), targetY - radius*0.3 * Math.sin(angle), this.diameter/40);
         this.ctx.stroke();
     }
 
