@@ -222,17 +222,27 @@ div#command {
 	height: 2vw;
 	width: 80vw;
 }
-button.category {
+div.category {
+	padding: 0;
 	width: 7vw;
 	height: 2vw;
 	font-size: 100%;
 	font-weight: bold;
+	float: left;
+	margin-right: 0.5vw;
+	text-align: center;
+	padding-top: 0.5vw;
 }
-button.categoryClicked {
+div.categoryClicked {
+	padding: 0;
 	width: 7vw;
 	height: 2vw;
-	font-weight: bold;
 	font-size: 100%;
+	font-weight: bold;
+	float: left;
+	margin-right: 0.5vw;
+	text-align: center;
+	padding-top: 0.5vw;
 	background-color: red;
 }
 
