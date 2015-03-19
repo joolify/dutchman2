@@ -8,7 +8,6 @@ function MenuView(elements) {
     /** @private */ this._elements = elements;
     this.menuBtnPushed = new Event(this);
     var _this = this;
-
     this._buttonPushed = "";
 
     /*
@@ -16,6 +15,7 @@ function MenuView(elements) {
      * ==================== EVENT LISTENERS ======================
      * ===========================================================
      */
+	// Listens to theme drop down
     this._elements.theme.change(function (e) {
         _this._theme();
     });
@@ -27,7 +27,11 @@ MenuView.prototype = {
      * ======================== PRIVATE  =========================
      * ===========================================================
      */
-
+	/*
+     * Changes the theme by changing to another CSS file
+     * @private
+     * @function _theme
+     */
     _theme: function () {
         var option = $("#theme").val();
         if (option === "Theme 2") {
@@ -42,7 +46,6 @@ MenuView.prototype = {
     /*
      * Notifies its listeners that a menu button has been pressed
      * and changes the pressed buttons color
-
      * @private
      * @function _pushMenu
      * @param {String} itemId

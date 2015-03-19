@@ -86,7 +86,6 @@ MenuModel.prototype = {
 	},
 
 	/*
-
      * Search the database to find the items in the itemList that has the specified category
      * @function queryMenu
 	 * @param {String} category
