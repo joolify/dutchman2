@@ -16,12 +16,13 @@ function DrinkView(elements) {
     var _this = this;
 
     // Listens to search input
-    this._elements.input.on('input', function(e) {
+    this._elements.input.on('input', function (e) {
         _this._searchFieldModified($(this).val());
     });
 
-    var cart = document.getElementById('cart');
-
+    /*
+     *  Creates handler functions for dragover/drop events and adds listeners to cart.
+     */
     function handleDragOver(e) {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'move';
@@ -32,13 +33,13 @@ function DrinkView(elements) {
         itemId = e.dataTransfer.getData('itemId');
         e.stopPropagation(); // Stops the browser from redirecting
         e.preventDefault();
-        _this._pushItem(itemId); // Adding to cart
+        _this._pushItem(itemId); // Adding to cart using _pushItem
         return false;
     }
 
+    var cart = document.getElementById('cart');
     cart.addEventListener('dragover', handleDragOver, false);
     cart.addEventListener('drop', handleDrop, false);
-
 }
 
 DrinkView.prototype = {
@@ -53,7 +54,7 @@ DrinkView.prototype = {
      * @function _searchFieldModified
      * @param {String} newQuery
      */
-    _searchFieldModified: function(newQuery) {
+    _searchFieldModified: function (newQuery) {
         this.searchFieldModified.notify({
             query: newQuery
         });
@@ -64,7 +65,7 @@ DrinkView.prototype = {
      * @private
      * @function _refreshDone
      */
-    _refreshDone: function() {
+    _refreshDone: function () {
         this.refreshDone.notify();
     },
 
@@ -74,7 +75,7 @@ DrinkView.prototype = {
      * @function _pushItem
      * @param {Integer} itemId
      */
-    _pushItem: function(itemId) {
+    _pushItem: function (itemId) {
         this.itemBtnPushed.notify({
             itemId: itemId
         });
@@ -89,16 +90,21 @@ DrinkView.prototype = {
      * @function refresh
      * @param {Item[]} itemList
      */
-    refresh: function(itemList) {
+    refresh: function (itemList) {
         var _this = this,
             list = this._elements.list;
 
         list.empty();
 
         for (var i = 0; i < itemList.length; i++) {
+            // Loops through itemList, which should contain the filtered set of items.
             var item = itemList[i];
-            var imageURL = 'url("itemImages/';
+            var imageURL = 'url("itemImages/';  /*  TODO LARS, folder "itemImages" is not included in the archive.
+                                                 *  It includes most of the pictures of bottles, saved as itemId.jpg
+                                                 */
             imageURL += item.getId() + '.JPG")';
+
+            // Appends a draggable div containing general information and a div reserved for themes with an add icon.
             list.append(
                 '<div class="item " ' +
                 ' id="' + item.getId() + '"' +
@@ -110,17 +116,19 @@ DrinkView.prototype = {
             );
             var thisElement = document.getElementById(item.getId());
             var addButton = document.getElementById(item.getId()).lastElementChild;
-            if (item.getCount() < 1) { //Checks availability
-                addButton.className = "outOfStockButton";
+
+            //Checks availability and adds a class showing this
+            if (item.getCount() < 1) {
+                addButton.className = "outOfStockButton"; //TODO This line is redundant. Should add button according to
+                                                          //the main divs class instead, which is easy with CSS.
                 thisElement.classList.add('outOfStock');
             } else {
                 thisElement.classList.add('inStock');
             }
-
             thisElement.style.backgroundImage = imageURL;
         }
         // Listen for clicks on items
-        $('.inStock').click(function() {
+        $('.inStock').click(function () {
             _this._pushItem($(this).attr('id'));
         });
 
@@ -131,15 +139,14 @@ DrinkView.prototype = {
          * Handle drag/drop events
          */
         function handleDragStart(e) {
-            this.style.opacity = '0.4';
+            this.style.opacity = '0.4'; // Makes the item div opaque
             itemId = this.getAttribute('id');
             e.dataTransfer.effectAllowed = 'move';
             e.dataTransfer.setData('itemId', itemId);
             cart.style.boxShadow = 'inset 0 0 15px #0000FF'; // Highlights the cart
         }
 
-
-        function handleDragEnd(e) {
+        function handleDragEnd() {
             this.style.opacity = ''; // Removes the 'opacity' attr.
             cart.style.boxShadow = ''; // Removes the 'boxShadow' attr
         }
@@ -148,7 +155,7 @@ DrinkView.prototype = {
          * Each item needs to listen for drag-(start/end)
          * The cart needs to listen for dragover and drop
          */
-        [].forEach.call(items, function(item) {
+        [].forEach.call(items, function (item) {
             item.addEventListener('dragstart', handleDragStart, false);
             item.addEventListener('dragend', handleDragEnd, false);
         });

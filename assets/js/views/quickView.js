@@ -28,7 +28,7 @@ QuickView.prototype = {
      * @function refresh
      * @param {Item[]} itemList
      */
-    refresh: function(itemList) {
+    refresh: function (itemList) {
         var _this = this,
             list = this._elements.quickBuy;
 
@@ -48,7 +48,7 @@ QuickView.prototype = {
                 '</div>'
             );
             var thisElement = document.getElementById('quick_' + item.getId());
-            var addButton = document.getElementById('quick_' +item.getId()).lastElementChild;
+            var addButton = document.getElementById('quick_' + item.getId()).lastElementChild;
             if (item.getCount() < 1) { //Checks availability
                 addButton.className = "outOfStockButton";
                 thisElement.classList.add('outOfStock');
@@ -59,7 +59,7 @@ QuickView.prototype = {
             thisElement.style.backgroundImage = imageURL;
         }
         // Listen for clicks on items
-        $('.inStock').click(function() {
+        $('.inStock').click(function () {
             _this._pushItem(($(this).attr('id')).slice(6));
         });
 
@@ -68,6 +68,8 @@ QuickView.prototype = {
 
         /*
          * Handle drag/drop events
+         *
+         * PRECONDITION: There are listeners on cart, handling the dragover and drop.
          */
         function handleDragStart(e) {
             this.style.opacity = '0.4';
@@ -86,7 +88,7 @@ QuickView.prototype = {
         /* Now we need to add listeners.
          * Each item needs to listen for drag-(start/end)
          */
-        [].forEach.call(items, function(item) {
+        [].forEach.call(items, function (item) {
             item.addEventListener('dragstart', handleDragStart, false);
             item.addEventListener('dragend', handleDragEnd, false);
         });

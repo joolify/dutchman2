@@ -15,7 +15,7 @@ function MenuView(elements) {
      * ==================== EVENT LISTENERS ======================
      * ===========================================================
      */
-	// Listens to theme drop down
+    // Listens to theme drop down
     this._elements.theme.change(function (e) {
         _this._theme();
     });
@@ -27,12 +27,12 @@ MenuView.prototype = {
      * ======================== PRIVATE  =========================
      * ===========================================================
      */
-	/*
+    /*
      * Changes the theme by changing to another CSS file
      * @private
      * @function _theme
      */
-    _theme: function () {
+    _theme: function () { //TODO This whole function is not very expandable. Should be updated if wanting more than 2 themes
         var option = $("#theme").val();
         if (option === "Theme 2") {
             var oldlink = document.getElementsByTagName("link").item(0);
