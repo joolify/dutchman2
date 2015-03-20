@@ -52,6 +52,8 @@ QuickModel.prototype = {
      * Notifies controller about updated list with quick items
      * @function _get_inventory
      * @param {List} beer_id_list
+     * @param {String} username
+     * @param {String} password
      * @return {List}
      */
     _get_inventory: function (beer_id_list, username, password) {

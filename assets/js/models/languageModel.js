@@ -75,13 +75,20 @@ LanguageModel.prototype = {
      getLanguage: function() {
         return sessionStorage.getItem("language");
      },
-
+     /*
+     * Gets the corresponding language from the dictionary json file
+     * @function getDictionary
+     */
      getDictionary: function() {
         var language = this.getLanguage();
         this.makeDictionary(language);
         return [].concat(this._words);
      },
-
+    /*
+     * Sets the language dictionary and notifies to the controller about the new language that is gonna be used
+     * @function setDictionary
+     * @param {String} language
+     */
     setDictionary: function(language) {
         console.log("setDictionary on LanguageModel");
         console.log(language);
@@ -90,7 +97,11 @@ LanguageModel.prototype = {
         console.log(this._words);
         this.languageUpdated.notify({words: [].concat(this._words)});
     },
-
+    /*
+     * Iterates trough the dictionary variable to create an array with the words of the selected language
+     * @function makeDictionary
+     * @param {String} language
+     */
     makeDictionary: function(language) {
         var _this=this;
         $.each(_this._dictionary, function(index, element) {
@@ -101,5 +112,4 @@ LanguageModel.prototype = {
             }
         });
     }
-
 };

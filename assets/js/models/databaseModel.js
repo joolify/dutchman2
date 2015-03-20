@@ -23,11 +23,10 @@ DatabaseModel.prototype = {
      * @function _drop
      */
     _drop: function () {
-	while(this._itemList.length > 0) {
-	    this._itemList.pop();
-	}
+        while(this._itemList.length > 0) {
+            this._itemList.pop();
+        }
     },    
-    
     /*
      * Checks how many of the search term has a match on the label
      * @function _getSearchHits
@@ -36,7 +35,7 @@ DatabaseModel.prototype = {
      * @return {Integer} 
      */
     _getSearchHits: function(name, searchArray) {
-	var count = 0;
+        var count = 0;
         for (var index = 0; index < searchArray.length; index++) {
             if (searchArray[index].length > 0 &&
                 name.indexOf(searchArray[index]) > -1) {
@@ -98,12 +97,13 @@ DatabaseModel.prototype = {
      * Query the database. 
      * @function query
      * @param {String} query 
+     * @param {String} username 
+     * @param {String} password 
      */
     query: function (query, username, password) {
 		var urlQuery = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=inventory_get';
 		console.log("Model.query(): " + query);
 		var _this = this;
-			
 		$.ajax({
 			url: urlQuery,
 			type: "POST",
@@ -118,7 +118,6 @@ DatabaseModel.prototype = {
 						_this._itemList.push(newItem);
 					}
 				});		
-				
 				console.log("Model.query().itemList: ", _this._itemList.length);
 				_this.drinksUpdated.notify();
 			},
@@ -126,6 +125,5 @@ DatabaseModel.prototype = {
 				console.log('an error occurred!');
 			}
 		});
-
     }
 };

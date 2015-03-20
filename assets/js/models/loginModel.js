@@ -22,7 +22,7 @@ LoginModel.prototype = {
      * @param {String} value
      */
     _setCookie: function (key, value) {
-	document.cookie = key + "=" + value;
+        document.cookie = key + "=" + value;
     },
 
     /*
@@ -32,14 +32,14 @@ LoginModel.prototype = {
      * @return {String} 
      */
     _getCookie: function (key) {
-	key = key + "=";
-	var cookieArray = document.cookie.split(';');
-	for(var i = 0; i < cookieArray.length; i++) {
-	    var cookie = cookieArray[i]; 
-	    while(cookie.charAt(0)==' ') cookie = cookie.substring(1);
-	    if(cookie.indexOf(key) == 0) return cookie.substring(key.length, cookie.length);
-	}
-	return null;
+        key = key + "=";
+        var cookieArray = document.cookie.split(';');
+        for(var i = 0; i < cookieArray.length; i++) {
+            var cookie = cookieArray[i]; 
+            while(cookie.charAt(0)==' ') cookie = cookie.substring(1);
+            if(cookie.indexOf(key) == 0) return cookie.substring(key.length, cookie.length);
+        }
+        return null;
     },
 
     /*
@@ -48,7 +48,7 @@ LoginModel.prototype = {
      * @param {Integer}
      */
     _setUserType: function (usertype) {
-	this._setCookie("usertype", usertype);
+        this._setCookie("usertype", usertype);
     },
 
     /* 
@@ -57,7 +57,7 @@ LoginModel.prototype = {
      * @param {String} username
      */
     _setUserName: function (username) {
-	this._setCookie("username", username);
+        this._setCookie("username", username);
     },
 
     /*
@@ -66,7 +66,7 @@ LoginModel.prototype = {
      * @param {String} password
      */
     _setPassWord: function (password) {
-	this._setCookie("password", password);
+        this._setCookie("password", password);
     },
 
     /*
@@ -75,7 +75,7 @@ LoginModel.prototype = {
      * @param {Integer} bool
      */
     _setLoggedIn: function (bool) {
-	this._setCookie("isloggedin", bool);
+        this._setCookie("isloggedin", bool);
     },
 
     /*
@@ -83,7 +83,7 @@ LoginModel.prototype = {
      * @function _setError
      */
     _setError: function () {
-	this._setCookie("error", 1);
+        this._setCookie("error", 1);
     },
 
     /*
@@ -94,10 +94,10 @@ LoginModel.prototype = {
      * @param {Integer} usertype
      */
     _setUser: function (username, password, usertype) {
-	this._setUserType(usertype);
-	this._setUserName(username);
-	this._setPassWord(password);
-	this._setLoggedIn(1);
+        this._setUserType(usertype);
+        this._setUserName(username);
+	    this._setPassWord(password);
+	    this._setLoggedIn(1);
     },
 
     /*
@@ -105,14 +105,13 @@ LoginModel.prototype = {
      * @function _flushCookies
      */
     _flushCookies: function () {
-	var cookies = document.cookie.split(";");
-
-	for (var i = 0; i < cookies.length; i++) {
-    	    var cookie = cookies[i];
+        var cookies = document.cookie.split(";");
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i];
     	    var eqPos = cookie.indexOf("=");
     	    var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
     	    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-	}
+        }
         sessionStorage.removeItem('commands');
     },
 
@@ -121,9 +120,9 @@ LoginModel.prototype = {
      * @function _loginFailed
      */
     _loginFailed: function (_this) {
-	_this._flushCookies();
-	_this._setLoggedIn(0);
-	_this._setError();
+        _this._flushCookies();
+        _this._setLoggedIn(0);
+        _this._setError();
     },
     /*
      * ===========================================================
@@ -135,12 +134,12 @@ LoginModel.prototype = {
      * @function getCookies
      */
     getCookies: function () {
-	var theCookies = document.cookie.split(';');
-	var aString = '';
-	for (var i = 1 ; i <= theCookies.length; i++) {
+        var theCookies = document.cookie.split(';');
+        var aString = '';
+        for (var i = 1 ; i <= theCookies.length; i++) {
             aString += i + ' ' + theCookies[i-1] + "\n";
-	}
-	return aString;
+        }
+        return aString;
     },
 
     /*
@@ -149,7 +148,7 @@ LoginModel.prototype = {
      * @return {Integer}
      */
     getUserType: function() {
-	return this._getCookie("usertype");
+        return this._getCookie("usertype");
     },
 
     /*
@@ -158,7 +157,7 @@ LoginModel.prototype = {
      * @return {String}
      */
     getUserName: function() {
-	return this._getCookie("username");
+        return this._getCookie("username");
     },
 
     /*
@@ -167,7 +166,7 @@ LoginModel.prototype = {
      * @return {String}
      */
     getPassWord: function() {
-	return this._getCookie("password");
+        return this._getCookie("password");
     },
 
     /* 
@@ -176,7 +175,7 @@ LoginModel.prototype = {
      * @return {Boolean}
      */
     hasError: function () {
-	return this._getCookie("error");
+        return this._getCookie("error");
     },
 
     /*
@@ -185,7 +184,7 @@ LoginModel.prototype = {
      * @returns {Boolean}
      */
     isLoggedIn: function () {
-	return this._getCookie("isloggedin");
+        return this._getCookie("isloggedin");
     },
 
     /* 
@@ -193,9 +192,9 @@ LoginModel.prototype = {
      * @function logout
      */ 
     logout: function () {
-	console.log("Controller.logout");
-	this._flushCookies();
-	this.logoutDone.notify();
+        console.log("Controller.logout");
+        this._flushCookies();
+        this.logoutDone.notify();
     },
 
     /*
@@ -205,35 +204,30 @@ LoginModel.prototype = {
      * @param {String} password
      */ 
     login: function (username, password) {
-	var _this = this;
-	console.log("LoginModel.login: ", username, password);
-	var urlLogin = 'http://pub.jamaica-inn.net/fpdb/api.php?username=' + username + '&password=' + password + '&action=iou_get';
-	var urlCheck = 'http://pub.jamaica-inn.net/fpdb/api.php?username=' + username + '&password=' + password + '&action=iou_get_all';
-
-	$.when(
-	    $.getJSON(urlCheck),
-	    $.getJSON(urlLogin)
-	).done(function(resultCheck, resultLogin){
-	    
-	    var loginResponse = resultLogin[0];
-	    if(loginResponse.type != "error"){
-		var isVip = resultCheck[0].type == "error";
-		if(isVip){
-		    console.log("LoginModel.login: is vip");
-		    _this._setUser(username, password, 0); 
-		    _this.loginDone.notify();
-		}
-		else {
-		    console.log("LoginModel.login: is admin");
-		    _this._setUser(username, password, 1); 
-		    _this.loginDone.notify();
-		}
-	    }
-	    else {
-		console.log("LoginModel.login: error");
-		_this._loginFailed(_this);
-		_this.loginDone.notify();
-	    }
-	});
+        var _this = this;
+        console.log("LoginModel.login: ", username, password);
+        var urlLogin = 'http://pub.jamaica-inn.net/fpdb/api.php?username=' + username + '&password=' + password + '&action=iou_get';
+        var urlCheck = 'http://pub.jamaica-inn.net/fpdb/api.php?username=' + username + '&password=' + password + '&action=iou_get_all';
+        $.when($.getJSON(urlCheck),$.getJSON(urlLogin)).done(function(resultCheck, resultLogin) {
+            var loginResponse = resultLogin[0];
+	        if(loginResponse.type != "error"){
+                var isVip = resultCheck[0].type == "error";
+                if(isVip){
+                    console.log("LoginModel.login: is vip");
+                    _this._setUser(username, password, 0); 
+                    _this.loginDone.notify();
+                }
+                else {
+                    console.log("LoginModel.login: is admin");
+                    _this._setUser(username, password, 1); 
+                    _this.loginDone.notify();
+                }
+            }
+            else {
+                console.log("LoginModel.login: error");
+                _this._loginFailed(_this);
+                _this.loginDone.notify();
+            }
+        });
     }
 };

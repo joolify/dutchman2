@@ -12,19 +12,14 @@
 
 CommandModel.prototype = {
 	/*
-     * ===========================================================
-     * ======================== PRIVATE  =========================
-     * ===========================================================
-     */
-     /*
-     * ===========================================================
-     * ======================== PUBLIC  =========================
-     * ===========================================================
-     */
-     /*
-     * Gets the last element of the local session
+    * ===========================================================
+    * ======================== PUBLIC  =========================
+    * ===========================================================
+    */
+    /*
+     * Gets the last element of the corresponding local session variable 
      * @function _getLastElement
-     * @param {String} value
+     * @param {String} type
      */
 	getLastElement: function(type) {
 		if (sessionStorage['commands'].length==1) {
@@ -61,7 +56,11 @@ CommandModel.prototype = {
 		}
 		return last_element;
 	},
-
+	/*
+     * Gets the inverse command for a specific command
+     * @function getInverse
+     * @param {String} command
+     */
 	getInverse: function(command) {
 		var _this=this;
 		var inverse="";
@@ -74,7 +73,4 @@ CommandModel.prototype = {
         });
 		return inverse;
 	}
-
-
-
 };
