@@ -114,7 +114,7 @@ Vip.prototype = {
  */
 $(function () {
     var wheel = new Wheel('wheel');
-    wheel.init();
+    wheel.draw();
     var vip = new Vip();
     vip.run();
 });
