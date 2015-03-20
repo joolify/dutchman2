@@ -3,6 +3,7 @@ function VipController(controllers) {
   /** @private */ this._drinkController = controllers.drink;
   /** @private */ this._loginController = controllers.login;
   /** @private */ this._menuController = controllers.menu;
+  /** @private */ this._payController = controllers.pay;
   /** @private */ this._quickController = controllers.quick;
 
   var _this = this;
@@ -52,6 +53,40 @@ function VipController(controllers) {
       _this._getPassWord(callback);
     });
   }
+
+    if(this._payController) {
+      this._payController.paymentDone.attach(function() {
+      _this._paymentDone();
+    });
+
+    this._payController.requestCart.attach(function(sender, callback) {
+      _this._getCart(callback);
+    });
+    this._payController.requestCartSum.attach(function(sender, callback) {
+      _this._getCartSum(callback);
+    });
+    this._payController.requestUserName.attach(function(sender, callback) {
+      _this._getUserName(callback);
+    });
+
+    this._payController.requestPassWord.attach(function(sender, callback) {
+      _this._getPassWord(callback);
+    });
+  }
+    if(this._quickController) {
+    this._quickController.itemPushed.attach(function (sender, args) {
+      console.log("VipController.itemPushed", args)
+      _this._pushItemToCart(args.item);
+    });
+    this._quickController.requestUserName.attach(function(sender, callback) {
+      _this._getUserName(callback);
+    });
+
+    this._quickController.requestPassWord.attach(function(sender, callback) {
+      _this._getPassWord(callback);
+    });
+  }
+
 }
 
 VipController.prototype = {

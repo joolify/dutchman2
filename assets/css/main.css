@@ -1,88 +1,294 @@
 /*====================
-  ====  OVERALL  =====
+  ====  GENERAL  =====
   ====================*/
 html {
-  font-family: 'Open Sans Condensed';
+    font-family: 'Open Sans Condensed';
 }
 
 body {
-  background-image: url("http://th07.deviantart.net/fs71/PRE/f/2011/326/d/c/tintin_and_the_secret_of_the_unicorn_by_o0hayatokun0o-d4gxqk1.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
+    background-image: url('images/dark_texture.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 div {
-  padding: 1%;
-  background-color: #FFF;
-  border-radius: 15px;
+    padding: 1%;
+    background-color: #FFF;
+    -webkit-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    opacity: 0.9;
 }
+
+div > h2 {
+    height: 10%;
+    margin: 0;
+}
+
+/* Prevent text of draggable elements to be selectable */
+[draggable] {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    /* Required to make elements draggable in old WebKit */
+    -khtml-user-drag: element;
+    -webkit-user-drag: element;
+}
+
 /*====================
   =====  DRINKS  =====
   ====================*/
 div#drinks {
-  position: fixed;
-  top: 10%;
-  left: ;
-  width: 40%;
-  height: 80%;
+    position: fixed;
+    top: 10%;
+    left: 6.66%;
+    width: 50%;
+    height: 80%;
+}
+
+div.item {
+    width: 20%;
+    height: 160pt;
+    margin: 1%;
+    border: 1pt solid black;
+    float: left;
+    -webkit-box-shadow: inset 0 0 10px #000;
+    -ms-box-shadow: inset 0 0 10px #000;
+    box-shadow: inset 0 0 10px #000;
+    text-align: center;
+    cursor: pointer;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+div.quick {
+    height: 45%;
+    width: 20%;
+}
+
+div.item:hover {
+    -webkit-box-shadow: inset 0 0 10px #00F000;
+    -ms-box-shadow: inset 0 0 10px #00F000;
+    box-shadow: inset 0 0 10px #00F000;
+}
+
+div.outOfStock {
+    -webkit-box-shadow: inset 0 0 10px #FF0000;
+    -ms-box-shadow: inset 0 0 10px #FF0000;
+    box-shadow: inset 0 0 10px #FF0000;
+}
+
+div.outOfStock:hover {
+    -webkit-box-shadow: inset 0 0 10px #FF0000;
+    -ms-box-shadow: inset 0 0 10px #FF0000;
+    box-shadow: inset 0 0 10px #FF0000;
+    cursor: default;
+}
+
+span.name, span.name2, span.price {
+    display: block;
+    background-color: white;
+}
+
+div#search {
+    height: 5%;
 }
 
 input#query {
-  width: 100%;
+    width: 100%;
 }
 
 div#drink_table {
-  height: 80%;
-  overflow: auto;
+    height: 85%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+table#drink_table {
+    width: 100%;
+    height: 100%;
 }
 
 /*====================
   ===  QUICK-BUY  ====
   ====================*/
 div#quick_buy {
-  position: fixed;
-  top: 100px;
-  right: 0px;
-  width: 40%;
-  height: 40%;
-  overflow: auto;
+    position: fixed;
+    top: 10%;
+    right: 5%;
+    width: 30%;
+    height: 40%;
+    overflow: auto;
 }
 
 /*====================
   ======  CART  ======
   ====================*/
 div#cart {
-  position: fixed;
-  top: 60%;
-  right: 0px;
-  width: 40%;
-  height: 30%;
+    position: fixed;
+    top: 55%;
+    right: 5%;
+    width: 30%;
+    height: 35%;
+}
+
+div#cart > h2 {
+    height: 10%;
+    margin: 0;
 }
 
 div#cart_table {
-  height: 80%;
-  overflow: auto;
+    margin-top: 0%;
+    height: 70%;
+    overflow: auto;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
-td.remove {
+div#cart_table td {
+    height: 40px;
 }
 
-td.subsum {
+table#cart_table {
+    width: 100%;
+    height: 100%;
 }
 
-td.increment, td.decrease {
+div#cost_row {
+    position: absolute;
+    bottom: 4%;
+    height: 10%;
 }
 
+div#cost_row > p {
+    height: 50%;
+    margin: 1%;
+}
+
+#command {
+    text-align: right;
+    background-color: transparent;
+}
+
+/*====================
+  ======  MENU  ======
+  ====================*/
+#menu {
+    position: fixed;
+    left: 6.66%;
+    width: 50%;
+    top: 1%;
+    height: 5%;
+    width: 50%;
+    padding: 0;
+    overflow: auto;
+    background: none;
+}
+
+.top {
+    position: fixed;
+    right: 5%;
+    width: 30%;
+    height: 5%;
+}
+
+
+div.category {
+    padding-left: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+    text-shadow: 1px 1px 3px #FFF;
+    width: 16%;
+    height: 75%;
+    float: left;
+    border-left: 1px solid black;
+    border-radius: 0;
+    text-align: center;
+}
+
+div.category:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-left: none;
+}
+
+div.category:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+div.category:hover {
+    -webkit-box-shadow: inset 0 0 3px #0F0;
+    -ms-box-shadow: inset 0 0 3px #0F0;
+    box-shadow: inset 0 0 3px #0F0;
+}
+
+/* TODO
+ * Redefine menuView so that this whole duplication of .category is not needed
+ */
+div.categoryClicked {
+    padding-left: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+    text-shadow: 1px 1px 3px #FFF;
+    width: 16%;
+    height: 75%;
+    float: left;
+    border-left: 1px solid black;
+    border-radius: 0;
+    text-align: center;
+    background: #AAFAAA;
+}
 
 /*====================
   ======  MISC  ======
   ====================*/
-button.item {
-  width: 16em;
-  height: 4em;
+button.pay {
+    position: fixed;
+    left: 75%;
+    bottom: +5px;
+    padding: 12.5px 25px;
+    vertical-align: middle;
+    border-radius: 5px;
+}
+
+button.pay:hover {
+    -webkit-box-shadow: inset 0 0 3px #0F0;
+    -ms-box-shadow: inset 0 0 3px #0F0;
+    box-shadow: inset 0 0 3px #0F0;
+}
+
+button.pay:active:hover {
+    background: #AAFAAA;
+    text-shadow: 1px 1px 3px #FFF;
+}
+
+button.pay2 {
+    position: fixed;
+    left: 84%;
+    bottom: +5px;
+    padding: 12.5px 25px;
+    vertical-align: middle;
+    border-radius: 5px;
+}
+
+button.pay2:hover {
+    -webkit-box-shadow: inset 0 0 3px #0F0;
+    -ms-box-shadow: inset 0 0 3px #0F0;
+    box-shadow: inset 0 0 3px #0F0;
+}
+
+button.pay2:active:hover {
+    background: #AAFAAA;
+    text-shadow: 1px 1px 3px #FFF;
 }
 
 th.item, td.item {
-  min-width: 4em;
+    min-width: 4em;
 }

@@ -2,7 +2,8 @@
   <head>
     <title>VIP</title>
     <meta http-equiv="Content-type" value="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css" id="Theme1">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <script src="lib/jquery/jquery-latest.min.js"></script>
 
@@ -27,6 +28,7 @@
     <script src="assets/js/helpers/command.js"></script>
     <script src="assets/js/helpers/event.js"></script>
     <script src="assets/js/helpers/item.js"></script>
+    <script src="assets/js/helpers/wheel.js"></script>
 
     <script src="assets/js/views/cartView.js"></script>
     <script src="assets/js/views/drinkView.js"></script>
@@ -38,17 +40,20 @@
   <body>
 
     <!-- MENU -->
-		<select id="theme">
-			<option>Theme 1</option>
-			<option>Theme 2</option>
-		</select>
+    <div class="top">
+      <canvas id="wheel" width="50", height="50"></canvas>
+    <select id="theme">
+      <option>Theme 1</option>
+      <option>Theme 2</option>
+    </select>
+    </div>
     <div id="menu"></div>
     <!-- DRINK TABLE -->
     <div id="drinks">
       <!-- SEARCH BAR -->
       <div id="search">
 	<label for="query">Search</label>
-  <br>
+        <br>
 	<input autocomplete="off" id="query">
       </div>
       <h2>Available items:</h2>
@@ -56,17 +61,23 @@
     </div>
     <!-- QUICK BUY -->
     <div id="quick_buy">
-      <h2>Most bought</h2>
+      <h2></h2>
     </div>
     <!-- CART -->
     <div id="cart">
-      <h2>Shopping cart</h2>
+      <h2></h2>
       <div id="cart_table">
       </div>
       <div id="cost_row">
         <p id="credit">Credit:</p><p id="totalPrice">Total price:</p>
       </div>
+      <div id="command">
+        <button id="undo" type="button">Undo</button>
+        <button id="redo" type="button">Redo</button>
+      </div>
     </div>
-    <button id="logoutBtn">Log out</button>
+
+    <button class="pay" id="purchase">Purchase</button>
+    <button class="pay2" id="clear">Clear cart</button>
   </body>
 </html>
