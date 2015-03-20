@@ -1,6 +1,7 @@
 function VipController(controllers) {
   /** @private */ this._cartController = controllers.cart;
   /** @private */ this._drinkController = controllers.drink;
+  /** @private */ this._languageController = controllers.language;
   /** @private */ this._loginController = controllers.login;
   /** @private */ this._menuController = controllers.menu;
   /** @private */ this._payController = controllers.pay;
@@ -131,6 +132,7 @@ VipController.prototype = {
    */
   run: function () {
     console.log("VipController.run()");
+    this._languageController.run(); //TODO: needs username + password
     this._loginController.run(); //TODO: needs username + password
     this._drinkController.run(); //TODO: needs username + password
     this._cartController.run(); //TODO: needs username + password

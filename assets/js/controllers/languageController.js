@@ -12,9 +12,16 @@ function LanguageController(model, view) {
    */
   if(this._view) {
     this._view.languageSelected.attach(function (sender, args) {
-      _this.getLanguage(args.language);
+      _this.updateLanguage(args.language);
     });
   }
+
+  if (this._model) {
+    this._model.languageUpdated.attach(function (sender, args) {
+      _this.refreshLanguage(args.words);
+    });
+  }
+
 }
 
 LanguageController.prototype = {
@@ -23,11 +30,23 @@ LanguageController.prototype = {
    * ======================== PRIVATE  =========================
    * ===========================================================
    */
+    initLanguage: function (language) {
+        this._model.setDictionary(language);
+    },
 
-  getLanguage: function(language) {
-    var dictionary = this._model.searchLanguage(language);
-    this._view.translate(dictionary);
-  },
+    updateLanguage: function (language) {
+        this._model.setDictionary(language);
+    },
+
+    refreshLanguage: function (words) {
+        console.log("refreshLanguage", words);
+        this._view.translate(words);
+    },
+
+    refreshDictionary: function () {
+        var words = this._model.getDictionary();
+        this.refreshLanguage(words);
+    },
   /*
    * ===========================================================
    * ======================== PUBLIC  ==========================
@@ -36,7 +55,7 @@ LanguageController.prototype = {
 
   run: function () {
     console.log("LanguageController.run()");
-    this.getLanguage($('#language').val());
+    this.refreshDictionary();
   }
 
 };

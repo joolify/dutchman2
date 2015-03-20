@@ -24,6 +24,8 @@ Vip.prototype = {
       return new CartModel();
     case "drink":
       return new DrinkModel();
+    case "language":
+      return new LanguageModel();
     case "login":
       return new LoginModel();
     case "menu":
@@ -53,6 +55,8 @@ Vip.prototype = {
 	'list': $('#drink_table'),
 	'input': $('#query')
       });
+    case "language":
+      return new LanguageView();
     case "login":
       return new LoginView({
 	'logout': $('#logout')
@@ -81,6 +85,7 @@ Vip.prototype = {
   _getControllers: function () {
     var cartController = new CartController(this._getModel("cart"), this._getView("cart"));
     var drinkController = new DrinkController(this._getModel("drink"), this._getView("drink"));
+    var languageController = new LanguageController(this._getModel("language"), this._getView("language"));
     var loginController = new LoginController(this._getModel("login"), this._getView("login"));
     var menuController = new MenuController(this._getModel("menu"), this._getView("menu"));
     var payController = new PayController(this._getModel("pay"), this._getView("pay"));
@@ -88,6 +93,7 @@ Vip.prototype = {
 
     return {cart: cartController,
             drink: drinkController,
+            language: languageController,
             login: loginController,
             menu: menuController,
             pay: payController,
