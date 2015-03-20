@@ -7,7 +7,6 @@
 function QuickModel() {
     this._itemList = [];
     this.quickUpdated = new Event(this);
-    this._init = true;
     this.itemBtnPushed = new Event(this);
 }
 
@@ -17,13 +16,12 @@ QuickModel.prototype = {
      * ======================== PRIVATE  =========================
      * ===========================================================
      */
-    /*
-     * Query the database. 
-     * @function query
-     * @param {String} query 
+      /*
+     * Filters out the most appearing items in buyCountTable
+     * @function _getMostBought
+     * @param {Dictionary} buyCountTable
+     * @return {List}
      */
-
-
     _getMostBought: function(buyCountTable) {
         var mostBoughtBeers = [],
             nmbrOfBeersInList = 0,
@@ -50,6 +48,12 @@ QuickModel.prototype = {
         return mostBoughtBeers;
     },
 
+    /*
+     * Notifies controller about updated list with quick items
+     * @function _get_inventory
+     * @param {List} beer_id_list
+     * @return {List}
+     */
     _get_inventory: function (beer_id_list, username, password) {
         var urlQuery = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=inventory_get';
         console.log("quick.query(): ");
@@ -70,7 +74,6 @@ QuickModel.prototype = {
                         }
                     }
                 });
-
                 console.log("quickModel.query().itemList: ", _this._itemList.length);
                 _this.quickUpdated.notify();
             },
@@ -80,7 +83,10 @@ QuickModel.prototype = {
         });
     },
 
-
+   /*
+     * Drops the itemList.
+     * @function _drop
+     */
     _drop: function () {
         while(this._itemList.length > 0) {
             this._itemList.pop();
@@ -93,11 +99,19 @@ QuickModel.prototype = {
      * ===========================================================
      */
 
+    /*
+     * Get an Item list
+     * @function getItems
+     * @return {Item[]} a list with Items.
+     */
     getItems: function () {
         return [].concat(this._itemList);
     },
 
-
+    /*
+     * Query the database for purchases made by user with the user name username. 
+     * @function query
+     */
     query: function (username, password) {
         console.log(username + " " + password);
         var urlQuery = 'http://pub.jamaica-inn.net/fpdb/api.php?username='+username+'&password='+password+'&action=purchases_get';
@@ -111,7 +125,6 @@ QuickModel.prototype = {
             dataType: 'json',
             asynch: false,
             success: function (data) {
-//        _this._drop();
                 $.each(data.payload, function (key, purchase){
                     var beer_id = purchase.beer_id;
                     if(isNaN(buyCountTable[beer_id]) && purchase.namn.length > 0) {
