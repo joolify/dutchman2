@@ -11,6 +11,7 @@ function CartView(elements) {
     this.popBtnClicked = new Event(this);
     this.incrementBtnClicked = new Event(this);
     this.amountRemoved = new Event(this);
+    this.clearBtnClicked = new Event(this);
 
     var _this = this;
 
@@ -19,6 +20,10 @@ function CartView(elements) {
      * ==================== EVENT LISTENERS ======================
      * ===========================================================
      */
+      this._elements.clear.off('click').click(function (e) {
+        _this.clearCart();
+    });
+
 }
 
 CartView.prototype = {
@@ -27,6 +32,9 @@ CartView.prototype = {
      * ======================== PRIVATE  =========================
      * ===========================================================
      */
+      clearCart: function () {
+        this.clearBtnClicked.notify();
+    },
     /*
      * Notifies its listeners that the user has pressed the remove item button
      * @function _pop

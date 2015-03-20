@@ -21,15 +21,6 @@ CartModel.prototype = {
    * ===========================================================
    */
   /*
-   * Drops the cart.
-   * @function _drop
-   */
-  _drop: function () {
-    while(this._cartList.length > 0) {
-      this._cartList.pop();
-    }
-  },
-  /*
    * Get the position of the cart item
    * @function _getCartItemIndex
    * @param {Integer} itemId
@@ -73,6 +64,15 @@ CartModel.prototype = {
    * ======================== PUBLIC  ==========================
    * ===========================================================
    */
+    /*
+   * Drops the cart.
+   * @function drop
+   */
+  drop: function () {
+    while(this._cartList.length > 0) {
+      this._cartList.pop();
+    }
+  },
   /*
    * Add an item to the cart.
    * @function addToCart

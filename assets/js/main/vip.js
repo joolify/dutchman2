@@ -28,6 +28,8 @@ Vip.prototype = {
       return new LoginModel();
     case "menu":
       return new MenuModel();
+    case "pay":
+      return new PayModel();
     case "quick":
       return new QuickModel();
     }
@@ -44,6 +46,7 @@ Vip.prototype = {
 	'cart': $('#cart_table'),
 	'credit': $('#credit'),
 	'totalPrice': $('#totalPrice'),
+        'clear': $('#clear')
       });
     case "drink":
       return new DrinkView({
@@ -52,12 +55,16 @@ Vip.prototype = {
       });
     case "login":
       return new LoginView({
-	'logout': $('#logoutBtn')
+	'logout': $('#logout')
       });
     case "menu":
       return new MenuView({
 	'menu': $('#menu'),
 	'theme': $('#theme')
+      });
+    case "pay":
+      return new PayView({
+                'purchase': $('#purchase')
       });
     case "quick":
       return new QuickView({
@@ -76,12 +83,14 @@ Vip.prototype = {
     var drinkController = new DrinkController(this._getModel("drink"), this._getView("drink"));
     var loginController = new LoginController(this._getModel("login"), this._getView("login"));
     var menuController = new MenuController(this._getModel("menu"), this._getView("menu"));
+    var payController = new PayController(this._getModel("pay"), this._getView("pay"));
     var quickController = new QuickController(this._getModel("quick"), this._getView("quick"));
 
     return {cart: cartController,
             drink: drinkController,
             login: loginController,
             menu: menuController,
+            pay: payController,
             quick: quickController};
   },
   /*

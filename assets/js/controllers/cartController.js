@@ -27,6 +27,9 @@ function CartController(model, view) {
       _this._decrement(args.itemId);
     });
 
+        this._view.clearBtnClicked.attach(function () {
+            _this.clearCart();
+        });
   }
   if(this._model) {
     this._model.cartUpdated.attach(function () {
@@ -42,6 +45,14 @@ CartController.prototype = {
    * ======================== PRIVATE  =========================
    * ===========================================================
    */
+      /*
+     * Clears the cart and refreshes the view
+     */
+    clearCart: function () {
+        this._model.drop();
+        this._refreshCart();
+    },
+
   /*
     * Callback function to get user name from other controller
     * @function _getUserName
